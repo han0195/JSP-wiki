@@ -1,6 +1,6 @@
 # ezengroup4
 학원 4조 JSP 팀플
-![KakaoTalk_20220520_175735702](https://user-images.githubusercontent.com/100548156/169493330-66cfea5b-d279-4f4b-94ed-83d59cacbe86.jpg)
+![Class Diagram](https://user-images.githubusercontent.com/78428879/169782516-b17920f3-cc8f-479c-8146-4f4df1fd3a01.png)
 
 개발 일정
 
