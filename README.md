@@ -1,6 +1,14 @@
 # ezengroup4
 학원 4조 JSP 팀플
+
+DataBase
 ![Class Diagram](https://user-images.githubusercontent.com/78428879/169782516-b17920f3-cc8f-479c-8146-4f4df1fd3a01.png)
+
+
+Controller
+![controller](https://user-images.githubusercontent.com/78428879/169783076-ced03d2c-311c-40d3-89e0-1a15fe20576a.png)
+
+
 
 개발 일정
 
