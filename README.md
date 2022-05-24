@@ -10,22 +10,31 @@ Controller
 
 
 Front
+main.jsp
 ![ezenteamproject4  main jsp](https://user-images.githubusercontent.com/78428879/169983653-c5846434-c2f2-4345-b132-d038e0e32b2b.jpg)
 
+documentwrtie.jsp
 ![ezenteamproject4  documentwrite jsp](https://user-images.githubusercontent.com/78428879/169983701-13e6726d-4097-4a55-b5e8-31d5f35bbb1b.jpg)
 
+documentupdate.jsp
 ![ezenteamproject4  documentupdate jsp](https://user-images.githubusercontent.com/78428879/169983710-afe0fd69-2789-4906-8368-0ccef9b106c5.jpg)
 
+documentview.jsp
 ![ezenteamproject4  documentview jsp](https://user-images.githubusercontent.com/78428879/169983722-c6fb6395-0f6b-46ab-90e6-0a6c816906f4.jpg)
 
+debatelist.jsp
 ![ezenteamproject4  debatelist jsp](https://user-images.githubusercontent.com/78428879/169983748-e31d0609-39c1-4592-a117-63aef882b036.jpg)
 
+debateview.jsp
 ![ezenteamproject4  debateview jsp](https://user-images.githubusercontent.com/78428879/169983761-971bd414-5c42-499c-bbc5-72a7e40f3924.jpg)
 
+debatecreate.jsp
 ![ezenteamproject4  debatecreate jsp](https://user-images.githubusercontent.com/78428879/169983775-263c4651-3b00-4054-be4f-26950a9969a0.jpg)
 
+signup.jsp
 ![ezenteamproject4  signup jsp](https://user-images.githubusercontent.com/78428879/169983788-fa01607b-b689-4fe3-bdce-56b65a62211f.jpg)
 
+login.jsp
 ![ezenteamproject4  login jsp](https://user-images.githubusercontent.com/78428879/169983801-326be313-9752-4d7b-bc0d-27a3aaa3463e.jpg)
 
 
