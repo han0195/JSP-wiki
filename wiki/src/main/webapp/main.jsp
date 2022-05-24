@@ -8,10 +8,7 @@
 </head>
 <body>
 		
-		  <section class="content">
-	        <h1>Content</h1>
-	      </section>  
-	      
+		
 	      
 </body>
 </html>
