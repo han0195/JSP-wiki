@@ -26,8 +26,12 @@
 					<a href="#">특수기능</a>
 					
 				</div>
-				
-				
+			
+			
+			
+			
+			
+			
 				<div class="offset-3 col-md-6">
 					<div class="col-md-12 row">
 						
@@ -47,12 +51,6 @@
 				</div>
 			</div>
 		</div>
-	
-	   
-	   
-	   
-	   
-	   
 	
 	
 	<!-- 부트스트랩 js cdn -->
