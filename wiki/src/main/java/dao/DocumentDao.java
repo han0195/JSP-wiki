@@ -1,5 +1,7 @@
 package dao;
 
+import dto.Document;
+
 public class DocumentDao extends Dao{
 
 	public DocumentDao() {
@@ -34,5 +36,6 @@ public class DocumentDao extends Dao{
 	}
 	//문서 삭제 메소드
 	public boolean docuDelete() {
-    return false;
+	    return false;
+	}
 }
