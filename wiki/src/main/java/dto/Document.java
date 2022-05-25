@@ -30,4 +30,9 @@ public class Document {
 		this.dtitle = dtitle;
 	}
 
+	@Override
+	public String toString() {
+		return "Document [dno=" + dno + ", dtitle=" + dtitle + "]";
+	}
+
 }

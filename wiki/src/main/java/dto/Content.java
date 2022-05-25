@@ -69,12 +69,4 @@ public class Content {
 	public void setDgood(int dgood) {
 		this.dgood = dgood;
 	}
-
-	@Override
-	public String toString() {
-		return "Content [cid=" + cid + ", dno=" + dno + ", mno=" + mno + ", updatetime=" + updatetime + ", dcontent="
-				+ dcontent + ", dgood=" + dgood + "]";
-	}
-	
-
 }
