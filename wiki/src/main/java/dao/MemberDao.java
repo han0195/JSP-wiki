@@ -45,7 +45,7 @@ public class MemberDao extends Dao{
 	public int getMno() {
 		return 0;
 	}
-	//회원ID or IP 출력 메소드
+	//회원ID or IP 반환 메소드
 	public String getmId() {
 		return "오류";
 	}
