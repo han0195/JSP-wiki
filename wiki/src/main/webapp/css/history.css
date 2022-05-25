@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+
+
+.history_title{/* 제목 */
+	font-weight: bold;
+	display: inline-block;
+	margin-right: 120px;
+}
+.history_sub_title{/* (문서역사) */
+	font-weight: normal;
+}
+
+
+.historylistdiv li {/* 역사list */
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 15px;
+}
+.historylistdiv{ /* 역사list div */
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
+
+.hisbtn{/* 이전 다음 버튼 */
+	margin-left: 8px; 
+}
