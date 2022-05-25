@@ -54,3 +54,26 @@ function uploadSummernoteImageFile(file, editor) { // 이미지 업로드
 			}
 		});
 	}
+let pass = false; // 문서 제목이 중복되는 경우를 방지하기 위한 변수 설정	
+function titlecheck() {
+	let dtitle = $("#title").val();
+	
+	
+	$.ajax({
+		url : "titlecheck",
+		data : {"dtitle": dtitle},
+		success : function(result) {
+			if(result == 1) {
+				alert("중복된 제목이 존재합니다."); pass = false;
+			}
+			else {
+				alert("작성 가능한 문서 제목입니다."); pass = true;
+			}
+		}
+	})
+	
+}	
+
+
+
+	
