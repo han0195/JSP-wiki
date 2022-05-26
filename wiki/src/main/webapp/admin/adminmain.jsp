@@ -4,16 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
 </head>
 <body>
-	<br><br><br><br><br><br><br><br><br><br><br>
-	<div class="col-md-12 text-center">
-		<div class="footer">
-			푸터화면
-		</div>
+<%@include file="../header.jsp" %>
+	
+	
+	<div class="container">
+		관리자 메인
 	</div>
 	
+	
+	
+	
+	
+	
+	
+			
+<%@include file="../footer.jsp" %>
 
 </body>
 </html>
