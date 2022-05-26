@@ -29,6 +29,7 @@
 		
 		<div class="historylistdiv"><!-- 역사 리스트-->
 			<ul id="history_list_ul">
+				<!-- 테스트 li -->
 				<li>0000-00-00 00:00:00 [ <a onclick="paging(dcoumentcodeview.jsp)"> 보기</a> | <a href="#">
 						비교</a> | <a href="#"> 추천 </a> | <a href="#"> 비추천 </a> | <a href="#">
 						되돌리기 </a> ] 수정순서 ( ) 테스트글()

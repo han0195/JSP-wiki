@@ -1,7 +1,5 @@
 package dao;
 
-import java.sql.PreparedStatement;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,14 +22,15 @@ public class SpecialDao extends Dao{
 			rs = ps.executeQuery();
 			JSONArray jsonArray = new JSONArray();
 			while(rs.next()) {
+				//blob to String
 				
-				
+				System.out.println();		
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("cid", rs.getInt(1));
 				jsonObject.put("dno", rs.getInt(2));
 				jsonObject.put("mid", rs.getString(3));
-				jsonObject.put("updatetime", );
-				jsonObject.put("dcontent", rs.getInt(5));
+				jsonObject.put("updatetime", rs.getString(4));
+				jsonObject.put("dcontent", rs.getString(5));
 				jsonObject.put("dgood", rs.getInt(6));
 				jsonArray.put(jsonObject);
 			}

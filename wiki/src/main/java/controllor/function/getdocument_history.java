@@ -35,12 +35,12 @@ public class getdocument_history extends HttpServlet {
 		//문서 번호로 해당 문서내용 가져오기
 		HttpSession session = request.getSession();
 		// 해당 문서번호 세션 받아오기
-		//int dno = Integer.parseInt(session.getAttribute("dno").toString()); 
+		
+		//주석제거 int dno = Integer.parseInt(session.getAttribute("dno").toString()); 
 		
 		// 문서 내용 DB에서 가져오기
-		JSONArray json_content = SpecialDao.getSpecialDao().getcontentlist(6);
+		JSONArray json_content = SpecialDao.getSpecialDao().getcontentlist(6);//[세션값]
 
-		System.out.println(json_content);
 		if(json_content.toString().equals("[]")) {// 해당글번호의 역사가 없다면
 			response.getWriter().print(-1); // -1 리턴
 		}else {// 만약해당글번호의 역사가 기록되어있다면
