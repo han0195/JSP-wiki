@@ -43,15 +43,15 @@
 			<h1>토론 작성</h1>
 		</div>
 		<!-- 토론 작성 폼 -->
-		<form action="" method="get">
+		<form action="../debate/CreateDebate" method="get">
 			
 			<!-- 토론 제목 -->
 			<span>토론 신청 제목</span>
-			<textarea class="form-control" ></textarea>
+			<textarea class="form-control" name="debatetitle"></textarea>
 			
 			<!-- 토론 내용 작성 -->
 			<span>토론 신청 내용</span>
-			<textarea class="form-control" rows="10" cols="10"></textarea>
+			<textarea class="form-control" rows="10" cols="10" name="debatecontent"></textarea>
 			<div class="row">
 				<div class="offset-6 col-md-3 py-3">
 					<button class="form-control" type="submit">토론 신청 하기 </button>

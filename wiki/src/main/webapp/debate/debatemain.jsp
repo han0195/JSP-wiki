@@ -1,3 +1,6 @@
+<%@page import="dao.DebateDao"%>
+<%@page import="dto.Debate"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,6 +10,9 @@
 
 </head>
 <body>
+<%
+	ArrayList<Debate> debateList=DebateDao.getDebateDao().getDebateList();
+%>
 <%@include file="../header.jsp" %>
 	
 	
@@ -25,18 +31,16 @@
 				<table class="table table-hover">
 					<tr class="table-success"><th>항목</th><th>수정시간</th></tr>
 					<!-- for문으로 진행중인 토론방 생성 -->
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-					<tr><td>'비판에 대한 반론' 문단에 대하여 (마이어스-브릭스 유형 지표)</td><td>2022-05-25 16:32:55</td></tr>
-
+					<%
+						for(Debate debate : debateList){
+					%>
+						<tr>
+							<td><a href="../debate/debateview.jsp?Deno=<%=debate.getDeno()%>"><%=debate.getDetitle()%></a></td>
+							<td><%=debate.getDedate() %></td>
+						</tr>
+					<%
+						}
+					%>
 				</table>
 			</div>
 			
