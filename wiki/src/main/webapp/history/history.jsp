@@ -17,7 +17,6 @@
 <body>
 	<!-- 헤더 -->
 	<%-- <%@ include file="hearder.jsp" %> --%>
-
 	<div class="container history_wr"><!-- 본문 -->
 		
 		<h2 class="history_title"><!-- 제목 -->
@@ -29,36 +28,23 @@
 		
 		
 		<div class="historylistdiv"><!-- 역사 리스트-->
-			<ul>
-				<li>2022-05-23 16:29:47 [ <a href="#"> 보기</a> | <a href="#">
+			<ul id="history_list_ul">
+				<li>0000-00-00 00:00:00 [ <a onclick="paging(dcoumentcodeview.jsp)"> 보기</a> | <a href="#">
 						비교</a> | <a href="#"> 추천 </a> | <a href="#"> 비추천 </a> | <a href="#">
-						되돌리기 </a> ] 수정순서 ( ) 닉네임()
-				</li>
-				<li>2022-05-23 16:29:47 [ <a href="#"> 보기</a> | <a href="#">
-						비교</a> | <a href="#"> 추천 </a> | <a href="#"> 비추천 </a> | <a href="#">
-						되돌리기 </a> ] 수정순서 ( ) 닉네임()
-				</li>
-				<li>2022-05-23 16:29:47 [ <a href="#"> 보기</a> | <a href="#">
-						비교</a> | <a href="#"> 추천 </a> | <a href="#"> 비추천 </a> | <a href="#">
-						되돌리기 </a> ] 수정순서 ( ) 닉네임()
-				</li>
-				<li>2022-05-23 16:29:47 [ <a href="#"> 보기</a> | <a href="#">
-						비교</a> | <a href="#"> 추천 </a> | <a href="#"> 비추천 </a> | <a href="#">
-						되돌리기 </a> ] 수정순서 ( ) 닉네임()
+						되돌리기 </a> ] 수정순서 ( ) 테스트글()
 				</li>
 			</ul>
-			
-			
-			<div><!-- 역사 없을시 프론트 테스트 -->
-			
-			</div><!-- 역사 없을시 프론트 테스트 end -->
-			
 		</div><!-- 역사리스트 end -->
-
+		
+		<!-- 페이징 -->
+		
+		<!-- 페이징 -->
+		
 		<button type="button" class="btn btn-success hisbtn">이전</button>
 		<button type="button" class="btn btn-success hisbtn">다음</button>
 
 	</div><!-- 본문 div end -->
+	
 	<!-- 푸터 -->
 	<%-- <%@ include file="footer.jsp" %> --%>
 	
