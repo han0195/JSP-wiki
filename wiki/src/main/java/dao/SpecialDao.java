@@ -14,6 +14,22 @@ public class SpecialDao extends Dao{
 	public static SpecialDao specialDao=new SpecialDao();
 	public static SpecialDao getSpecialDao() {return specialDao;}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	////// 해당하는 문서 내용 전부 list 가져오기/////
 	public JSONArray getcontentlist(int dno) {
 		String sql = "select * from content where dno = ? order by updatetime desc";
