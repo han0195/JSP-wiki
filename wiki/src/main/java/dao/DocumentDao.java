@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import dto.Content;
 
@@ -130,5 +131,19 @@ public class DocumentDao extends Dao{
 			return true;
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
+	}
+	//문서 역사 리스트 반환 메소드
+	public ArrayList<Content> getDocuList(int dno) { // 문서의 번호 받아서 해당 번호의 데이터들 출력
+		ArrayList<Content> list=new ArrayList<Content>();
+		String sql="select cid, mid, updatetime, dgood from content where bno="+dno;
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Content c=new Content(rs.getInt(1), 0, rs.getString(2), rs.getString(3), null, rs.getInt(4));
+				list.add(c);
+			}return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
 	}
 }
