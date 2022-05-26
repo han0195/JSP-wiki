@@ -1,5 +1,16 @@
 $(document).ready(function() { // 문서가 시작되면 썸머노트 시행
 	//여기 아래 부분
+	
+	 $.ajax({
+        url: "https://api.ip.pe.kr/json"
+    }).done(function(api) {
+       console.log(api);
+       ip = api.ip;
+    }).fail(function() {
+        alert("로딩하는데 실패하였습니다.")
+    });
+	
+	
 	$('#summernote').summernote({
 		  height: 300,                 // 에디터 높이
 		  width : 800,
@@ -73,6 +84,34 @@ function titlecheck() {
 	})
 	
 }	
+let ip; // ip를 저장하기 위한 변수설정
+function documentadd() {
+	
+	let dtitle = $("#title").val();
+	let dcontent = $("#summernote").val();
+	
+	if(pass == false) {
+		alert("문서 제목 중복 체크를 먼저 해주세요");
+		return;
+	}
+	else {
+		$.ajax({
+			url : "documentadd",
+			data : {'dtitle' : dtitle, 'dcontent' : dcontent, 'ip' : ip},
+			success : function(result) {
+				if(result == 1) {
+					alert("문서 작성 실패!");
+				}
+				else {
+					alert("문서를 작성하였습니다.");
+				}
+			}
+			
+		});
+	}
+}
+
+
 
 
 

@@ -7,6 +7,7 @@ public class Content {
 	private String updatetime;
 	private String dcontent;
 	int dgood;
+	
 	public Content(int cid, int dno, String mid, String updatetime, String dcontent, int dgood) {
 		super();
 		this.cid = cid;
