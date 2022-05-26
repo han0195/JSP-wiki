@@ -27,17 +27,19 @@ public class DocumentDao extends Dao{
 	//문서 생성 메소드
 	public boolean docuCreate(String title, Content c) {
 		//document 테이블에 제목부터 넣고 생성된 번호 받아오기
-		String sql="insert into document(dtitle) values "+title;
+		String sql="insert into document(dtitle) value ( '" +title +"' )";
 		try {
 			ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.executeUpdate();
-			rs=ps.getGeneratedKeys();
-			int dno=rs.getInt(1); // 받아온 번호 dno에 넣기
+			rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+			int dno= rs.getInt(1); // 받아온 번호 dno에 넣기
 			boolean re=setContent(c, dno);
 			if(re) {
-				
+				return true;
 			}else {
-				
+				return false;
+			}
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
