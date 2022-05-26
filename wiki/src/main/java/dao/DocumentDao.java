@@ -31,22 +31,25 @@ public class DocumentDao extends Dao{
 		try {
 			ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.executeUpdate();
-			rs = ps.getGeneratedKeys();
-			if(rs.next()) {
-			int dno= rs.getInt(1); // 받아온 번호 dno에 넣기
-			boolean re=setContent(c, dno);
-			if(re) {
-				return true;
-			}else {
-				return false;
-			}
+			rs=ps.getGeneratedKeys();
+			int dno=rs.getInt(1); // 받아온 번호 dno에 넣기
+			if(setContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
+				if(insertLocks(dno)) { // 권한테이블에 문서번호 필드 생성하고 결과값 받기(성공시)
+					if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시 true 리턴
+						return true;
+					}
+				}else {
+					System.out.println("문서권한 필드 생성 오류 "); return false;
+				}
+			}else { // 문서 내용 넣기 실패시
+				System.out.println("문서내용 필드 생성 오류"); return false;
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
 	//문서 내용 넣기 메소드
 	public boolean setContent(Content c, int dno) {
-		//content 테이블에 해당 번호를 포함한 객체 넣기
+		//content 테이블에 해당 번호를 포함한 필드 생성
 		String sql="insert into content(dno,mid,dcontent,dgood) values (?,?,?,?)";
 		try {
 		ps=con.prepareStatement(sql);
@@ -55,6 +58,28 @@ public class DocumentDao extends Dao{
 		ps.setString(3, c.getDcontent());
 		ps.setInt(4, c.getDgood());
 		ps.executeUpdate();
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	//문서 권한 필드 생성 메소드
+	public boolean insertLocks(int dno) {
+		//처음 생성은 전부 기본값으로, 문서번호만 연결시켜 생성
+		String sql="insert into locks(dno) values ("+dno+")";
+		try {
+		ps=con.prepareStatement(sql);
+		ps.executeUpdate();
+		return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	//문서 링크 필드 생성 메소드
+	public boolean insertLink(int dno) {
+		//처음 생성은 전부 기본값으로, 문서번호만 연결시켜 생성
+		String sql="insert into link (dno) values ("+dno+")";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
@@ -85,8 +110,25 @@ public class DocumentDao extends Dao{
 		return false;
 	}
 	//문서 삭제 요청 메소드
-	public boolean docuDelask(int dno) {
+	public boolean docuDelAsk(int dno) {
+		//문서 보이게하는 여부 판단값(seenat) 1로 변경시키기
+		String sql="update locks set seenat=1 where dno="+dno;
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
 	    return false;
 	}
 	//동의어 등록 메소드
+	public boolean setSyn(int dno, String syn) {
+		//문서번호와 동의어(텍스트)를 받아서 등록
+		String sql="insert into synonys(dno, synpage) values ("+dno+","+syn+")";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
 }
