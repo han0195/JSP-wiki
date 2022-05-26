@@ -9,7 +9,13 @@ public class SpecialDao extends Dao{
 	}
 	public static SpecialDao specialDao=new SpecialDao();
 	public static SpecialDao getSpecialDao() {return specialDao;}
+	//역링크된 목록 저장하는 메소드
 	
+	//역링크된 목록 불러오는 메소드
+	
+	//랜덤페이지 불러오기 메소드
+	
+	//작성이 필요한 문서 불러오기 메소드
 	////// 해당하는 문서 내용 전부 가져오기/////
 	public JSONArray getcontent(int dno) {
 		String sql = "select * from content where dno = ?";
