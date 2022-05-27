@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import com.mysql.cj.jdbc.Blob;
 
 import dto.Content;
+import dto.Document;
 
 public class SpecialDao extends Dao{
 	public SpecialDao() {
@@ -64,6 +65,25 @@ public class SpecialDao extends Dao{
 			}
 		} catch (Exception e) {
 			System.out.println("[getDocument SQL 에러]" + e);
+		}
+		return null;
+	}
+	///// 해당 문서 제목 가져오기 ///
+	public Document getDocument(int dno) {
+		String sql = "select * from document where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				Document document = new Document(
+						rs.getInt(1),
+						rs.getString(2)
+						);
+				return document;
+			}
+		} catch (Exception e) {
+			System.out.println("[getDocument] 에러" +e);
 		}
 		return null;
 	}

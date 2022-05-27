@@ -1,7 +1,9 @@
 	let documentlist;
 $(function() {/*페이지 실행 함수*/
+	let dno = $("#dnohid").val(); // 문서제목번호
 	$.ajax({ /*DB에서 역사 가져오기*/
 		url: "/wiki/function/getdocument_history",
+		data: {"dno": dno},
 		success: function(re) {
 			if (re == -1) { // 만약 역사가없다면
 				/*에러페이지 전환*/
