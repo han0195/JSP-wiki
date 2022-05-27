@@ -1,12 +1,12 @@
 package dto;
 
 public class Debate {
-	private int deno;
-	private int dno;
-	private int mno;
-	private String detitle;
-	private String decontent;
-	private String dedate;
+	private int deno;			//토론번호
+	private int dno;			//문서번호
+	private int mno;			//회원번호
+	private String detitle;		//토론제목
+	private String decontent;	//토론내용
+	private String dedate;		//작성시간
 
 	public Debate() {
 		// TODO Auto-generated constructor stub

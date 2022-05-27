@@ -2,13 +2,11 @@ package dto;
 
 public class Member {
 	int mno;
-	int mid;
-	int mpw;
-	int mname;
-	int mphone;
-	public Member() {
-	}
-	public Member(int mno, int mid, int mpw, int mname, int mphone) {
+	String mid;
+	String mpw;
+	String mname;
+	String mphone;
+	public Member(int mno, String mid, String mpw, String mname, String mphone) {
 		super();
 		this.mno = mno;
 		this.mid = mid;
@@ -16,35 +14,36 @@ public class Member {
 		this.mname = mname;
 		this.mphone = mphone;
 	}
+	public Member() {
+	}
 	public int getMno() {
 		return mno;
 	}
 	public void setMno(int mno) {
 		this.mno = mno;
 	}
-	public int getMid() {
+	public String getMid() {
 		return mid;
 	}
-	public void setMid(int mid) {
+	public void setMid(String mid) {
 		this.mid = mid;
 	}
-	public int getMpw() {
+	public String getMpw() {
 		return mpw;
 	}
-	public void setMpw(int mpw) {
+	public void setMpw(String mpw) {
 		this.mpw = mpw;
 	}
-	public int getMname() {
+	public String getMname() {
 		return mname;
 	}
-	public void setMname(int mname) {
+	public void setMname(String mname) {
 		this.mname = mname;
 	}
-	public int getMphone() {
+	public String getMphone() {
 		return mphone;
 	}
-	public void setMphone(int mphone) {
+	public void setMphone(String mphone) {
 		this.mphone = mphone;
 	}
-	
 }

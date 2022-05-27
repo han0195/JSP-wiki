@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import dto.Content;
 
@@ -27,24 +28,29 @@ public class DocumentDao extends Dao{
 	//문서 생성 메소드
 	public boolean docuCreate(String title, Content c) {
 		//document 테이블에 제목부터 넣고 생성된 번호 받아오기
-		String sql="insert into document(dtitle) values "+title;
+		String sql="insert into document(dtitle) value ( '" +title +"' )";
 		try {
 			ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.executeUpdate();
 			rs=ps.getGeneratedKeys();
 			int dno=rs.getInt(1); // 받아온 번호 dno에 넣기
-			boolean re=setContent(c, dno);
-			if(re) {
-				
-			}else {
-				
+			if(setContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
+				if(insertLocks(dno)) { // 권한테이블에 문서번호 필드 생성하고 결과값 받기(성공시)
+					if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시 true 리턴
+						return true;
+					}
+				}else {
+					System.out.println("문서권한 필드 생성 오류 "); return false;
+				}
+			}else { // 문서 내용 넣기 실패시
+				System.out.println("문서내용 필드 생성 오류"); return false;
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
 	//문서 내용 넣기 메소드
 	public boolean setContent(Content c, int dno) {
-		//content 테이블에 해당 번호를 포함한 객체 넣기
+		//content 테이블에 해당 번호를 포함한 필드 생성
 		String sql="insert into content(dno,mid,dcontent,dgood) values (?,?,?,?)";
 		try {
 		ps=con.prepareStatement(sql);
@@ -53,6 +59,28 @@ public class DocumentDao extends Dao{
 		ps.setString(3, c.getDcontent());
 		ps.setInt(4, c.getDgood());
 		ps.executeUpdate();
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	//문서 권한 필드 생성 메소드
+	public boolean insertLocks(int dno) {
+		//처음 생성은 전부 기본값으로, 문서번호만 연결시켜 생성
+		String sql="insert into locks(dno) values ("+dno+")";
+		try {
+		ps=con.prepareStatement(sql);
+		ps.executeUpdate();
+		return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	//문서 링크 필드 생성 메소드
+	public boolean insertLink(int dno) {
+		//처음 생성은 전부 기본값으로, 문서번호만 연결시켜 생성
+		String sql="insert into link (dno) values ("+dno+")";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
@@ -83,8 +111,39 @@ public class DocumentDao extends Dao{
 		return false;
 	}
 	//문서 삭제 요청 메소드
-	public boolean docuDelask(int dno) {
+	public boolean docuDelAsk(int dno) {
+		//문서 보이게하는 여부 판단값(seenat) 1로 변경시키기
+		String sql="update locks set seenat=1 where dno="+dno;
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
 	    return false;
 	}
 	//동의어 등록 메소드
+	public boolean setSyn(int dno, String syn) {
+		//문서번호와 동의어(텍스트)를 받아서 등록
+		String sql="insert into synonys(dno, synpage) values ("+dno+","+syn+")";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	//문서 역사 리스트 반환 메소드
+	public ArrayList<Content> getDocuList(int dno) { // 문서의 번호 받아서 해당 번호의 데이터들 출력
+		ArrayList<Content> list=new ArrayList<Content>();
+		String sql="select cid, mid, updatetime, dgood from content where bno="+dno;
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Content c=new Content(rs.getInt(1), 0, rs.getString(2), rs.getString(3), null, rs.getInt(4));
+				list.add(c);
+			}return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
 }
