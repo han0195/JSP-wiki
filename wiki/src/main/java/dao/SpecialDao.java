@@ -28,7 +28,7 @@ public class SpecialDao extends Dao{
 			rs=ps.executeQuery();
 			while(rs.next()) {
 				Document d=new Document(rs.getInt(1), rs.getString(2));
-				list.add(d);
+				list.add(d); 
 			}return list;
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
