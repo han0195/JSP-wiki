@@ -1,18 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<!-- µÇµ¹¸®±â ´­·µÀ»¶§ ¶ß´Â ÆäÀÌÁö -->
-<% 
+<%@ include file="../header.jsp" %>
+<!-- ë˜ëŒë¦¬ê¸° ëˆŒëŸ¿ì„ë•Œ ëœ¨ëŠ” íŽ˜ì´ì§€ -->
+<%
+int dno = Integer.parseInt((String)session.getAttribute("dno"));
 int cid = Integer.parseInt(request.getParameter("cid")); 
-//¹®¼­¹øÈ£¸¦ °¡Áö°í ÇØ´ç ¸®½ºÆ® °¡Á®¿À±â
 %>
-<h1>¿¬°á¼º°ø</h1>
-<h2><%=cid%></h2>
+
+<h3><%= dno%></h3>
+<h3><%= cid %></h3>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>
