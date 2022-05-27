@@ -4,6 +4,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import dto.Content;
+import dto.Document;
 
 public class DocumentDao extends Dao{
 
@@ -96,6 +97,22 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	//작성된 문서들의 리스트 출력
+	public ArrayList<Document> doculist() {
+		ArrayList<Document> dlist = new ArrayList<>();
+		String sql = "select * from document";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Document document = new Document(rs.getInt(1), rs.getString(2));
+				dlist.add(document);
+			}
+			return dlist;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+	
 	//문서 내용 수정 메소드(제목,번호가 같은 새 데이터 생성)
 	public boolean docuEdit(Content c) {
 		String sql="insert into content(dno,mno,dcontent,dgood) values (?,?,?,?)";
