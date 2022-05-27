@@ -20,9 +20,7 @@ public class DocumentDao extends Dao{
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dtitle);
 			rs = ps.executeQuery();
-			if(rs.next()) {
-				return true;
-			}
+			if(rs.next()) {return true;}
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
