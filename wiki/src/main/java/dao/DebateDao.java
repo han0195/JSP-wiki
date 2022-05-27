@@ -55,7 +55,6 @@ public class DebateDao extends Dao{
 	
 	//3. 토론정보내용 출력 메소드
 	public String debateIn(int Deno){
-		ArrayList<Debate> debateInList = new ArrayList<Debate>();
 		String sql = "SELECT * FROM treewiki.debate WHERE Deno=?";
 		try {
 			ps=con.prepareStatement(sql);
@@ -64,8 +63,7 @@ public class DebateDao extends Dao{
 			if(rs.next()) {
 				return rs.getString(5);
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception e) {e.printStackTrace();
 		}
 		
 		return null;
