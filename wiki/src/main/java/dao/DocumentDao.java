@@ -149,6 +149,18 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
+	//검색한 단어가 동의어라면 리다이렉트용 문서번호 반환 메소드
+	public int getsyno(String text) {
+		String sql="select dno from synonys where synpage="+text;
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return 0;
+	}
 	//문서 역사 리스트 반환 메소드
 	public ArrayList<Content> getDocuList(int dno) { // 문서의 번호 받아서 해당 번호의 데이터들 출력
 		ArrayList<Content> list=new ArrayList<Content>();
