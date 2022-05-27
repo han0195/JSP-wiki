@@ -41,17 +41,6 @@ function good(){
 function bad() {
 	
 }
-//되돌리기
-function reset(){
-	$.ajax({
-		url:"/wiki/function/reset",
-		data: {},
-		success: function(re){
-			
-			
-		}
-	});
-}
 
 
 
