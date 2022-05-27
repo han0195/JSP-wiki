@@ -25,8 +25,8 @@
 	<div class="container">
 		<!-- 본문 -->
 		<div><!-- 리스트 헤더 -->
-			<!-- input 현재안쓰임 -->
-			<input id="dnohid2" type="hidden" value="<%=document.getDno()%>">
+			<!-- 문서내용번호 저장 -->
+			<input id="dnohid2" type="hidden" value="<%=cid%>">
 			<h2 class="history_title">
 				<!-- 제목 -->
 				<%=document.getDtitle()%>
@@ -48,5 +48,7 @@
 	</div><!-- 본문end -->
 	
 	<%@ include file="../footer.jsp"%>
+	
+	
 </body>
 </html>

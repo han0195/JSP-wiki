@@ -1,5 +1,5 @@
 //되돌리기
-function reset(){
+function historyview(){
 	$.ajax({
 		url:"/wiki/function/historyview",
 		data: {},
