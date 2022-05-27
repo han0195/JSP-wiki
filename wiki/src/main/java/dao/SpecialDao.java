@@ -1,11 +1,13 @@
 package dao;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.mysql.cj.jdbc.Blob;
 
 import dto.Content;
+import dto.Document;
 
 public class SpecialDao extends Dao{
 	public SpecialDao() {
@@ -17,8 +19,20 @@ public class SpecialDao extends Dao{
 	
 	//역링크된 목록 불러오는 메소드
 	
-	//랜덤페이지 불러오기 메소드
-	
+	//랜덤페이지 불러오기 메소드(10개)
+	public ArrayList<Document> randomPage() {
+		String sql="select*from document order by rand() limit 10";
+		ArrayList<Document> list=new ArrayList<Document>();
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Document d=new Document(rs.getInt(1), rs.getString(2));
+				list.add(d); 
+			}return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
 	//작성이 필요한 문서 불러오기 메소드
   
 	////// 해당하는 문서 내용 전부 list 가져오기/////
