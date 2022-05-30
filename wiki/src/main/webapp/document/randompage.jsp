@@ -7,11 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>랜덤페이지</title>
 </head>
 <body>
 <%@ include file="../header.jsp" %>
-<!-- 되돌리기 눌럿을때 뜨는 페이지 -->
+<!-- 랜덤 눌럿을때 뜨는 페이지 -->
 <%
 ArrayList<Document> list=new ArrayList<Document>(SpecialDao.getSpecialDao().randomPage());
 	for(Document d:list){

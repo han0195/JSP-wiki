@@ -15,10 +15,36 @@ public class SpecialDao extends Dao{
 	}
 	public static SpecialDao specialDao=new SpecialDao();
 	public static SpecialDao getSpecialDao() {return specialDao;}
-	//역링크된 목록 저장하는 메소드
-	
+	//역링크 테이블에 목록 저장하는 메소드
+	public boolean setLink(int dno, String pageno) {
+		String sql="insert into link(dno, frompageno) values (?,?)";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			ps.setString(2, pageno);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
 	//역링크된 목록 불러오는 메소드
-	
+	public int[] getLink(int dno) {
+		String sql="select frompageno from link where dno="+dno;
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				String result=rs.getString(1);
+				String[] re=result.split(",");
+				int[] pages=new int[re.length];
+				for(int i=0; i<re.length; i++) {
+					pages[i]=Integer.parseInt(re[i]);
+				}
+				return pages;
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
 	//랜덤페이지 불러오기 메소드(10개)
 	public ArrayList<Document> randomPage() {
 		String sql="select*from document order by rand() limit 10";
@@ -78,6 +104,25 @@ public class SpecialDao extends Dao{
 			}
 		} catch (Exception e) {
 			System.out.println("[getDocument SQL 에러]" + e);
+		}
+		return null;
+	}
+	///// 해당 문서 제목 가져오기 ///
+	public Document getDocument(int dno) {
+		String sql = "select * from document where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				Document document = new Document(
+						rs.getInt(1),
+						rs.getString(2)
+						);
+				return document;
+			}
+		} catch (Exception e) {
+			System.out.println("[getDocument] 에러" +e);
 		}
 		return null;
 	}

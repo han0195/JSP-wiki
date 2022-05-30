@@ -88,10 +88,13 @@ public class DocumentDao extends Dao{
 		String sql="select * from content where dno="+dno+" order by cid desc";
 		try {
 			ps=con.prepareStatement(sql);
+			ps.setInt(1, cid);
 			rs=ps.executeQuery();
-			Content content=new Content(rs.getInt(1), rs.getInt(2),
-					rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
-			return content;
+			if(rs.next()) {
+				Content content=new Content(rs.getInt(1), rs.getInt(2),
+						rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+				return content;
+			}
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
