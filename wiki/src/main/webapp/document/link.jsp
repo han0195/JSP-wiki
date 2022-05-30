@@ -19,7 +19,7 @@ if(request.getParameter("dno")!=null){
 	<%for(int i:links){ %>
 		<%Document d=SpecialDao.getSpecialDao().getDocument(i);%>
 		<div><a href="/wiki/history/history.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a></div>
-	<%} %>	
+	<%} %>
 	</div>
 	<%}else{
 	%><h1>페이지 오류</h1><%}
