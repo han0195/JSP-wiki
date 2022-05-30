@@ -17,7 +17,7 @@ ArrayList<Document> list=new ArrayList<Document>(SpecialDao.getSpecialDao().rand
 	for(Document d:list){
 %>
 	<div class="container">
-		<a href="/wiki/history/history.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a>
+		<a href="pageview.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a>
 	</div>
 	<%} %>
 <%@ include file="../footer.jsp" %>

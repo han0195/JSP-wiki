@@ -18,7 +18,7 @@ if(request.getParameter("dno")!=null){
 	<h3>이 페이지를 링크하고 있는 문서들의 목록입니다.</h3>
 	<%for(int i:links){ %>
 		<%Document d=SpecialDao.getSpecialDao().getDocument(i);%>
-		<div><a href="/wiki/history/history.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a></div>
+		<div><a href="pageview.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a></div>
 	<%} %>
 	</div>
 	<%}else{
