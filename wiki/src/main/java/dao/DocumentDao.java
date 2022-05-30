@@ -83,9 +83,9 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
-	//해당 번호의 문서정보 불러오기 메소드
-	public Content docuLoad(int cid) {
-		String sql="select * from content where cid=?";
+	//해당 번호의 가장 최근 문서정보 불러오기 메소드
+	public Content docuLoad(int dno) {
+		String sql="select * from content where dno="+dno+" order by cid desc";
 		try {
 			ps=con.prepareStatement(sql);
 			ps.setInt(1, cid);
