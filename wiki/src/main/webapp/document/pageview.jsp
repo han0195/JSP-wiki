@@ -1,3 +1,4 @@
+<%@page import="dto.Content"%>
 <%@page import="dao.DocumentDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,6 +13,7 @@
 	<%@include file="../header.jsp"%>
 	<%if(request.getParameter("dno")!=null){
 	int dno=Integer.parseInt(request.getParameter("dno"));%>
+	<%Content c=DocumentDao.getdocumentDao().docuLoad(dno);%>
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
 		<div class="row"> <!-- 상단 제목, 버튼들 박스 -->
 			<div class="col-sm-4"><h1>제목</h1></div> <!-- 제목 -->
@@ -27,8 +29,13 @@
 				</table>
 			</div>
 		</div>
+		<div class="row"> <!-- 최근 수정 시각 출력 박스 -->
+			<div class="col-sm-3 offset-9">
+				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span>
+			</div>
+		</div>
 		<div> <!-- 내용 -->
-			<%=DocumentDao.getdocumentDao().docuLoad(dno).getDcontent()%>
+			<%=c.getDcontent()%>
 		</div>
 	</div>
 	<%}else{ %>
