@@ -17,8 +17,7 @@ ArrayList<Document> list=new ArrayList<Document>(SpecialDao.getSpecialDao().rand
 	for(Document d:list){
 %>
 	<div class="container">
-		<input type="text" hidden="hidden" value="<%=d.getDno()%>"> <!-- 문서번호 숨겨서 넣기 -->
-		<span onclick=""><%=d.getDtitle()%></span> <!-- 제목 출력 -->
+		<a href="/wiki/history/history.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a>
 	</div>
 	<%} %>
 <%@ include file="../footer.jsp" %>
