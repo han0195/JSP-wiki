@@ -25,7 +25,7 @@
 		%>
 		<tr>
 			<td><%=temp.getDno()%></td>
-			<td><a href="/wiki/history/history.jsp?dno=<%=temp.getDno()%>"><%=temp.getDtitle()%></a></td>
+			<td><a href="/wiki/document/pageview.jsp?dno=<%=temp.getDno()%>"><%=temp.getDtitle()%></a></td>
 		</tr>
 		<%
 		}

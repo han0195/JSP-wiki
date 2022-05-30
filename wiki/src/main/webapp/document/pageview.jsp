@@ -18,9 +18,9 @@
 			<div class="col-sm-4 offset-4"> <!-- 버튼 -->
 				<table class="table">
 					<tr>
-						<td onclick="good('<%=dno%>')">☆</td> <!-- 문서 좋아요 -->
+						<td onclick="good('<%=dno%>')">☆<%=DocumentDao.getdocumentDao().getGood(dno)%></td> <!-- 문서 좋아요 -->
 						<td onclick="window.open('link.jsp?dno=<%=dno%>')">역링크</td>
-						<td onclick="window.open('../debate/debateview.jsp?Deno=<%=dno%>')">토론</td>
+						<td onclick="window.open('../debate/debatemain.jsp?dno=<%=dno%>')">토론</td>
 						<td onclick="window.open('documentwrite.jsp?dno=<%=dno%>')">편집</td>
 						<td onclick="window.open('../history/history.jsp?dno=<%=dno%>')">역사</td>
 					</tr>
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div> <!-- 내용 -->
-			<%=DocumentDao.getdocumentDao().docuLoad(dno)%>
+			<%=DocumentDao.getdocumentDao().docuLoad(dno).getDcontent()%>
 		</div>
 	</div>
 	<%}else{ %>

@@ -20,7 +20,7 @@
 				<div class="col-md-3">
 				
 					<a href="/wiki/main.jsp"><img alt="Logo" src=""> </a>　　
-					<a href="/wiki/document/documentmain.jsp">문서 </a>　　
+					<a href="/wiki/document/documentview.jsp">문서 </a>　　
 					<a href="/wiki/debate/debatemain.jsp">토론하기 </a>　　
 					<a href="#">특수기능</a>
 					

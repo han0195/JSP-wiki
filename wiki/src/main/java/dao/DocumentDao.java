@@ -1,5 +1,8 @@
 package dao;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.Blob;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -91,13 +94,34 @@ public class DocumentDao extends Dao{
 			ps.setInt(1, dno);
 			rs=ps.executeQuery();
 			if(rs.next()) {
+				Blob blob=rs.getBlob(5);
+				String str="";
+				String string="";
+				BufferedReader br=new BufferedReader(new InputStreamReader(blob.getBinaryStream()));
+				while((string=br.readLine())!=null) {
+					str+=string;
+				}
 				Content content=new Content(rs.getInt(1), rs.getInt(2),
-						rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+						rs.getString(3), rs.getString(4), str.toString(), rs.getInt(6));
 				return content;
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	//해당 제목의 최신 문서정보 불러오기 메소드
+	public Content docuLoad(String title) {
+		String sql="select dno from content where dtitle=? order by dno desc";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, title);
+			//제목을 넣어서 가장 최근의 dno값 구하기
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				//그 dno값으로 content 구해서 리턴시키기
+				return docuLoad(rs.getInt(1));
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return null;}
 	//작성된 문서들의 리스트 출력
 	public ArrayList<Document> doculist() {
 		ArrayList<Document> dlist = new ArrayList<>();
@@ -165,7 +189,7 @@ public class DocumentDao extends Dao{
 	//문서 역사 리스트 반환 메소드
 	public ArrayList<Content> getDocuList(int dno) { // 문서의 번호 받아서 해당 번호의 데이터들 출력
 		ArrayList<Content> list=new ArrayList<Content>();
-		String sql="select cid, mid, updatetime, dgood from content where bno="+dno;
+		String sql="select cid, mid, updatetime, dgood from content where dno="+dno;
 		try {
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
@@ -175,5 +199,17 @@ public class DocumentDao extends Dao{
 			}return list;
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
+	}
+	//문서 좋아요 숫자 반환 메소드
+	public int getGood(int dno) {
+		String sql="select dgood from content where dno="+dno+" order by cid desc";
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return -1;
 	}
 }
