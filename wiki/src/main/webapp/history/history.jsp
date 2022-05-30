@@ -29,7 +29,7 @@
 		<a><button class="btn btn-outline-dark">편집</button></a>
 		<a><button class="btn btn-outline-dark">역링크</button></a>
 		
-	</div><!-- 리스트 헤더 -->
+	</div><!-- 리스트 헤더 end -->
 			
 		<div class="historylistdiv"><!-- 역사 리스트-->
 			<ul id="history_list_ul">
@@ -47,7 +47,7 @@
 	        <option value="15">15개씩보기</option>
 	        <option value="20">20개씩보기</option>
 		</select>	
-		<ul id="pagingul">
+		<ul id="pagingul" id="pageing">
 		</ul>	
 		<!-- 페이징 -->
 		<br>
