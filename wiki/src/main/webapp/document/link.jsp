@@ -16,10 +16,12 @@ if(request.getParameter("dno")!=null){
 	int[] links=SpecialDao.getSpecialDao().getLink(dno);
 %><div class="container">
 	<h3>이 페이지를 링크하고 있는 문서들의 목록입니다.</h3>
-	<%for(int i:links){ %>
+	<%if(links==null){
+		%><h4>링크하고 있는 페이지가 없습니다.</h4><%
+	}else{for(int i:links){ %>
 		<%Document d=SpecialDao.getSpecialDao().getDocument(i);%>
 		<div><a href="pageview.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a></div>
-	<%} %>
+	<%} }%>
 	</div>
 	<%}else{
 	%><h1>페이지 오류</h1><%}
