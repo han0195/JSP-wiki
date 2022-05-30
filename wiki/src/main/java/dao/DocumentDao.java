@@ -58,7 +58,8 @@ public class DocumentDao extends Dao{
 		ps.setString(3, c.getDcontent());
 		ps.setInt(4, c.getDgood());
 		ps.executeUpdate();
-		}catch(Exception e) {e.printStackTrace();}
+		return true;
+		}catch(Exception e) {System.out.println("sef");}
 		return false;
 	}
 	//문서 권한 필드 생성 메소드

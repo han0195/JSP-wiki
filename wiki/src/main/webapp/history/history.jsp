@@ -35,16 +35,22 @@
 			<ul id="history_list_ul">
 				<!-- 테스트 li -->
 				<li>0000-00-00 00:00:00 [ <a onclick="paging(dcoumentcodeview.jsp)"> 보기</a> | <a href="#">
-						비교</a> | <a href="#"> 추천 </a> | <a href="#"> 비추천 </a> | <a href="#">
+						비교</a> | <a href="#"> 추천 </a> | <a href="#" onclick=""> 비추천 </a> | <a href="#">
 						되돌리기 </a> ] 수정순서 ( ) 테스트글()
 				</li>
 			</ul>
 		</div><!-- 역사리스트 end -->
 		
 		<!-- 페이징 -->
-		
+		<select id="dataPerPage">
+	        <option value="10">10개씩보기</option>
+	        <option value="15">15개씩보기</option>
+	        <option value="20">20개씩보기</option>
+		</select>	
+		<ul id="pagingul">
+		</ul>	
 		<!-- 페이징 -->
-		
+		<br>
 		<button type="button" class="btn btn-success hisbtn">이전</button>
 		<button type="button" class="btn btn-success hisbtn">다음</button>
 
