@@ -34,25 +34,31 @@ public class DebateChatList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		int Deno= Integer.parseInt(request.getParameter("Deno"));
+		String id=null;
+		String ip=request.getRemoteAddr();
 		
 		ArrayList<DebateChat> list =DebateDao.getDebateDao().getDebateChatList(Deno);	
 		
-		JSONObject jo = new JSONObject();
+		
 		JSONArray ja= new JSONArray();
 		try {
 			for(DebateChat  debateChat : list) {
+				JSONObject jo = new JSONObject();
+				//* 아이디값 필요
 				jo.put("name", debateChat.getDtid());
 				jo.put("content",debateChat.getDtcontent());
 				jo.put("date", debateChat.getDtdate());
 				ja.put(jo);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("json error");
 		}
+		
 		if(list!=null) {
 			//json 
+			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
 			response.getWriter().print(ja);
 			

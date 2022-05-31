@@ -19,6 +19,7 @@
 	Date date =new Date();
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	String today=sdf.format(date);
+	String ip = request.getRemoteAddr();
 %>
 <input type="hidden" value="<%=today%>" id="today">
 <input type="hidden" value="<%=Deno%>" id="Deno">
@@ -49,23 +50,11 @@
 	</div>
 	
 	<!-- 토론 내용  -->
-	<div id="debatezone" class="col-md-12 py-5">
-		
-		<div id="debatecontent" class="col-md-9">
-			<div class="row">
-				<div id="did" class="col-md-5">
-					아이디
-				</div>
-				<div id="ddate" class="offset-5 col-md-2">
-					날짜
-				</div>
-			</div>
-			<div id="content" class="col-md-12">
-				내용
-			</div>
+	<div  class="col-md-12 py-5">
+		<div id="debatezone" class="py-3">
+			
 		</div>
 	</div>
-	
 	
 	<!-- 경계선 -->
 	<hr>	

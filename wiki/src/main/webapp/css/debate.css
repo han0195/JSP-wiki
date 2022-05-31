@@ -2,5 +2,5 @@
 
 #boundary{border: dashed 2px #434234; width: 50%;}
 #debatecontent{border-radius: 10px; background-color:#48d1cc; }
-#content{background-color: #f5f5dc; border: solid 1px black;}
+#content{background-color: #f5f5dc; border: solid 1px black; width:100%; word-break:break-all;word-wrap:break-word;}
 #debatetopic{border-radius:10px; background-color: #ffda89;}
