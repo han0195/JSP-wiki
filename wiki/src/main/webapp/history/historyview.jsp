@@ -37,16 +37,41 @@
 		</div><!-- 리스트 헤더 -->
 		
 		<!-- 문서내용 -->
-		<textarea rows="10" cols="150">
+		<textarea rows="10" cols="150" disabled>
 		<%= content.getDcontent() %>
 		</textarea>
 		<!-- 문서내용 -->
 		
-		<button type="button" class="btn btn-success hisbtn">되돌리기</button>
+		<!-- 모달 버튼 -->
+		<button type="button" class="btn btn-success hisbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  		되돌리기
+		</button>
+		<!-- 모달 페이지 -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">현재문서로 되돌리기</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body" style="color: red">
+		       	[주의]문서를 되롤리지 회원아이디 또는 아이피는 역사의 기록됩니다!
+		      </div>
+		      <div class="modal-footer">
+		        <button onclick="revert(<%=cid%>)" type="button" class="btn btn-primary">되돌리기</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		
 		<a href="history.jsp?dno=<%=document.getDno()%>"><button type="button" class="btn btn-success hisbtn">취소</button></a> 
-	
+		<span>* 되돌리기 선택할시 역사가 기록됩니다.</span>
 	</div><!-- 본문end -->
 	
+	<!-- 사용자 지정 js -->
+	<script type="text/javascript" src="../js/historyview.js"></script>
 	<%@ include file="../footer.jsp"%>
 	
 	
