@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import dto.Debate;
+import dto.DebateChat;
 
 public class DebateDao extends Dao{
 	public DebateDao() {
@@ -43,7 +44,7 @@ public class DebateDao extends Dao{
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				Debate debate = new Debate(rs.getInt(1), 0, 0, rs.getString(4), rs.getString(5), rs.getString(6));
+				Debate debate = new Debate(rs.getInt(1), 0, 0,rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
 				debateList.add(debate);
 			}
 			return debateList;
@@ -61,12 +62,52 @@ public class DebateDao extends Dao{
 			ps.setInt(1, Deno);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				return rs.getString(5);
+				return rs.getString(6);
 			}
-		} catch (Exception e) {e.printStackTrace();
+
+		} catch (Exception e) {
+			System.out.println("토론정보 호출 에러 경로:dao.debateDao@@@  "+e);
 		}
 		
 		return null;
 	}
+	
+	//4.토론 채팅 등록하기
+	public boolean setChat(DebateChat debateChat) {
+		
+		String sql = "INSERT INTO debatechat(deno,dtid,dtcontent) values (?,?,?)";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, debateChat.getDeno());
+			ps.setString(2, debateChat.getDtid());
+			ps.setString(3, debateChat.getDtcontent());
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("채팅등록 에러 경로:dao.debateDao@@@   "+e);
+		}
+		return false;
+	}
+	
+	//5.토론 채팅 뷰 메소드
+	public ArrayList<DebateChat> getDebateChatList(int Deno){
+		ArrayList<DebateChat> list = new ArrayList<DebateChat>();
+		
+		String sql="SELECT * FROM treewiki.debatechat where Deno=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, Deno);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				DebateChat debateChat = new DebateChat(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+				list.add(debateChat);
+			}
+			return list;
+		}catch (Exception e) {
+			System.out.println("토론 채팅 뷰 호출 에러 경로:dao.debateDao@@@       "+e);
+		}
+		return null;
+	}
+	
 	
 }

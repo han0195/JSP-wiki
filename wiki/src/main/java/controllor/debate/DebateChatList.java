@@ -1,26 +1,31 @@
 package controllor.debate;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import dao.DebateDao;
-import dto.Debate;
+import dto.DebateChat;
 
 /**
- * Servlet implementation class CreateDebate
+ * Servlet implementation class DebateChatList
  */
-@WebServlet("/debate/CreateDebate")
-public class CreateDebate extends HttpServlet {
+@WebServlet("/debate/DebateChatList")
+public class DebateChatList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateDebate() {
+    public DebateChatList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +34,31 @@ public class CreateDebate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title=request.getParameter("debatetitle");
-		String content=request.getParameter("debatecontent");
 		
-		//세션값
-//		int dno=Integer.parseInt(request.getParameter("dno"));
-//		int mno=Integer.parseInt(request.getParameter("mno"));
+		int Deno= Integer.parseInt(request.getParameter("Deno"));
 		
-		Debate debate = new Debate(0, 0, 0,null,title, content, null);
-	    boolean result=DebateDao.getDebateDao().createDebate(debate);
-	    if(result) {
-	    	response.sendRedirect("/wiki/debate/debatemain.jsp");
-	    }else {
-	    	response.sendRedirect("/wiki/debate/debatecreate.jsp");
-	    }
+		ArrayList<DebateChat> list =DebateDao.getDebateDao().getDebateChatList(Deno);	
+		
+		JSONObject jo = new JSONObject();
+		JSONArray ja= new JSONArray();
+		try {
+			for(DebateChat  debateChat : list) {
+				jo.put("name", debateChat.getDtid());
+				jo.put("content",debateChat.getDtcontent());
+				jo.put("date", debateChat.getDtdate());
+				ja.put(jo);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		if(list!=null) {
+			//json 
+			response.setContentType("application/json");
+			response.getWriter().print(ja);
+			
+		}
+	
+	
 	}
 
 	/**

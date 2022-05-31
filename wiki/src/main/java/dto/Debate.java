@@ -4,6 +4,7 @@ public class Debate {
 	private int deno;			//토론번호
 	private int dno;			//문서번호
 	private int mno;			//회원번호
+	private String deid;		//작성자 아이디 OR IP주소
 	private String detitle;		//토론제목
 	private String decontent;	//토론내용
 	private String dedate;		//작성시간
@@ -12,11 +13,12 @@ public class Debate {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Debate(int deno, int dno, int mno, String detitle, String decontent, String dedate) {
+	public Debate(int deno, int dno, int mno, String deid, String detitle, String decontent, String dedate) {
 		super();
 		this.deno = deno;
 		this.dno = dno;
 		this.mno = mno;
+		this.deid = deid;
 		this.detitle = detitle;
 		this.decontent = decontent;
 		this.dedate = dedate;
@@ -46,6 +48,14 @@ public class Debate {
 		this.mno = mno;
 	}
 
+	public String getDeid() {
+		return deid;
+	}
+
+	public void setDeid(String deid) {
+		this.deid = deid;
+	}
+
 	public String getDetitle() {
 		return detitle;
 	}
@@ -72,8 +82,8 @@ public class Debate {
 
 	@Override
 	public String toString() {
-		return "Debate [deno=" + deno + ", dno=" + dno + ", mno=" + mno + ", detitle=" + detitle + ", decontent="
-				+ decontent + ", dedate=" + dedate + "]";
+		return "Debate [deno=" + deno + ", dno=" + dno + ", mno=" + mno + ", deid=" + deid + ", detitle=" + detitle
+				+ ", decontent=" + decontent + ", dedate=" + dedate + "]";
 	}
 
 }
