@@ -99,8 +99,12 @@ function displayData(currentPage, dataPerPage) {
   for (
     var i = (currentPage - 1) * dataPerPage;
     i < (currentPage - 1) * dataPerPage + dataPerPage;
-    i++
-  ) {
+    i++) {
+	
+	if(i > totalData-1){ // 총 데이터 개수 넘으면 반복문 멈추기
+		break;
+	}
+	
     chartHtml +=
     '<li>' + documentlist[i]["updatetime"] + ' [ <a href="#"> 소스보기</a> | <a href="#">' +
 	'비교</a> | <a href="#" onclick="good('+documentlist[i]["cid"]+','+documentlist[i]["dno"]+')"> 추천 </a> | <a href="#" onclick="bad('+documentlist[i]["cid"]+','+documentlist[i]["dno"]+')"> 비추천 </a> | <a href="historyview.jsp?cid='+documentlist[i]["cid"]+'">되돌리기 </a> ] ';
