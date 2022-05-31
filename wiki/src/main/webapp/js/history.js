@@ -2,7 +2,7 @@ var documentlist;
 
 let totalData; //총 데이터 수
 let dataPerPage; //한 페이지에 나타낼 글 수
-let pageCount = 10; //페이징에 나타낼 페이지 수
+let pageCount = 20; //페이징에 나타낼 페이지 수
 let globalCurrentPage = 1; //현재 페이지
 
 $(document).ready(function() {
@@ -22,6 +22,14 @@ $(document).ready(function() {
 			paging(totalData, dataPerPage, pageCount, 1);
 		}
 	});
+	
+	if(dataPerPage == 10){
+		$("#historylistdiv").css
+	}else if(dataPerPage == 15){
+		
+	}else{
+		
+	}
 });
 // 페이징 함수
 function paging(totalData, dataPerPage, pageCount, currentPage) {
@@ -106,7 +114,7 @@ function displayData(currentPage, dataPerPage) {
 	}
 	
     chartHtml +=
-    '<li>' + documentlist[i]["updatetime"] + ' [ <a href="#"> 소스보기</a> | <a href="#">' +
+    '<li>' + documentlist[i]["updatetime"] + ' [ <a href="#"> 보기</a> | <a href="#">' +
 	'비교</a> | <a href="#" onclick="good('+documentlist[i]["cid"]+','+documentlist[i]["dno"]+')"> 추천 </a> | <a href="#" onclick="bad('+documentlist[i]["cid"]+','+documentlist[i]["dno"]+')"> 비추천 </a> | <a href="historyview.jsp?cid='+documentlist[i]["cid"]+'">되돌리기 </a> ] ';
 	if (documentlist[i]["dgood"] == 0) { // 만약 추천수가 0라면 추천수 검점
 	chartHtml += ' r' + (i - documentlist.length) + ' 추천수(<span>' + documentlist[i]["dgood"] + '</span>) ' + documentlist[i]["mid"] + '()</li>';
