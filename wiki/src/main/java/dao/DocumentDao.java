@@ -110,7 +110,7 @@ public class DocumentDao extends Dao{
 	}
 	//해당 제목의 최신 문서정보 불러오기 메소드
 	public Content docuLoad(String title) {
-		String sql="select dno from content where dtitle=? order by dno desc";
+		String sql="select dno from document where dtitle=? order by dno desc";
 		try {
 			ps=con.prepareStatement(sql);
 			ps.setString(1, title);
@@ -122,6 +122,18 @@ public class DocumentDao extends Dao{
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return null;}
+	//해당 제목의 최신 dno 리턴 메소드
+	public int getdno(String title) {
+		String sql="select dno from document where dtitle='"+title+"'";
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return -1;
+	}
 	//작성된 문서들의 리스트 출력
 	public ArrayList<Document> doculist() {
 		ArrayList<Document> dlist = new ArrayList<>();

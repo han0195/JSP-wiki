@@ -27,23 +27,33 @@ public class SpecialDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
+	//역링크 테이블에 목록 하나만 추가하는 메소드
+	public boolean addLink(int dno, int topageno) {
+		String sql="update link set frompageno = concat(frompageno, ',"+topageno+"') where dno="+dno;
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
 	//역링크된 목록 불러오는 메소드
-	public int[] getLink(int dno) {
+	public String getLink(int dno) {
 		String sql="select frompageno from link where dno="+dno;
 		try {
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				String result=rs.getString(1);
-				String[] re=result.split(",");
-				int[] pages=new int[re.length];
-				for(int i=0; i<re.length; i++) {
-					pages[i]=Integer.parseInt(re[i]);
-				}
-				return pages;
+				return rs.getString(1);
+//				String[] re=result.split(",");
+//				int[] pages=new int[re.length];
+//				for(int i=0; i<re.length; i++) {
+//					pages[i]=Integer.parseInt(re[i]);
+//				}
+//				return pages; // 자르는건 받고나서 자르기
 			}
 		}catch(Exception e) {e.printStackTrace();}
-		return null;
+		return "";
 	}
 	//랜덤페이지 불러오기 메소드(10개)
 	public ArrayList<Document> randomPage() {
