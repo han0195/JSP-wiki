@@ -10,8 +10,10 @@
 
 </head>
 <body>
+
 <%
 	ArrayList<Debate> debateList=DebateDao.getDebateDao().getDebateList();
+
 %>
 <%@include file="../header.jsp" %>
 	
@@ -33,14 +35,27 @@
 					<!-- for문으로 진행중인 토론방 생성 -->
 					<%
 						for(Debate debate : debateList){
+							int Deno=debate.getDeno();
+							String updateTime=DebateDao.getDebateDao().getTime(Deno);
+							
+													
 					%>
 						<tr>
 							<td><a href="../debate/debateview.jsp?Deno=<%=debate.getDeno()%>"><%=debate.getDetitle()%></a></td>
-							<td><%=debate.getDedate() %></td>
-						</tr>
 					<%
-						}
+								if(updateTime==null){ 
 					%>
+									<td><%=debate.getDedate()%></td>
+					<%		
+								}else{
+					%>
+									<td><%=updateTime%></td>
+					<% 				
+								}
+						}
+					%>		
+						</tr>
+					
 				</table>
 			</div>
 			

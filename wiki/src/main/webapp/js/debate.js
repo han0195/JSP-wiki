@@ -1,22 +1,26 @@
 //textarea 커서 옮기기
 $("#dcontent").focus();
 
-//ip 저장변수
-let ip;
-
-//문서 대기
-$(function(){
-	
-	
-	// ip 획득 api
+// ip 획득 api
 	$.ajax({ 
-	       url: "https://api.ip.pe.kr/json"
+	       url:"https://api.ip.pe.kr/json"
 	   }).done(function(api) {
 	      console.log(api);
 	      ip = api.ip;
 	   }).fail(function() {
 	       alert("로딩하는데 실패하였습니다.")
 	});
+//ip 저장변수
+let ip;
+
+
+
+
+//문서 대기
+$(function(){
+	
+	
+	
 
 	$("#debatezone").html(function(){
 		let Deno=$("#Deno").val();

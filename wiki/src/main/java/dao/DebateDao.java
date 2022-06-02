@@ -39,7 +39,7 @@ public class DebateDao extends Dao{
 	public ArrayList<Debate> getDebateList(){
 		ArrayList<Debate> debateList = new ArrayList<Debate>();
 		
-		String sql ="SELECT * FROM treewiki.debate order by deno desc";
+		String sql ="SELECT * FROM treewiki.debate order by dedate desc";
 		try {
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
@@ -109,5 +109,34 @@ public class DebateDao extends Dao{
 		return null;
 	}
 	
+	//6.토론 최근 수정 시간 가져오기
+	public String getTime(int Deno) {
+		
+		String sql="SELECT dtdate FROM treewiki.debatechat WHERE deno=? ORDER BY dtdate DESC  LIMIT 1";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, Deno);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println("토론 최근 수정 시간 가져오기 에러 경로:dao.debateDao@@  "+e);
+		}
+		return null;
+	}
+//	//7.토론 최근 수정 시간 업데이트
+//	public void updatetime(int Deno) {
+//		String time=getTime(Deno);
+//		String sql="update treewiki.debate set dedate="+time+" where deno=?";
+//		try {
+//			ps=con.prepareStatement(sql);
+//			ps.setInt(1, Deno);
+//			ps.executeUpdate();
+//		} catch (Exception e) {
+//			System.out.println("시간 업데이트 에러 경로:dao.debateDao@@  "+e );
+//		}
+//	}
+
 	
 }
