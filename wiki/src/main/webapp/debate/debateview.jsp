@@ -14,13 +14,15 @@
 <body>
 <%@include file="../header.jsp" %>
 <%
-int Deno=Integer.parseInt(request.getParameter("Deno"));	
-String content = DebateDao.getDebateDao().debateIn(Deno);
-Date date =new Date();
-SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-String today=sdf.format(date);
+	int Deno=Integer.parseInt(request.getParameter("Deno"));	
+	String content = DebateDao.getDebateDao().debateIn(Deno);
+	Date date =new Date();
+	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	String today=sdf.format(date);
+	String ip = request.getRemoteAddr();
 %>
 <input type="hidden" value="<%=today%>" id="today">
+<input type="hidden" value="<%=Deno%>" id="Deno">
 <div class="container">
 	
 	<!-- 토론주제 보여주기 -->
@@ -48,44 +50,31 @@ String today=sdf.format(date);
 	</div>
 	
 	<!-- 토론 내용  -->
-	<div id="debatezone" class="col-md-12 py-5">
-		
-		<div id="debatecontent" class="col-md-9">
-			<div class="row">
-				<div id="did" class="col-md-5">
-					아이디
-				</div>
-				<div id="ddate" class="offset-5 col-md-2">
-					날짜
-				</div>
-			</div>
-			<div id="content" class="col-md-12">
-				내용
-			</div>
+	<div  class="col-md-12 py-5">
+		<div id="debatezone" class="py-3">
+			
 		</div>
 	</div>
-	
 	
 	<!-- 경계선 -->
 	<hr>	
 	
 	
 	<!-- 토론 전송 -->
-	<div class="col-md-12">
+	<div class="col-md-12" id="chatform">
 		<!-- 토론 참여 간판 -->
 		<div class="col-md-4">
 			<h1>토론에 참여할래요!</h1>
 		</div>
 		
 		<!--토론작성 란 -->
-		<div class="col-md-12">
-			<textarea rows="5" cols="" class="form-control" onkeyup="enterkey()" id="dcontent"></textarea>
-		</div>
-		
-		<!-- 토론 전송 버튼 -->
-		<div class="offset-10 col-md-2 py-2">
-			<button class="form-control py-2" onclick="sendbtn()">전송</button>
-		</div>
+			<div class="col-md-12">
+				<textarea rows="5" cols="" class="form-control" id="dtcontent" name="dtcontent"></textarea>
+			</div>
+			<!-- 토론 전송 버튼 -->
+			<div class="offset-10 col-md-2 py-2">
+				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>')">전송</button>
+			</div>
 	</div>
 
 

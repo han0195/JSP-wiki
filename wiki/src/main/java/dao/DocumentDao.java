@@ -35,33 +35,37 @@ public class DocumentDao extends Dao{
 			ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.executeUpdate();
 			rs=ps.getGeneratedKeys();
-			int dno=rs.getInt(1); // 받아온 번호 dno에 넣기
-			if(setContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
-				if(insertLocks(dno)) { // 권한테이블에 문서번호 필드 생성하고 결과값 받기(성공시)
-					if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시 true 리턴
-						return true;
+			if(rs.next()) {
+				int dno=rs.getInt(1); // 받아온 번호 dno에 넣기
+				if(setContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
+					if(insertLocks(dno)) { // 권한테이블에 문서번호 필드 생성하고 결과값 받기(성공시)
+						if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시 true 리턴
+							return true;
+						}
+					}else {
+						System.out.println("문서권한 필드 생성 오류 "); return false;
 					}
-				}else {
-					System.out.println("문서권한 필드 생성 오류 "); return false;
+				}else { // 문서 내용 넣기 실패시
+					System.out.println("문서내용 필드 생성 오류"); return false;
 				}
-			}else { // 문서 내용 넣기 실패시
-				System.out.println("문서내용 필드 생성 오류"); return false;
 			}
-		}catch(Exception e) {e.printStackTrace();}
+					}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
 	//문서 내용 넣기 메소드
 	public boolean setContent(Content c, int dno) {
 		//content 테이블에 해당 번호를 포함한 필드 생성
-		String sql="insert into content(dno,mid,dcontent,dgood) values (?,?,?,?)";
+		String sql="insert into content(dno,mid,dcontent,dgood,dimg) values (?,?,?,?,?)";
 		try {
 		ps=con.prepareStatement(sql);
 		ps.setInt(1, dno);
 		ps.setString(2, c.getMid());
 		ps.setString(3, c.getDcontent());
 		ps.setInt(4, c.getDgood());
+		ps.setString(5, c.getDimg());
 		ps.executeUpdate();
-		}catch(Exception e) {e.printStackTrace();}
+		return true;
+		}catch(Exception e) {System.out.println("sef");}
 		return false;
 	}
 	//문서 권한 필드 생성 메소드
@@ -102,7 +106,7 @@ public class DocumentDao extends Dao{
 					str+=string;
 				}
 				Content content=new Content(rs.getInt(1), rs.getInt(2),
-						rs.getString(3), rs.getString(4), str.toString(), rs.getInt(6));
+						rs.getString(3), rs.getString(4), str.toString(), rs.getInt(6), rs.getString(7));
 				return content;
 			}
 		}catch(Exception e) {e.printStackTrace();}
@@ -206,7 +210,7 @@ public class DocumentDao extends Dao{
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				Content c=new Content(rs.getInt(1), 0, rs.getString(2), rs.getString(3), null, rs.getInt(4));
+				Content c=new Content(rs.getInt(1), 0, rs.getString(2), rs.getString(3), null, rs.getInt(4), rs.getString(5));
 				list.add(c);
 			}return list;
 		}catch(Exception e) {e.printStackTrace();}

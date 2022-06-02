@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 
+import org.apache.catalina.webresources.EmptyResource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -108,7 +109,7 @@ public class SpecialDao extends Dao{
 			if(rs.next()) {
 				Content content = new Content(
 						rs.getInt(1), rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),
-						rs.getInt(6)
+						rs.getInt(6), rs.getString(7)
 						);
 				return content;
 			}
@@ -135,5 +136,19 @@ public class SpecialDao extends Dao{
 			System.out.println("[getDocument] 에러" +e);
 		}
 		return null;
+	}
+	//// 조회수 증가 빼기 ///
+	public boolean goodorbad(int cid, boolean ch) {
+		String sql = "update  content set dgood = dgood + 1 where cid = ?";
+		if(ch == false) { sql = "update  content set dgood = dgood - 1 where cid = ?";}
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, cid);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("[goodandbad] 에러" +e);
+		}
+		return false;
 	}
 }

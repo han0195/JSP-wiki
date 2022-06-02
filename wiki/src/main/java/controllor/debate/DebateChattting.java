@@ -1,5 +1,4 @@
 package controllor.debate;
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,19 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DebateDao;
-import dto.Debate;
-
+import dto.DebateChat;
 /**
- * Servlet implementation class CreateDebate
+ * Servlet implementation class DebateChat
  */
-@WebServlet("/debate/CreateDebate")
-public class CreateDebate extends HttpServlet {
+@WebServlet("/debate/DebateChatting")
+public class DebateChattting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateDebate() {
+    public DebateChattting() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +27,15 @@ public class CreateDebate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title=request.getParameter("debatetitle");
-		String content=request.getParameter("debatecontent");
-		
-		//세션값
-//		int dno=Integer.parseInt(request.getParameter("dno"));
-//		int mno=Integer.parseInt(request.getParameter("mno"));
-		
-		Debate debate = new Debate(0, 0, 0,null,title, content, null);
-	    boolean result=DebateDao.getDebateDao().createDebate(debate);
-	    if(result) {
-	    	response.sendRedirect("/wiki/debate/debatemain.jsp");
-	    }else {
-	    	response.sendRedirect("/wiki/debate/debatecreate.jsp");
-	    }
+		int deno= Integer.parseInt(request.getParameter("Deno"));
+		String content=request.getParameter("dtcontent");
+		DebateChat debateChat = new DebateChat(deno, null, content, null);
+		boolean result=DebateDao.getDebateDao().setChat(debateChat);
+		if(result) {
+			response.getWriter().print(1);
+		}else {
+			response.getWriter().print(2);
+		}
 	}
 
 	/**

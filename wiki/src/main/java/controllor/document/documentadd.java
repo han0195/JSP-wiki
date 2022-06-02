@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 import dao.DocumentDao;
 import dao.SpecialDao;
@@ -33,15 +34,30 @@ public class documentadd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 		request.setCharacterEncoding("UTF-8");
-		String dtitle = request.getParameter("dtitle");
-		String dcontext = request.getParameter("dcontent");
-		String linkTitle="";
+		String mid = (String)request.getSession().getAttribute("login");
+		String json = request.getParameter("djson");
+	
+		try {
+			JSONObject jo = new JSONObject(json); // json 객체형 변환
+			String dtitle= jo.getString("dtitle");
+			
+			String dcontent = jo.getString("dcontent");
+				String linkTitle="";
 		//정규표현식으로 링크거는게 있는지 판별
-		if(dcontext.matches("*[[(.*?)]]*")) { System.out.println("링크 존재");
+		if(dcontent.matches("*[[(.*?)]]*")) { System.out.println("링크 존재");
 			//있을경우 [[ ]] 내부의 단어 추출
 			Pattern pattern=Pattern.compile("*[[(.*?)]]*");
-			Matcher matcher=pattern.matcher(dcontext);
+			Matcher matcher=pattern.matcher(dcontent);
 			while(matcher.find()) {
 				System.out.println(matcher.group(1));
 				linkTitle=matcher.group(1);
@@ -58,28 +74,24 @@ public class documentadd extends HttpServlet {
 				}
 			} // while e
 		} //if e
-		String mid = (String)request.getSession().getAttribute("login");
-		if(mid == null) {
-			mid = request.getParameter("ip");
-		}
-		Content c = new Content(0, 0, mid, null, dcontext, 0);
-		boolean result = DocumentDao.getdocumentDao().docuCreate(dtitle, c);
-		if(result) {
-			response.getWriter().print(1);
-		}
-		else {
-			response.getWriter().print(2);
-		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+			String dimg = jo.getString("dimgname");
+			
+			if(mid == null) {
+				mid = jo.getString("ip");
+			}
+			
+			
+			Content c = new Content(0, 0, mid, null, dcontent, 0, dimg);
+			boolean result = DocumentDao.getdocumentDao().docuCreate(dtitle, c);
+			
+			if(result) {
+				response.getWriter().print(1);
+			}
+			else {
+				response.getWriter().print(2);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		
 	
-
-	
+	}
 }

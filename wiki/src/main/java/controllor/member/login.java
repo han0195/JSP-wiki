@@ -1,4 +1,4 @@
-package controllor.debate;
+package controllor.member;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DebateDao;
-import dto.Debate;
-
 /**
- * Servlet implementation class CreateDebate
+ * Servlet implementation class login
  */
-@WebServlet("/debate/CreateDebate")
-public class CreateDebate extends HttpServlet {
+@WebServlet("/member/login")
+public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateDebate() {
+    public login() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,28 +26,15 @@ public class CreateDebate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title=request.getParameter("debatetitle");
-		String content=request.getParameter("debatecontent");
-		
-		//세션값
-//		int dno=Integer.parseInt(request.getParameter("dno"));
-//		int mno=Integer.parseInt(request.getParameter("mno"));
-		
-		Debate debate = new Debate(0, 0, 0,null,title, content, null);
-	    boolean result=DebateDao.getDebateDao().createDebate(debate);
-	    if(result) {
-	    	response.sendRedirect("/wiki/debate/debatemain.jsp");
-	    }else {
-	    	response.sendRedirect("/wiki/debate/debatecreate.jsp");
-	    }
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println("통신성공");
 	}
 
 }
