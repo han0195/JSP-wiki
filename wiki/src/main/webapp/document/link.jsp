@@ -13,12 +13,17 @@
 <%int dno=0;
 if(request.getParameter("dno")!=null){
 	dno=Integer.parseInt(request.getParameter("dno"));
-	int[] links=SpecialDao.getSpecialDao().getLink(dno);
+	String links=SpecialDao.getSpecialDao().getLink(dno);
+	String[] re=links.split(",");
+	int[] pages=new int[re.length];
+	for(int i=0; i<re.length; i++) {
+		pages[i]=Integer.parseInt(re[i]);
+	}
 %><div class="container">
 	<h3>이 페이지를 링크하고 있는 문서들의 목록입니다.</h3>
-	<%if(links==null){
+	<%if(links.equals("")){
 		%><h4>링크하고 있는 페이지가 없습니다.</h4><%
-	}else{for(int i:links){ %>
+	}else{for(int i:pages){ %>
 		<%Document d=SpecialDao.getSpecialDao().getDocument(i);%>
 		<div><a href="pageview.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a></div>
 	<%} }%>
