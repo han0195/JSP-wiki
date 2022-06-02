@@ -17,36 +17,54 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<link href="/wiki/css/documentadd.css" rel="stylesheet">
 </head>
 <body>
 	<%@include file="../header.jsp"%>
 	<br>
 	<br>
-	<br>
-	<div class="conatiner">
-		<div class="col-md-8 offset-2">
+	<div class="container" style="height: ">
+		<a href="#"><button>글목록</button></a>
+		<h3>문서</h3>
+		
+		
+			<!-- form 전송 인코딩 타입 : 기본타입은 첨부파일 불가능  -->
+			<!-- form 첨부파일 전송 인코딩 타입 : enctype="multipart/form-data" -->
+
+			제목 : <input type="text" name="dtitle" id="dtitle"> <br>
+			<input class="btn_primary" type="button" onclick="titlecheck()"
+				value="제목 중복 체크">
+			<textarea name="dcontent" id="summernote"></textarea>
+			
+
+			<div class="insert">
+			<form id="upload" method="post" enctype="multipart/form-data">
+				<input type="file" onchange="javascript: addFile(this); readURL(this);" multiple  id="uploadfile" name="uploadfile"/>
+				<div class="file-list"></div>
+			</form>	
+			</div>
 			<div>
-				<input type="text" id="title" placeholder="제목">
-				<input class="btn_primary" type="button" onclick="titlecheck()" value="제목 중복 체크">
-			</div>
-			<div class="py-3">
-				<textarea id="summernote" name="editordata"></textarea>
-			</div>
-			<div>
-			<input type="button" value="문서 작성 완료" onclick="documentadd()">
-			<input type="reset" value="문서 작성 취소">
-			</div>
-		</div>
+			<img id="preview" />
+			</div>	
+		<input type="button" class="btn bg_01 btn-success" value="문서 업로드" onclick="submitForm()"> <input
+				type="reset" value="취소">
 	</div>
+			<br><br><br><br><br><br><br>
+			
 
 
-</body>
-<!-- 썸머노트 기본 부트스트랩버전 3버전 js cdn -->
+	<!-- 썸머노트 기본 부트스트랩버전 3버전 js cdn -->
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!-- 썸머노트 js cdn  -->
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  <!-- ip 가져오기  -->
-<script src="/wiki/js/documentwrite.js" type="text/javascript"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<!-- 썸머노트 js cdn  -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script
+		src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<!-- ip 가져오기  -->
+	<script src="/wiki/js/documentwrite.js" type="text/javascript"></script>
 </html>
