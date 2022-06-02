@@ -40,7 +40,14 @@ public class DocumentDao extends Dao{
 				if(setContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
 					if(insertLocks(dno)) { // 권한테이블에 문서번호 필드 생성하고 결과값 받기(성공시)
 						if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시 true 리턴
-							return true;
+							System.out.println("내용 : "+c.getDcontent());
+							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) {
+								return true;
+							}else {
+							System.out.println("역링크 생성 오류"); return false;	
+							}
+						}else {
+							System.out.println("링크에 문서번호 필드 생성 오류 "); return false;
 						}
 					}else {
 						System.out.println("문서권한 필드 생성 오류 "); return false;
@@ -90,6 +97,7 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
+	
 	//해당 번호의 최신 문서정보 불러오기 메소드
 	public Content docuLoad(int dno) {
 		String sql="select * from content where dno=? order by cid desc";
