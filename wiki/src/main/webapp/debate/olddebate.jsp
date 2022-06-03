@@ -7,12 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<title>Insert title here</title>
 </head>
 <body>
 
 <%
-	ArrayList<Debate> debateList=DebateDao.getDebateDao().getDebateList();
+	ArrayList<Debate> debateList=DebateDao.getDebateDao().getOldDebateList();
 	
 	
 %>
@@ -79,15 +79,7 @@
 				</table>
 			</div>
 		</div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-			
+	</div>	
 <%@include file="../footer.jsp" %>
 </body>
 </html>
