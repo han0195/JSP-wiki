@@ -14,11 +14,11 @@
 <!-- 랜덤 눌럿을때 뜨는 페이지 -->
 <%
 ArrayList<Document> list=new ArrayList<Document>(SpecialDao.getSpecialDao().randomPage());
-	for(Document d:list){
 %>
 	<div class="container">
 		<h3>랜덤으로 10개의 문서가 표시됩니다. 클릭시 이동합니다.</h3>
-		<a href="pageview.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a>
+		<%for(Document d:list){ %>
+		<a href="pageview.jsp?dno=<%=d.getDno()%>"><%=d.getDtitle()%></a><br>
 	</div>
 	<%} %>
 <%@ include file="../footer.jsp" %>

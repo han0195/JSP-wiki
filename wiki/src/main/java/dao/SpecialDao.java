@@ -53,7 +53,8 @@ public class SpecialDao extends Dao{
 				linkTitle=matcher.group(2).trim();
 				// 추출한 단어를 넣어서 해당하는 링크할 제목의 문서 번호 호출
 				int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
-				if(tno==-1) { // 해당하는 제목의 문서가 없다면continue;
+				if(tno==-1) { // 해당하는 제목의 문서가 없다면
+					continue;
 				}else { // 해당하는 제목의 문서가 있다면
 					//역링크 목록에 추가해주기
 					SpecialDao.getSpecialDao().addLink(dno, tno);
