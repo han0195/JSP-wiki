@@ -2,26 +2,47 @@ package controllor.debate;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import dao.DebateDao;
 import dto.DebateChat;
 
 /**
  * Servlet implementation class DebateChatList
  */
+
+
 @WebServlet("/debate/DebateChatList")
 public class DebateChatList extends HttpServlet {
+	
+	public static String getClientIP(HttpServletRequest request) {
+		
+		String ip = request.getHeader("X-Forwarded-For");
+
+	    if (ip == null) {
+	        ip = request.getHeader("Proxy-Client-IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("WL-Proxy-Client-IP"); 
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if (ip == null) {
+	        ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if (ip == null) {
+	        ip = request.getRemoteAddr();
+	    }
+	    return ip;
+	}
+	
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,8 +58,9 @@ public class DebateChatList extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int Deno= Integer.parseInt(request.getParameter("Deno"));
 		String id=null;
-		String ip=request.getRemoteAddr();
 		
+		String ip=getClientIP(request);
+		System.out.println(ip);
 		ArrayList<DebateChat> list =DebateDao.getDebateDao().getDebateChatList(Deno);	
 		
 		
