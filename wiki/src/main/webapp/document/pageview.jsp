@@ -18,7 +18,7 @@
 	Content c=DocumentDao.getdocumentDao().docuLoad(dno);
 	String linkTitle="";
 	String pagedocument="";
-	System.out.println(c.getDcontent().matches("(\\[\\[)(.*?)(\\]\\])"));
+	System.out.println("정규식 일치여부 확인 : "+c.getDcontent().matches("(\\[\\[)(.*?)(\\]\\])"));
 	if(c.getDcontent().matches("(\\[\\[)(.*?)(\\]\\])")) {
 		//있을경우 [[ ]] 내부의 단어 추출
 		Pattern pattern=Pattern.compile("(\\[\\[)(.*?)(\\]\\])");
@@ -30,11 +30,9 @@
 			if(tno==-1) { // 해당하는 제목의 문서가 없다면
 			String temp=c.getDcontent().replaceAll("\\[\\[", "<a href=\"pageview.jsp?dno=#\">");
 			pagedocument=temp.replaceAll("\\]\\]", "</a>");
-			System.out.println(pagedocument);
 			}else { // 해당하는 제목의 문서가 있다면
 			String temp=c.getDcontent().replaceAll("\\[\\[", "<a href=\"pageview.jsp?dno="+tno+"\">");
 			pagedocument=temp.replaceAll("\\]\\]", "</a>");
-			System.out.println(pagedocument);
 			}
 			if(matcher.group(2)==null) { // 정규표현식에 해당하는 문자열이 더이상 없다면
 				break;
@@ -63,7 +61,11 @@
 			</div>
 		</div>
 		<div> <!-- 내용 -->
+			<%if(!pagedocument.equals("")){ %>
 			<%=pagedocument%>
+			<%}else{ %>
+			<%=c.getDcontent()%>
+			<%} %>
 		</div>
 	</div>
 	<%}else{ %>
