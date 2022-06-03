@@ -37,7 +37,6 @@
 						</div>
 						<!-- 로그인 -->
 						<% String mid = (String) session.getAttribute("login");
-							System.out.print(mid);
 							if(mid == null){		
 						%>
 						<div class="col-md-2">

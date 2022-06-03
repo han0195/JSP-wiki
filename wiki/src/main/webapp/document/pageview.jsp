@@ -18,13 +18,13 @@
 	Content c=DocumentDao.getdocumentDao().docuLoad(dno);
 	String linkTitle="";
 	String pagedocument="";
-	System.out.println("정규식 일치여부 확인 : "+c.getDcontent().matches("(\\[\\[)(.*?)(\\]\\])"));
-	if(c.getDcontent().matches("(\\[\\[)(.*?)(\\]\\])")) {
+	System.out.println("정규식 일치여부 확인 : "+c.getDcontent().matches("(.*)(\\[\\[)(.*?)(\\]\\])(.*)"));
+	if(c.getDcontent().matches("(.*)(\\[\\[)(.*?)(\\]\\])(.*)")) {
 		//있을경우 [[ ]] 내부의 단어 추출
-		Pattern pattern=Pattern.compile("(\\[\\[)(.*?)(\\]\\])");
+		Pattern pattern=Pattern.compile("(.*)(\\[\\[)(.*?)(\\]\\])(.*)");
 		Matcher matcher=pattern.matcher(c.getDcontent());
 		while(matcher.find()) {
-			linkTitle=matcher.group(2).trim();
+			linkTitle=matcher.group(3).trim();
 			// 추출한 단어를 넣어서 해당하는 링크할 제목의 문서 번호 호출
 			int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
 			if(tno==-1) { // 해당하는 제목의 문서가 없다면
@@ -34,7 +34,7 @@
 			String temp=c.getDcontent().replaceAll("\\[\\[", "<a href=\"pageview.jsp?dno="+tno+"\">");
 			pagedocument=temp.replaceAll("\\]\\]", "</a>");
 			}
-			if(matcher.group(2)==null) { // 정규표현식에 해당하는 문자열이 더이상 없다면
+			if(matcher.group(3)==null) { // 정규표현식에 해당하는 문자열이 더이상 없다면
 				break;
 			}
 		} // while e
