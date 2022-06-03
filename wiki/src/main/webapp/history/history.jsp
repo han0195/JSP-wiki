@@ -18,10 +18,12 @@
 	int dno = Integer.parseInt(request.getParameter("dno"));
 	//Document 가져오기
 	Document document = SpecialDao.getSpecialDao().getDocument(dno);
+	
+	String mids = (String) session.getAttribute("login");
 	%>
 	<div class="container history_wr">
 		<!-- 본문 -->
-
+	<input type="hidden" id="mid" value="<%= mids %>">
 		<div>
 			<!-- 리스트 헤더 -->
 			<input id="dnohid" type="hidden" value="<%=dno%>">

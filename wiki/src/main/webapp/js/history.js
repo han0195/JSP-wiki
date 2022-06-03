@@ -138,12 +138,15 @@ $("#dataPerPage").change(function () {
 
 // 추천
 function good(cid, dno) {
-	let mid = sessionStorage.getItem("login");
+	let mid = $("#mid").val();
 	let ch = true; // 추천 / 비추천 구분
-	if (mid == null) {// 만약 로그인되어있지않다면
+	let sess = session.getAttribute(mid + cid);
+	if(mid == ""+null){// 만약 로그인되어있지않다면
 		alert("추천/비추천은 로그인후 가능합니다.");
-	} else {// 로그인 되어있다면
-		if (session.getAttribute(mid + cid) == null) { // 존재하지않으면
+	}else if(mid != null){
+		if(sess == null) {
+			alert(sess);
+		}else {
 			//조회수 증가
 			$.ajax({
 				url: "/wiki/function/goodorbad",
@@ -162,12 +165,12 @@ function good(cid, dno) {
 }
 // 비추천
 function bad(cid) {
-	let mid = sessionStorage.getItem("login");
+	let mid = $("#mid").val();
 	let ch = true; // 추천 / 비추천 구분
-	if (mid == null) {// 만약 로그인되어있지않다면
+	if(mid == ""+null) {// 만약 로그인되어있지않다면
 		alert("추천/비추천은 로그인후 가능합니다.");
 	} else {// 로그인 되어있다면
-		if (session.getAttribute(mid + cid) == null) { // 존재하지않으면
+		if(session.getAttribute(mid + cid) == null) { // 존재하지않으면
 			//조회수 증가
 			$.ajax({
 				url: "/wiki/function/goodorbad",
