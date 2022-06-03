@@ -1,3 +1,5 @@
+<%@page import="java.util.regex.Matcher"%>
+<%@page import="java.util.regex.Pattern"%>
 <%@page import="dto.Content"%>
 <%@page import="dao.DocumentDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,8 +14,34 @@
 <body>
 	<%@include file="../header.jsp"%>
 	<%if(request.getParameter("dno")!=null){
-	int dno=Integer.parseInt(request.getParameter("dno"));%>
-	<%Content c=DocumentDao.getdocumentDao().docuLoad(dno);%>
+	int dno=Integer.parseInt(request.getParameter("dno"));
+	Content c=DocumentDao.getdocumentDao().docuLoad(dno);
+	String linkTitle="";
+	String pagedocument="";
+	System.out.println(c.getDcontent().matches("(\\[\\[)(.*?)(\\]\\])"));
+	if(c.getDcontent().matches("(\\[\\[)(.*?)(\\]\\])")) {
+		//있을경우 [[ ]] 내부의 단어 추출
+		Pattern pattern=Pattern.compile("(\\[\\[)(.*?)(\\]\\])");
+		Matcher matcher=pattern.matcher(c.getDcontent());
+		while(matcher.find()) {
+			linkTitle=matcher.group(2).trim();
+			// 추출한 단어를 넣어서 해당하는 링크할 제목의 문서 번호 호출
+			int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
+			if(tno==-1) { // 해당하는 제목의 문서가 없다면
+			String temp=c.getDcontent().replaceAll("\\[\\[", "<a href=\"pageview.jsp?dno=#\">");
+			pagedocument=temp.replaceAll("\\]\\]", "</a>");
+			System.out.println(pagedocument);
+			}else { // 해당하는 제목의 문서가 있다면
+			String temp=c.getDcontent().replaceAll("\\[\\[", "<a href=\"pageview.jsp?dno="+tno+"\">");
+			pagedocument=temp.replaceAll("\\]\\]", "</a>");
+			System.out.println(pagedocument);
+			}
+			if(matcher.group(2)==null) { // 정규표현식에 해당하는 문자열이 더이상 없다면
+				break;
+			}
+		} // while e
+	} //if e
+	%>
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
 		<div class="row"> <!-- 상단 제목, 버튼들 박스 -->
 			<div class="col-sm-4"><h1>제목</h1></div> <!-- 제목 -->
@@ -35,7 +63,7 @@
 			</div>
 		</div>
 		<div> <!-- 내용 -->
-			<%=c.getDcontent()%>
+			<%=pagedocument%>
 		</div>
 	</div>
 	<%}else{ %>
