@@ -35,11 +35,21 @@
 						<div class="col-md-1">
 							<a href="#"><img alt="Search" src="/wiki/img/search.png" class="headerImg"></a>
 						</div>
+						<!-- 로그인 -->
+						<% String mid = (String) session.getAttribute("login");
+							System.out.print(mid);
+							if(mid == null){		
+						%>
 						<div class="col-md-2">
-							<a href="/wiki/member/login.jsp">로그인 </a> 　
+							<a href="/wiki/member/login.jsp">로그인</a> 　
 						</div>
+						<% }else{ %>
 						<div class="col-md-2">
-							<a href="/wiki/member/signup.jsp"><img alt="Singup" src="/wiki/img/signup.png" class="headerImg"></a>
+							<a href="/wiki/member/loginout" id="logioutbtn">로그아웃</a> 　
+						</div>
+						<% } %>
+						<div class="col-md-2">
+							<a href=""><img alt="Singup" src="/wiki/img/signup.png" class="headerImg"></a>
 						</div>	
 					</div>
 				</div>

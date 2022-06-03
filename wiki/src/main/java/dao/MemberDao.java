@@ -11,9 +11,10 @@ public class MemberDao extends Dao{
 	
 	//아이디 중복체크 메소드
 	public boolean idCheck(String mid) {
-		String sql = "select * from member where mid = '"+mid+"'";
+		String sql = "select * from member where mid = ?";
 		try {
 			ps = con.prepareStatement(sql);
+			ps.setString(1, mid);
 			rs = ps.executeQuery();	
 			// 동일한 아이디가 존재하면 
 			if( rs.next() ) { return true; } 

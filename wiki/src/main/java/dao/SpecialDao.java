@@ -122,6 +122,7 @@ public class SpecialDao extends Dao{
 				jsonObject.put("updatetime", rs.getString(4));
 				jsonObject.put("dcontent", rs.getString(5));
 				jsonObject.put("dgood", rs.getInt(6));
+				jsonObject.put("dimg", rs.getString(7));
 				jsonArray.put(jsonObject);
 			}
 			return jsonArray;

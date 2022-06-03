@@ -24,16 +24,17 @@
 
 			<!-- Icon -->
 			<div class="fadeIn first">
-				나무 위키 로그인
+				<span>나무 위키 로그인</span><br>
+				<span id="status" style="color:red;"></span>
 			</div>
 
 			<!-- Login Form -->
-			<form action="/wiki/member/login" method="POST" enctype="multipart/form-data">
-				<input type="text" id="login" class="fadeIn second" name="login"
-					placeholder="아이디"> <input type="text" id="password"
-					class="fadeIn third" name="login" placeholder="비밀번호"> <input
-					type="submit" class="fadeIn fourth" value="로그인" style="background-color: green;">
-			</form>
+				<input type="text" id="mid" class="fadeIn second" name="mid"
+					placeholder="아이디">
+				<input type="text" id="mpw"
+					class="fadeIn third" name="mpw" placeholder="비밀번호"> 					
+				<input onclick="login()"
+					type="button" class="fadeIn fourth" value="로그인" style="background-color: green;">
 
 			<!-- Remind Passowrd -->
 			<div id="formFooter">
@@ -44,6 +45,7 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="../js/login.js"></script>
 	<%@ include file="../footer.jsp" %>
 </body>
 </html>

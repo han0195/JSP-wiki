@@ -11,7 +11,7 @@
 <body>
 	<%@ include file="../header.jsp"%>
 	<br><br><br><br><br><br>
-	<div class="container">
+	<div class="container form-control">
 		<div class="form-row col-md-6"
 			style="padding: 20px; margin-top: 2%; margin-left: 26%; margin-right: 26%; margin-bottom: 10%; background-color: hsla(240, 20%, 95%, 0.5)">
 				<div class="form-row ">
@@ -38,7 +38,7 @@
 								
 								<div class="form-group col-md-12">
 									전화번호 <input type="text" class="form-control" id="inputName4"
-										name="mphone" placeholder="전화번호를 입력해주세요">
+										name="mphone" placeholder='"-" 포함 전화번호를 입력해주세요'>
 								</div>
 								<span id="spanphone"></span><!-- 상태 메세지 -->
 								

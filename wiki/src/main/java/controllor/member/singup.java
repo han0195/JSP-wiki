@@ -37,22 +37,33 @@ public class singup extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");		
 		String mid = request.getParameter("mid");
-		String mpw = request.getParameter("mpw");
-		String mname = request.getParameter("mname");
-		String mphone = request.getParameter("mphone");
-		
-		Member member = new Member( // 멤버 객체 생성
-				0,mid,mpw,mname,mphone
-				);
-		boolean result = MemberDao.getmemberDao().signUp(member); //저장
-		if(result) {
-			response.getWriter().print(1);
-		}else {
-			response.getWriter().print(-1);
-		}
-		
+		String ch = request.getParameter("ch");
+		System.out.println("요고"+ch);
+		if(ch.equals("1")) {// 만약 아이디 중복검사를 위한거라면
+			boolean result = MemberDao.getmemberDao().idCheck(mid);
+			System.out.println(result);
+			if(result) {// 동일한아이디가 존재하면
+				response.getWriter().print(-1);		
+			}else {//동일한아이디가 존재하지않으면
+				response.getWriter().print(1);	
+			}
+		}else {// 회원가입을 위한거라면
+			String mpw = request.getParameter("mpw");
+			String mname = request.getParameter("mname");
+			String mphone = request.getParameter("mphone");
+			
+			Member member = new Member( // 멤버 객체 생성
+					0,mid,mpw,mname,mphone
+					);
+			boolean result = MemberDao.getmemberDao().signUp(member); //저장
+			if(result) {
+				response.getWriter().print(1);
+			}else {
+				response.getWriter().print(-1);
+			}
+		}		
 	}
 
 }
