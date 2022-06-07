@@ -36,20 +36,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link activce" aria-current="page" href="/wiki/debate/olddebate.jsp">오래된 토론</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">열린 편집요청</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">승인된 편집 요청</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">닫힌 편집 요청</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">오래된 편집요청</a>
-					</li>
-					
+					</li>	
 				</ul>
 			</div>
 			<!-- 토론 리스트 -->
