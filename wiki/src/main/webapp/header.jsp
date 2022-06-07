@@ -49,7 +49,7 @@
 						</div>
 						<% } %>
 						<div class="col-md-2">
-							<a href=""><img alt="Singup" src="/wiki/img/signup.png" class="headerImg"></a>
+							<a href="/wiki/member/singup.jsp"><img alt="Singup" src="/wiki/img/signup.png" class="headerImg"></a>
 						</div>	
 					</div>
 				</div>

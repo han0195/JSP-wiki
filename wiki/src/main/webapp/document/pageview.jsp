@@ -71,7 +71,9 @@
 	<%}else{ %>
 	<h1>페이지 오류</h1>
 	<%} %>
+	
 	<%@include file="../footer.jsp"%>
 
+<script src="/wiki/js/pageview.js" type="text/javascript"></script>	
 </body>
 </html>
