@@ -150,7 +150,8 @@ function readURL(input) {
 }
 
 /* 폼 전송(파일 업로드) */
-function submitForm() {
+function update(dno) {
+	
 	let dtitle = $("#dtitle").val();
 	let dcontent = $("#summernote").val();
 	let newText = dcontent.replace(/(<([^>]+)>)/ig, "");
@@ -182,14 +183,15 @@ function submitForm() {
 		dtitle : dtitle,
 		dcontent : newText,
 		dimgname : dimgname,
-		ip : ip
+		ip : ip,
+		dno : dno
 	}
 	console.log(djson); //  확인용
 	console.log(dimgname);
 	console.log(formData);
 	    $.ajax({
 		  method: 'POST',
-		  url: 'documentadd',
+		  url: 'documentupdate',
 		  data: {'djson' : JSON.stringify(djson)},
 		  async: true,
 		  timeout: 30000,
@@ -215,8 +217,3 @@ function submitForm() {
 		  }
 	  });
 }
-
-
-
-
-	

@@ -23,9 +23,10 @@
 </head>
 <body>
 	<%@include file="../header.jsp"%>
-
+	<%int dno = Integer.parseInt(request.getParameter("dno")) ; %>	
 	<br>
 	<br>
+	
 	<div class="container" style="height: ">
 		<a href="#"><button>글목록</button></a>
 		<h3>문서</h3>
@@ -49,7 +50,7 @@
 			<div>
 			<img id="preview" />
 			</div>	
-		<input type="button" class="btn bg_01 btn-success" value="문서 업로드" onclick="update()"> <input
+		<input type="button" class="btn bg_01 btn-success" value="문서 수정" onclick="update(<%=dno%>)"> <input
 				type="reset" value="취소">
 	</div>
 			<br><br><br><br><br><br><br>
@@ -67,5 +68,5 @@
 		src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<!-- ip 가져오기  -->
-	<script src="/wiki/js/documentwrite.js" type="text/javascript"></script>
+	<script src="/wiki/js/documentupdate.js" type="text/javascript"></script>
 </html>

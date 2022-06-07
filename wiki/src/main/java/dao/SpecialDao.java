@@ -170,6 +170,30 @@ public class SpecialDao extends Dao{
 		}
 		return null;
 	}
+	// 해당하는 문서 가져오기 by json
+		public JSONObject getcontentbyjson(int dno) {
+			String sql = "select * from content where dno = ?";
+			try {
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, dno);
+				rs = ps.executeQuery();
+				if(rs.next() ) {
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("cid", rs.getInt(1));
+					jsonObject.put("dno", rs.getInt(2));
+					jsonObject.put("mid", rs.getString(3));
+					jsonObject.put("updatetime", rs.getString(4));
+					jsonObject.put("dcontent", rs.getString(5));
+					jsonObject.put("dgood", rs.getInt(6));
+					jsonObject.put("dimg", rs.getString(7));
+					return jsonObject;
+				}
+			} catch (Exception e) {
+				System.out.println("[getDocumentbyjson SQL 에러]" + e);
+			}
+			return null;
+		}
+	
 	//// 조회수 증가 빼기 ///
 	public boolean goodorbad(int cid, boolean ch) {
 		String sql = "update  content set dgood = dgood + 1 where cid = ?";

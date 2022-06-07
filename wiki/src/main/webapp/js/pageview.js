@@ -28,7 +28,6 @@ $(document). ready(function(){
 				console.log(img);
 					contexthtml = '<div id="">' + text + '</div>'
 					for(let i = 0; i < img.length; i++) {
-						alert(img[i]);
 					imghtml += '<img src="/wiki/document/upload/'+img[i]+'" class="col-sm-3"> </img>'
 					}
 				$("#textbox").html(contexthtml);
