@@ -114,7 +114,7 @@ function displayData(currentPage, dataPerPage) {
 	}
 	
     chartHtml +=
-    '<li>' + documentlist[i]["updatetime"] + ' [ <a href="#"> 보기</a> | <a href="#">' +
+    '<li>' + documentlist[i]["updatetime"] + ' [ <a href="#"> 보기</a> | <a href="historcomparison.jsp?dno='+documentlist[i]["dno"]+'&cid='+documentlist[i]["cid"]+'">' +
 	'비교</a> | <a href="#" onclick="good('+documentlist[i]["cid"]+','+documentlist[i]["dno"]+')"> 추천 </a> | <a href="#" onclick="bad('+documentlist[i]["cid"]+','+documentlist[i]["dno"]+')"> 비추천 </a> | <a href="historyview.jsp?cid='+documentlist[i]["cid"]+'">되돌리기 </a> ] ';
 	if (documentlist[i]["dgood"] == 0) { // 만약 추천수가 0라면 추천수 검점
 	chartHtml += ' r' + (i - documentlist.length) + ' 추천수(<span>' + documentlist[i]["dgood"] + '</span>) ' + documentlist[i]["mid"] + '()</li>';
@@ -138,12 +138,15 @@ $("#dataPerPage").change(function () {
 
 // 추천
 function good(cid, dno) {
-	let mid = sessionStorage.getItem("login");
+	let mid = $("#mid").val();
 	let ch = true; // 추천 / 비추천 구분
-	if (mid == null) {// 만약 로그인되어있지않다면
+	let sess = session.getAttribute(mid + cid);
+	if(mid == ""+null){// 만약 로그인되어있지않다면
 		alert("추천/비추천은 로그인후 가능합니다.");
-	} else {// 로그인 되어있다면
-		if (session.getAttribute(mid + cid) == null) { // 존재하지않으면
+	}else if(mid != null){
+		if(sess == null) {
+			alert(sess);
+		}else {
 			//조회수 증가
 			$.ajax({
 				url: "/wiki/function/goodorbad",
@@ -162,12 +165,12 @@ function good(cid, dno) {
 }
 // 비추천
 function bad(cid) {
-	let mid = sessionStorage.getItem("login");
+	let mid = $("#mid").val();
 	let ch = true; // 추천 / 비추천 구분
-	if (mid == null) {// 만약 로그인되어있지않다면
+	if(mid == ""+null) {// 만약 로그인되어있지않다면
 		alert("추천/비추천은 로그인후 가능합니다.");
 	} else {// 로그인 되어있다면
-		if (session.getAttribute(mid + cid) == null) { // 존재하지않으면
+		if(session.getAttribute(mid + cid) == null) { // 존재하지않으면
 			//조회수 증가
 			$.ajax({
 				url: "/wiki/function/goodorbad",

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DocumentDao;
+import dao.SpecialDao;
 import dto.Content;
 
 /**
@@ -35,7 +36,7 @@ public class historyview extends HttpServlet {
 		String ip = request.getParameter("ip"); // 아이피가져오기
 		
 		String mid = (String)request.getSession().getAttribute("login");
-		Content content = DocumentDao.getdocumentDao().docuLoad(cid);// 문서내용가져오기
+		Content content = SpecialDao.getSpecialDao().getcontent(cid);// 문서내용가져오기
 		if(content == null) {// 만약 문서내용가져오기 에러라면
 			response.getWriter().print(-1);
 		}else {// 성공적으로 문서내용 가져오면

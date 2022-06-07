@@ -18,7 +18,7 @@
 	<%
 	int cid = Integer.parseInt(request.getParameter("cid"));
 	//문서내용 가져오기
-	Content content = DocumentDao.getdocumentDao().docuLoad(cid);
+	Content content = SpecialDao.getSpecialDao().getcontent(cid);
 	//Document 가져오기
 	Document document = SpecialDao.getSpecialDao().getDocument(content.getDno());
 	%>

@@ -12,7 +12,7 @@ import dao.SpecialDao;
 /**
  * Servlet implementation class goodorbad
  */
-@WebServlet("/goodorbad")
+@WebServlet("/function/goodorbad")
 public class goodorbad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
