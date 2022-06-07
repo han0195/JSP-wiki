@@ -42,7 +42,7 @@
 		</textarea>
 		<!-- 문서내용 -->
 		
-		<!-- 모달 버튼 -->
+		<!-- 모달 버튼 --><br>
 		<button type="button" class="btn btn-success hisbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
   		되돌리기
 		</button>
