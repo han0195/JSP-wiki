@@ -8,12 +8,14 @@ public class Debate {
 	private String detitle;		//토론제목
 	private String decontent;	//토론내용
 	private String dedate;		//작성시간
+	private String destate;		//토론 상태값
 
 	public Debate() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Debate(int deno, int dno, int mno, String deid, String detitle, String decontent, String dedate) {
+	public Debate(int deno, int dno, int mno, String deid, String detitle, String decontent, String dedate,
+			String destate) {
 		super();
 		this.deno = deno;
 		this.dno = dno;
@@ -22,6 +24,13 @@ public class Debate {
 		this.detitle = detitle;
 		this.decontent = decontent;
 		this.dedate = dedate;
+		this.destate = destate;
+	}
+
+	@Override
+	public String toString() {
+		return "Debate [deno=" + deno + ", dno=" + dno + ", mno=" + mno + ", deid=" + deid + ", detitle=" + detitle
+				+ ", decontent=" + decontent + ", dedate=" + dedate + ", destate=" + destate + "]";
 	}
 
 	public int getDeno() {
@@ -80,10 +89,11 @@ public class Debate {
 		this.dedate = dedate;
 	}
 
-	@Override
-	public String toString() {
-		return "Debate [deno=" + deno + ", dno=" + dno + ", mno=" + mno + ", deid=" + deid + ", detitle=" + detitle
-				+ ", decontent=" + decontent + ", dedate=" + dedate + "]";
+	public String getDestate() {
+		return destate;
 	}
 
+	public void setDestate(String destate) {
+		this.destate = destate;
+	}
 }

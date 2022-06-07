@@ -1,18 +1,17 @@
-<%@page import="dao.DebateDao"%>
-<%@page import="dto.Debate"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="dto.Debate"%>
+<%@page import="dao.DebateDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
+<title>Insert title here</title>
 </head>
 <body>
-
 <%
-	ArrayList<Debate> debateList=DebateDao.getDebateDao().getDebateList();
+	ArrayList<Debate> debateList=DebateDao.getDebateDao().getOldDebateList();
 	
 	
 %>
@@ -66,7 +65,7 @@
 						for(Debate debate : debateList){
 							int deno=debate.getDeno();
 							 DebateDao.getDebateDao().timeUpdate(deno);
-							if(debate.getDestate().equals("1")){
+							if(debate.getDestate().equals("0")){
 					%>
 							<tr>
 								<td><a href="../debate/debateview.jsp?Deno=<%=debate.getDeno()%>"><%=debate.getDetitle()%></a></td>
@@ -79,15 +78,7 @@
 				</table>
 			</div>
 		</div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-			
+	</div>	
 <%@include file="../footer.jsp" %>
 </body>
 </html>

@@ -1,3 +1,5 @@
+<%@page import="dao.DebateDao"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,7 +9,6 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
-	
 	
 	<div class="container">
 		<div class="col-md-12 row">
@@ -48,7 +49,6 @@
 			<!-- 토론 제목 -->
 			<span>토론 신청 제목</span>
 			<textarea class="form-control" name="debatetitle"></textarea>
-			
 			<!-- 토론 내용 작성 -->
 			<span>토론 신청 내용</span>
 			<textarea class="form-control" rows="10" cols="10" name="debatecontent"></textarea>

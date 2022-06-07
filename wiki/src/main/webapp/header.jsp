@@ -10,6 +10,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<!-- 사용자정의 css -->
 	<link href="/wiki/css/main.css" rel="stylesheet">
+	
 </head>
 <body>
 
