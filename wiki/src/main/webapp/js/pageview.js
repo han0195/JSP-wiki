@@ -19,18 +19,22 @@ $(document). ready(function(){
 			data : {"dno" : dno},
 			success(json) {
 				
-				var text = json["dcontent"].replace(/'\\'/g, '<br>'); // 문단 구분을 위한 문자 판별
-				
-				var reg = /[`~!@#$%^&*()_|+\-=?;:'"<>\{\}\[\]\\\/]/gim; // 특수문자 제거를 위한 정규식
+				var reg = /[`~!@#$%^&*|+\-=?;:'"<>\{\}\[\]\\\/]/gim; // 특수문자 제거를 위한 정규식
 				
 				var resultData = json["dimg"].replace(reg, ""); // db에 있는 특수문자들을 제거
+				
+				
 				let img = resultData.split( ',' ); // 이미지가 여러개 일 경우 ,로 구분했으므로 ,를 기준으로 이미지 파일들의 배열 생성
 				console.log(img);
+				var text = json["dcontent"].replace(/'\\'/g, '<br>'); // 문단 구분을 위한 문자 판별
+				
+				
+				
 					contexthtml = '<div id="">' + text + '</div>'
 					for(let i = 0; i < img.length; i++) {
 					imghtml += '<img src="/wiki/document/upload/'+img[i]+'" class="col-sm-3"> </img>'
 					}
-				$("#textbox").html(contexthtml);
+				
 				$("#imgbox").html(imghtml);
 			}
 		});

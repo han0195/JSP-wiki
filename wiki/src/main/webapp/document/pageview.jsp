@@ -61,7 +61,9 @@
 				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span>
 			</div>
 		</div>
+		
 		<div class="row"> <!-- 내용 -->
+		<div id="imgbox"></div>
 			<%if(!pagedocument.equals("")){ %>
 			<%=pagedocument%>
 			<%}else{ %>
@@ -69,10 +71,10 @@
 			
 			<%} %>
 		</div>
+		
 		<br><br><br>
 		
-		<div id="textbox" class="col-sm-4">텍스트</div> <!-- 텍스트가 들어갈 박스 -->
-		<div id="imgbox" class="col-sm-5">이미지</div> <!-- 이미지가 들어갈 박스 -->
+		
 	</div>
 	<%}else{ %>
 	<h1>페이지 오류</h1>

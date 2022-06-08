@@ -150,7 +150,7 @@ function readURL(input) {
 }
 
 /* 폼 전송(파일 업로드) */
-function submitForm() {
+function dwrite() {
 	let dtitle = $("#dtitle").val();
 	let dcontent = $("#summernote").val();
 	let newText = dcontent.replace(/(<([^>]+)>)/ig, "");
@@ -206,6 +206,7 @@ function submitForm() {
 		        headers: {'cache-control': 'no-cache', 'pragma': 'no-cache'},
 		        success : function(){
 					alert("문서의 업로드가 완료되었습니다.");
+					location.href = '/wiki/document/documentview.jsp';
 				}   
 			});
 		  },
