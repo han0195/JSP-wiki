@@ -31,7 +31,7 @@
 			<h2 class="history_title">
 				<!-- 제목 -->
 				<%=document.getDtitle()%>
-				<span class="histsory_sub_title">(문서역사)</span>
+				<span style="font-weight: normal;" class="histsory_sub_title">(문서역사)</span>
 			</h2>
 			<a><button class="btn btn-outline-dark">편집</button></a> <a><button
 					class="btn btn-outline-dark">역링크</button></a>

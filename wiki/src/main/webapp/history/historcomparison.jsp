@@ -30,10 +30,10 @@
 	<div class="container">
 		<div>
 			<!-- 리스트 헤더 -->
-			<h2 class="history_title">
+			<h2 class="history_title" style="font-weight: bold;">
 				<!-- 제목 -->
 				<%=title.getDtitle()%>
-				<span class="history_sub_title">(문서역사)</span>
+				<span class="history_sub_title" style="font-weight: normal;">(문서역사)</span>
 			</h2>
 		</div>
 		<div class="row">
@@ -77,30 +77,30 @@
 			for (int i = 0; i < str2.length(); i++) {
 				if (str2.charAt(i) == '+' && str2.charAt(i - 1) == '+') {
 					arrcount2++;
-				} else if (str.charAt(i) != '+' && str2.charAt(i) != '=') {
+				} else if (str2.charAt(i) != '+' && str2.charAt(i) != '=') {
 					strarr2[arrcount2] += str2.charAt(i);
 				}
 			}
 			%>
 			<div>
-				<h3>비교</h3>
+				개행 | 내용
 				<%
 				for (int i = 0; i < strarr.length; i++) {
 					if (strarr[i].equals(strarr2[i])) {// 비교 true이면 최신문서 출력
 				%>
-				<div style="border-bottom: 1px solid #999999""><%=i%>
+				<div style="padding:5px; background-color:#eeeeee;"><%=i%>
 					|
 					<%=strarr[i]%></div>
 				<%
 				} else { // 비교가 false이면
 				%>
 				<div
-					style="background-color: #E6FFEC; border-bottom: 1px solid #999999">
-					<span style="background: green; border: 1px solid;"><%=i%></span><%=strarr[i]%></div>
+					style="padding:5px; background-color: #E6FFEC; border-bottom: 1px solid #999999">
+					<span><%=i%></span> | <%=strarr[i]%></div>
 				<!-- 최신문서 바탕색 초록 -->
 				<div
-					style="background-color: #FFEBE9; color: #999999; border-bottom: 1px solid #999999"">
-					<span style="background: red; border: 1px solid;"><%=i%></span><%=strarr2[i]%></div>
+					style="padding:5px; background-color: #FFEBE9; color: #999999; border-bottom: 1px solid #999999"">
+					<span><%=i%></span> | <%=strarr2[i]%></div>
 				<!-- 선택문서 바탕색 빨강 -->
 				<%
 				}

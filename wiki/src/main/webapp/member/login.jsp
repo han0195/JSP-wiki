@@ -39,8 +39,8 @@
 			<!-- Remind Passowrd -->
 			<div id="formFooter">
 				<a class="underlineHover" href="singup.jsp">회원가입 </a><span> | </span>
-				<a class="underlineHover" href="#">아이디찾기 </a><span> | </span>
-				<a class="underlineHover" href="#"> 비밀번호찾기 </a><span> | </span>
+				<a class="underlineHover" href="idfind.jsp">아이디찾기 </a><span> | </span>
+				<a class="underlineHover" href="passwordfind.jsp"> 비밀번호찾기 </a><span> | </span>
 				<a class="underlineHover" href="../main.jsp"> 뒤로가기 </a>
 			</div>
 		</div>

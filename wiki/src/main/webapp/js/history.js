@@ -80,6 +80,7 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 
 	//페이징 번호 클릭 이벤트 
 	$("#pagingul li a").click(function() {
+	
 		let $id = $(this).attr("id");
 		selectedPage = $(this).text();
 

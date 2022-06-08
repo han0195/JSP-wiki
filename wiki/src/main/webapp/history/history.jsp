@@ -53,10 +53,10 @@
 		</select>
 		<div>
 			<!-- 페이징 -->
-			<button type="button" class="btn btn-success hisbtn">이전</button>
+			<button id="pagingul prev" type="button" class="btn btn-success hisbtn">이전</button>
 			<ul id="pagingul">
 			</ul>
-			<button type="button" class="btn btn-success hisbtn">다음</button>
+			<button id="pagingul next" type="button" class="btn btn-success hisbtn">다음</button>
 		</div>
 		<!-- 페이징 end -->
 
