@@ -6,8 +6,18 @@ public class Content {
 	private String mid;
 	private String updatetime;
 	private String dcontent;
-	int dgood;
-	public Content(int cid, int dno, String mid, String updatetime, String dcontent, int dgood) {
+	private int dgood;
+	private String dimg;
+	
+	
+	public Content(int cid, String mid, String updatetime, int dgood) {
+		super();
+		this.cid = cid;
+		this.mid = mid;
+		this.updatetime = updatetime;
+		this.dgood = dgood;
+	}
+	public Content(int cid, int dno, String mid, String updatetime, String dcontent, int dgood, String dimg) {
 		super();
 		this.cid = cid;
 		this.dno = dno;
@@ -15,6 +25,7 @@ public class Content {
 		this.updatetime = updatetime;
 		this.dcontent = dcontent;
 		this.dgood = dgood;
+		this.dimg = dimg;
 	}
 public Content() {
 }
@@ -54,5 +65,13 @@ public int getDgood() {
 public void setDgood(int dgood) {
 	this.dgood = dgood;
 }
+public String getDimg() {
+	return dimg;
+}
+public void setDimg(String dimg) {
+	this.dimg = dimg;
+}
+
+
 
 }

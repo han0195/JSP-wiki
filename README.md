@@ -2,7 +2,7 @@
 학원 4조 JSP 팀플
 
 DataBase
-![Class Diagram](https://user-images.githubusercontent.com/78428879/169782516-b17920f3-cc8f-479c-8146-4f4df1fd3a01.png)
+![Class Diagram](https://user-images.githubusercontent.com/100548259/170656346-dd09a98a-86e5-4dbc-8e04-fdf7834fe2f4.png)
 
 
 Controller
