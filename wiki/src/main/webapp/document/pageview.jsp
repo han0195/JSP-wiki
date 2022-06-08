@@ -40,16 +40,17 @@
 		} // while e
 	} //if e
 	%>
+	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
 		<div class="row"> <!-- 상단 제목, 버튼들 박스 -->
-			<div class="col-sm-4"><h1>제목</h1></div> <!-- 제목 -->
+			<div class="col-sm-4"><h1><%=DocumentDao.getdocumentDao().getTitle(dno) %></h1></div> <!-- 제목 -->
 			<div class="col-sm-4 offset-4"> <!-- 버튼 -->
 				<table class="table">
 					<tr>
 						<td onclick="good('<%=dno%>')">☆<%=DocumentDao.getdocumentDao().getGood(dno)%></td> <!-- 문서 좋아요 -->
 						<td onclick="window.open('link.jsp?dno=<%=dno%>')">역링크</td>
 						<td onclick="window.open('../debate/debatemain.jsp?dno=<%=dno%>')">토론</td>
-						<td onclick="window.open('documentwrite.jsp?dno=<%=dno%>')">편집</td>
+						<td onclick="window.open('documentupdate.jsp?dno=<%=dno%>')">편집</td>
 						<td onclick="window.open('../history/history.jsp?dno=<%=dno%>')">역사</td>
 					</tr>
 				</table>
@@ -60,18 +61,25 @@
 				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span>
 			</div>
 		</div>
-		<div> <!-- 내용 -->
+		<div class="row"> <!-- 내용 -->
 			<%if(!pagedocument.equals("")){ %>
 			<%=pagedocument%>
 			<%}else{ %>
 			<%=c.getDcontent()%>
+			
 			<%} %>
 		</div>
+		<br><br><br>
+		
+		<div id="textbox" class="col-sm-4">텍스트</div> <!-- 텍스트가 들어갈 박스 -->
+		<div id="imgbox" class="col-sm-5">이미지</div> <!-- 이미지가 들어갈 박스 -->
 	</div>
 	<%}else{ %>
 	<h1>페이지 오류</h1>
 	<%} %>
+	
 	<%@include file="../footer.jsp"%>
 
+<script src="/wiki/js/pageview.js" type="text/javascript"></script>	
 </body>
 </html>
