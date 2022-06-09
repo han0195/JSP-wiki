@@ -25,14 +25,14 @@
 				<div class="col-md-6">
 					<div class="col-md-12 row">
 						<!-- 로고/문서/토론 링크 -->
-						<div class="col-md-5 py-1 row">
+						<div class="col-md-7 py-1 row">
 							<!-- 로고 링크 -->
-							<div class="col-md-7">
+							<div class="col-md-6">
 								<a href="/wiki/main.jsp"><img alt="Logo" src="/wiki/img/mainlogo.png" id="mainlogo"></a>　　
 							</div>
 							<!-- 문서 링크 -->
-							<div class="col-md-2 py-2">
-								<a href="/wiki/document/documentmain.jsp">문서</a>
+							<div class="col-md-3 py-2">
+								<a href="/wiki/document/documentview.jsp">문서</a>
 							</div>
 							<!-- 토론 링크 -->
 							<div class="col-md-3 py-2">

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문서 보기 페이지</title>
 	<link rel="stylesheet" type="text/css" href="../css/page.css">
 </head>
 <body>
@@ -39,7 +39,8 @@
 			}
 		} // while e
 	} //if e
-	%>
+	
+	%> 
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
 		<div class="row"> <!-- 상단 제목, 버튼들 박스 -->
@@ -57,13 +58,43 @@
 			</div>
 		</div>
 		<div class="row"> <!-- 최근 수정 시각 출력 박스 -->
-			<div class="col-sm-3 offset-9">
-				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span>
+			<div class="col-sm-4 offset-8">
+				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span> 
 			</div>
 		</div>
 		
-		<div class="row"> <!-- 내용 -->
-		<div id="imgbox"></div>
+		<div class="row my-2"> <!-- 내용 -->
+		<div id="imgbox" class="row"></div><br>
+		
+		<%
+			// String str = newcontent.getDcontent();
+			/* int count = 0;
+			for (int i = 0; i < str.length(); i++) {
+				if (str.charAt(i) == '+') {
+					count++;
+				}
+			}
+			count = count / 2;
+			String[] strarr = new String[count];
+			for (int i = 0; i < strarr.length; i++) {
+				strarr[i] = "";
+			}
+			int arrcount = 0;
+			for (int i = 0; i < str.length(); i++) {
+				if (str.charAt(i) == '+' && str.charAt(i - 1) == '+') {
+					arrcount++;
+				} else if (str.charAt(i) != '+' && str.charAt(i) != '=') {
+					strarr[arrcount] += str.charAt(i);
+				}
+			} */ 
+			// 적용 필요
+			
+			%> 
+		
+		
+		
+		
+		
 			<%if(!pagedocument.equals("")){ %>
 			<%=pagedocument%>
 			<%}else{ %>

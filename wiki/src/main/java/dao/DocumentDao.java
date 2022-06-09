@@ -298,4 +298,21 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	// 페이징처리를 위한 문서 목록 출력 by json
+		public JSONArray newdoculistbyjson() {
+			try {
+			JSONArray array = new JSONArray(); 
+			String sql = "select * from document limit 20";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				JSONObject jo = new JSONObject();
+				jo.put("dno", rs.getInt(1));
+				jo.put("dtitle", rs.getString(2));
+				array.put(jo);
+			}		
+				return array;
+			}catch(Exception e) {e.printStackTrace();}
+			return null;
+		}
 }

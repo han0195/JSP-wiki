@@ -31,11 +31,13 @@ $(document). ready(function(){
 				
 				
 					contexthtml = '<div id="">' + text + '</div>'
+					if(img != "") {
 					for(let i = 0; i < img.length; i++) {
-					imghtml += '<img src="/wiki/document/upload/'+img[i]+'" class="col-sm-3"> </img>'
+					imghtml += '<img src="/wiki/document/upload/'+img[i]+'" class="col-sm-6"> </img>'
 					}
+					$("#imgbox").html(imghtml);
+				}
 				
-				$("#imgbox").html(imghtml);
 			}
 		});
 		

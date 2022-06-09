@@ -34,3 +34,14 @@
   });
   
 })();
+
+$(document).ready(function(){
+	
+	$.ajax({
+		url : 'newdocumentlist',
+		success : function() {
+			
+		}
+	})
+	
+});  

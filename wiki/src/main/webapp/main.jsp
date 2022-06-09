@@ -12,11 +12,11 @@
 	
  <div class="svg-container">
    		
-    <svg viewbox="0 0 800 400" class="svg">
+    <svg viewbox="0 0 800 400" class="svg col-md-10">
       <path id="curve" fill="#434234" d="M 800 300 Q 400 350 0 300 L 0 0 L 800 0 L 800 300 Z">
-
       </path>
     </svg>
+    <div id="newdocu" class=""></div>
   </div>
 
   	<div class="container">
@@ -29,9 +29,7 @@
 				검증되지 않았거나 편향된 내용이 있을 수 있습니다.
 			</h5>
   		</div>
-  		<div class="col-md-12 text-center py-5">
-  			랜덤 채팅 리스트 출력
-  		</div>
+  		
   		
   	</div>
 
