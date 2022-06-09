@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import dto.Content;
 import dto.Document;
@@ -41,10 +42,11 @@ public class DocumentDao extends Dao{
 				int dno=rs.getInt(1); // 받아온 번호 dno에 넣기
 				if(setContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
 					if(insertLocks(dno)) { // 권한테이블에 문서번호 필드 생성하고 결과값 받기(성공시)
-						if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시 true 리턴
-							System.out.println("내용 : "+c.getDcontent());
-							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) {
-								return true;
+						if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시
+							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) { // 역링크테이블에 역링크 거는부분 판단해서 필드 생성 후 성공시
+								if(SpecialDao.getSpecialDao().isNeedWrite(title)) { // 작성해야 하는 문서 목록에 있는지 물어보고 자동 처리 후
+									return true;
+								}
 							}else {
 							System.out.println("역링크 생성 오류"); return false;	
 							}
@@ -58,30 +60,7 @@ public class DocumentDao extends Dao{
 					System.out.println("문서내용 필드 생성 오류"); return false;
 				}
 			}
-					}catch(Exception e) {e.printStackTrace();}
-		return false;
-	}
-	// 문서 수정 메소드
-	public boolean docuUpdate(Content c, int dno, String title) {
-		
-		String sql= "UPDATE document set dtitle = ? WHERE dno = ?";
-		try {
-			ps=con.prepareStatement(sql);
-			ps.setString(1, title);
-			ps.setInt(2, dno);
-			ps.executeUpdate();
-			rs = ps.getResultSet();
-			if(rs.next()) {
-				if(updateContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
-						System.out.println("내용 : "+c.getDcontent());
-							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) {
-								return true;
-							}else {
-							System.out.println("역링크 생성 오류"); return false;	
-							}
-						}
-					}
-					}catch(Exception e) {e.printStackTrace();}
+		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
 	
@@ -102,20 +81,7 @@ public class DocumentDao extends Dao{
 		return false;
 	}
 	
-	// 문서 내용 수정 메소드
-	public boolean updateContent(Content c, int dno) {
-		String sql = "update content set mid = ?, dcontent = ?, dimg = ? where dno = ?";
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, c.getMid());
-			ps.setString(2, c.getDcontent());
-			ps.setString(3, c.getDimg());
-			ps.setInt(4, dno);
-			ps.executeUpdate();
-			return true;
-		}catch(Exception e) {e.printStackTrace();}
-		return false;
-	}
+	
 	//문서 권한 필드 생성 메소드
 	public boolean insertLocks(int dno) {
 		//처음 생성은 전부 기본값으로, 문서번호만 연결시켜 생성
@@ -133,6 +99,19 @@ public class DocumentDao extends Dao{
 		String sql="insert into link (dno) values ("+dno+")";
 		try {
 			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	
+	// 문서 링크 필드 업데이트 메소드 완전 구현 아님
+	public boolean updateLink(int dno) {
+		String sql = "update link set dno = ? where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			ps.setInt(2, dno);
 			ps.executeUpdate();
 			return true;
 		}catch(Exception e) {e.printStackTrace();}
@@ -183,6 +162,8 @@ public class DocumentDao extends Dao{
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				return rs.getInt(1);
+			}else {
+				return -1;
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return -1;
@@ -305,25 +286,55 @@ public class DocumentDao extends Dao{
 	}
 	// 페이징처리를 위한 문서 목록 출력 by json
 	public JSONArray doculistbyjson() {
-		String sql = "select * from document";
 		try {
-			
+		JSONArray array = new JSONArray(); 
+		String sql = "select * from document";
+		ps = con.prepareStatement(sql);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			JSONObject jo = new JSONObject();
+			jo.put("dno", rs.getInt(1));
+			jo.put("dtitle", rs.getString(2));
+			array.put(jo);
+		}		
+			return array;
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
-	//문서 삭제 (관리자 권한)
-	public boolean docuDelete(int num) {
-		String sql="Delete from treewiki.document where dno=?";
-	
-		try {
-			ps=con.prepareStatement(sql);
-			ps.setInt(1, num);
-			ps.executeUpdate();
-			return true;
-		} catch (Exception e) {
-			System.out.println("docu Delete err!! "+e);
+	// 페이징처리를 위한 문서 목록 출력 by json
+		public JSONArray newdoculistbyjson() {
+			try {
+			JSONArray array = new JSONArray(); 
+			String sql = "select * from document order by dno desc limit 10;";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				JSONObject jo = new JSONObject();
+				jo.put("dno", rs.getInt(1));
+				jo.put("dtitle", rs.getString(2));
+				array.put(jo);
+			}		
+				return array;
+			}catch(Exception e) {e.printStackTrace();}
+			return null;
 		}
-		return false;
+		
+	// 문서 내용의 길이가 긴 문서 검색
+	public ArrayList<Content> doclonglist() { // 200자가 넘는 내용이 긴 문서들을 출력
+		ArrayList<Content> list = new ArrayList<Content>();
+		String sql = "select * from content where CHAR_LENGTH(dcontent) > 400";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+			Content content = new Content(rs.getInt(1), rs.getInt(2),
+					rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+			list.add(content);
+			}
+			return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
 	}
 	//문서 최근 개수 보여주기
 	public String docuFindCount(String today) {
@@ -358,5 +369,59 @@ public class DocumentDao extends Dao{
 			System.out.println("docu chart err!!" +e);
 		}
 		return null;
+	}
+		
+	// 문서 내용의 길이가 짧은 문서 검색
+	public ArrayList<Content> docshortlist() { // 50자보다 내용이 짧은 문서들을 출력
+		ArrayList<Content> list = new ArrayList<Content>();
+		String sql = "select * from content where CHAR_LENGTH(dcontent) < 50";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Content content = new Content(rs.getInt(1), rs.getInt(2),
+						rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+				list.add(content);
+			}
+			return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}	
+		
+		
+	// 랜덤으로 문서 페이지 추출하는 메소드
+	public ArrayList<Document> docrandomlist() {
+		ArrayList<Document> list = new ArrayList<Document>();
+		String sql = "select dno from document order by rand() limit 10";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Document document = new Document(rs.getInt(1), null);
+				list.add(document);
+			}
+			return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+		
+	//문서 삭제 메소드
+	public boolean docuDelete(int dno) {
+		String sql="delete from link where dno="+dno; // 링크 테이블에서 삭제
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			sql="delete from locks where dno="+dno; // 권한 테이블에서 삭제
+				ps=con.prepareStatement(sql);
+				ps.executeUpdate();
+				sql="delete from content where dno="+dno; // 내용 테이블에서 삭제
+					ps=con.prepareStatement(sql);
+					ps.executeUpdate();
+						sql="delete from document where dno="+dno; // 제목 테이블에서 삭제
+							ps=con.prepareStatement(sql);
+							ps.executeUpdate();
+					return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
 	}
 }

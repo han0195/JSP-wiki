@@ -42,34 +42,6 @@ $(document).ready(function() { // 문서가 시작되면 썸머노트 시행
 });
 
 
-let pass = false; // 문서 제목이 중복되는 경우를 방지하기 위한 변수 설정	
-function titlecheck() {
-	let dtitle = $("#dtitle").val();
-	if (dtitle == null) {
-		alert("제목이 공백입니다!");
-		pass = false;
-		return;
-	}
-
-	$.ajax({
-		url: "titlecheck",
-		data: { "dtitle": dtitle },
-		success: function(result) {
-			if (result == 1) {
-				alert("중복된 제목이 존재합니다."); pass = false;
-			}
-			else {
-				alert("작성 가능한 문서 제목입니다."); pass = true;
-			}
-		}
-	});
-
-	
-
-}
-
-
-
 /* 첨부파일 추가 */
 function addFile(obj) {
 	var maxFileCnt = 5;   // 첨부파일 최대 개수
@@ -152,20 +124,14 @@ function readURL(input) {
 /* 폼 전송(파일 업로드) */
 function update(dno) {
 	
-	let dtitle = $("#dtitle").val();
+	
 	let dcontent = $("#summernote").val();
 	let newText = dcontent.replace(/(<([^>]+)>)/ig, "");
-	
-	if (pass == false) {
-			alert("문서 제목 중복 체크를 먼저 해주세요");
-			return;
-		}
+
 		if(dcontent == null) {
 			alert("문서의 내용을 입력해주세요");
 			return;
 		}
-		
-		
 	
 	let dimgname = [];
 	var formData = new FormData(document.getElementById('upload'));
@@ -180,7 +146,6 @@ function update(dno) {
 	}
 	
 	let djson = {
-		dtitle : dtitle,
 		dcontent : newText,
 		dimgname : dimgname,
 		ip : ip,
@@ -207,7 +172,8 @@ function update(dno) {
 		        contentType: false, 
 		        headers: {'cache-control': 'no-cache', 'pragma': 'no-cache'},
 		        success : function(){
-					alert("문서의 업로드가 완료되었습니다.");
+					alert("문서의 수정이 완료되었습니다.");
+					location.href = '/wiki/document/documentview.jsp';
 				}   
 			});
 		  },

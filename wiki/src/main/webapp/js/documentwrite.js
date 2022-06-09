@@ -150,10 +150,10 @@ function readURL(input) {
 }
 
 /* 폼 전송(파일 업로드) */
-function submitForm() {
+function dwrite() {
 	let dtitle = $("#dtitle").val();
 	let dcontent = $("#summernote").val();
-	let newText = dcontent.replace(/(<([^>]+)>)/ig, "");
+	let newText = dcontent.replace(/(<([^>]+)>)/ig, ""); // <> 태그 제거
 	
 	if (pass == false) {
 			alert("문서 제목 중복 체크를 먼저 해주세요");
@@ -206,6 +206,7 @@ function submitForm() {
 		        headers: {'cache-control': 'no-cache', 'pragma': 'no-cache'},
 		        success : function(){
 					alert("문서의 업로드가 완료되었습니다.");
+					location.href = '/wiki/document/documentview.jsp';
 				}   
 			});
 		  },

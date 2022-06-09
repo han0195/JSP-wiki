@@ -69,15 +69,18 @@ public class MemberDao extends Dao{
 	}
 	//비밀번호 찾기 메소드
 	public String pwSearch(String mid, String mphone) {
-		String sql="select mpw from member where mid='"+mid+"' and mphone='"+mphone+"'";
+		String sql="select mpw from member where mid= ? and mphone= ?";
 		try {
 			ps=con.prepareStatement(sql);
+			ps.setString(1, mid);
+			ps.setString(2, mphone);
 			rs=ps.executeQuery();
 			if(rs.next()) {
+				System.out.println(rs.getString(1));
 				return rs.getString(1);
 			}
-		}catch(Exception e) {e.printStackTrace();}
-		return "오류";
+		}catch(Exception e) {System.out.println("에러" + e);}
+		return null;
 	}
 	//회원 탈퇴 메소드
 	public boolean memberDel(int mno) {
@@ -123,5 +126,21 @@ public class MemberDao extends Dao{
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return "오류";
+	}
+	// 아이디 찾기
+	public String getid(String mname, String mphone) {
+		String sql = "select * from member where mname = ? and mphone = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, mname);
+			ps.setString(2, mphone);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(2);
+			}
+		} catch (Exception e) {
+			System.out.println("SQL 오류"+ e);
+		}
+		return null;
 	}
 }

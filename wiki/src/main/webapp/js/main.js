@@ -34,3 +34,24 @@
   });
   
 })();
+
+$(document).ready(function(){
+	
+	$.ajax({
+		url : 'newdocumentlist',
+		success : function(json) {
+			
+			let html = "<tr><th>번호</th><th>제목></th></tr>";
+			for(let i = 0; i < json.length; i++) {
+				html += 
+				'<tr><td>'+
+				json[i]["dno"] + '</td><td>' +
+				'<a href= "/wiki/document/pageview.jsp?dno='+json[i]["dno"]+'">'
+				+ json[i]["dtitle"] + '</a></td></tr>'
+				;
+			}
+			$("#newdocu").html(html);
+		}
+	})
+	
+});  

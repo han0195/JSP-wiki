@@ -27,7 +27,7 @@
 	<br>
 	<br>
 	<div class="container" style="height: ">
-		<a href="#"><button>글목록</button></a>
+		<a href="/wiki/document/documentview.jsp"><button>글목록</button></a>
 		<h3>문서</h3>
 		
 		
@@ -49,7 +49,7 @@
 			<div>
 			<img id="preview" />
 			</div>	
-		<input type="button" class="btn bg_01 btn-success" value="문서 업로드" onclick="update()"> <input
+		<input type="button" class="btn bg_01 btn-success" value="문서 업로드" onclick="dwrite()"> <input
 				type="reset" value="취소">
 	</div>
 			<br><br><br><br><br><br><br>
