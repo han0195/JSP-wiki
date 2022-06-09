@@ -19,7 +19,8 @@
 
 		   Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(c.getDcontent());
 		   while (m.find()) {
-			   int tno=DocumentDao.getdocumentDao().getdno(m.group());
+			 String linkTitle=m.group().replace("[[", "").replace("]]", "");
+			 int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
 		     if(tno==-1){
 		         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"#\">"+m.group()+"</a>") );
 		     }else{

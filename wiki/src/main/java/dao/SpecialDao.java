@@ -49,8 +49,26 @@ public class SpecialDao extends Dao {
 		return false;
 	}
 
-	// 링크 검증 메소드
-
+	// 역링크 번호 테이블에 추가하기 메소드
+	public boolean reverseLink(int dno, String content) {
+		try {
+			Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(content);
+			while (m.find()) {
+				String linkTitle=m.group().replace("[[", "").replace("]]", ""); // 대괄호 제거
+				int tno=DocumentDao.getdocumentDao().getdno(linkTitle); // 해당하는 제목의 번호 받아오기
+				if(tno==-1){ // 해당 제목이 없으면
+					 continue;
+				}else { // 해당 제목이 있으면
+					if(addLink(dno,tno)) { // 역링크 테이블에 목록 추가해주기
+						return true;
+					}else { // 오류있으면 false리턴
+						return false;
+					}
+				}
+			} return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
 	// 역링크된 목록 불러오는 메소드
 	public String getLink(int dno) {
 		String sql = "select frompageno from link where dno=" + dno;

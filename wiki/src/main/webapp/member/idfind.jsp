@@ -29,7 +29,7 @@
 
 			<!-- Remind Passowrd -->
 			<div id="formFooter">
-				<a class="underlineHover" href="singup.jsp">회원가입 </a><span> |
+				<a class="underlineHover" href="singup.jsp">회원가입 </a>
 				<a class="underlineHover" href="login.jsp"> 뒤로가기 </a>
 			</div>
 		</div>
