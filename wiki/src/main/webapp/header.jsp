@@ -90,7 +90,13 @@
 								    <li><a class="dropdown-item" href="#">설정</a></li>
 								    <li><hr></li>
 								     <!-- IF 회원이 로그인 했을  시  -->
-								    <li><a class="dropdown-item" href="/wiki/member/login.jsp">로그인</a></li>
+								    <%
+								    String mid = (String) session.getAttribute("login");
+								    if(mid == null) {%>
+								    	<li><a class="dropdown-item" href="/wiki/member/login.jsp">로그인</a></li>
+								    <%}else{%>
+								    	<li><a class="dropdown-item" href="/wiki/member/loginout">로그아웃</a></li>
+								    <%}%>
 								    <!-- IF 관리자 로그인 했을  시  -->
 								    <li><a class="dropdown-item" href="/wiki/admin/adminmain.jsp">adminpage</a></li>
 							  </ul>
