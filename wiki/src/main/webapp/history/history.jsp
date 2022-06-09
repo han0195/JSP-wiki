@@ -18,12 +18,12 @@
 	int dno = Integer.parseInt(request.getParameter("dno"));
 	//Document 가져오기
 	Document document = SpecialDao.getSpecialDao().getDocument(dno);
-	
+
 	String mids = (String) session.getAttribute("login");
 	%>
 	<div class="container history_wr">
 		<!-- 본문 -->
-	<input type="hidden" id="mid" value="<%= mids %>">
+		<input type="hidden" id="mid" value="<%=mids%>">
 		<div>
 			<!-- 리스트 헤더 -->
 			<input id="dnohid" type="hidden" value="<%=dno%>">
@@ -39,15 +39,10 @@
 		</div>
 		<!-- 리스트 헤더 end -->
 
-		<div class="historylistdiv">
+		<div style="background-color: #eeeeee; padding: 20px 10px;" class="historylistdiv">
 			<!-- 역사 리스트-->
 			<ul id="history_list_ul">
-				<!-- 테스트 li -->
-				<li>0000-00-00 00:00:00 [ <a
-					onclick="paging(dcoumentcodeview.jsp)"> 보기</a> | <a href="#">
-						비교</a> | <a href="#"> 추천 </a> | <a href="#" onclick=""> 비추천 </a> | <a
-					href="#"> 되돌리기 </a> ] 수정순서 ( ) 테스트글()
-				</li>
+		
 			</ul>
 		</div>
 		<!-- 역사리스트 end -->
@@ -58,10 +53,10 @@
 		</select>
 		<div>
 			<!-- 페이징 -->
-			<button type="button" class="btn btn-success hisbtn">이전</button>
+			<button id="pagingul prev" type="button" class="btn btn-success hisbtn">이전</button>
 			<ul id="pagingul">
 			</ul>
-			<button type="button" class="btn btn-success hisbtn">다음</button>
+			<button id="pagingul next" type="button" class="btn btn-success hisbtn">다음</button>
 		</div>
 		<!-- 페이징 end -->
 

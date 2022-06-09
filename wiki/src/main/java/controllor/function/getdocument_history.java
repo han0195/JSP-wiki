@@ -35,7 +35,7 @@ public class getdocument_history extends HttpServlet {
 		System.out.println(dno);
 		// 문서 내용 DB에서 가져오기
 		JSONArray json_content = SpecialDao.getSpecialDao().getcontentlist(dno);//
-
+		System.out.print(json_content);
 		if(json_content.toString().equals("[]")) {// 해당글번호의 역사가 없다면
 			response.getWriter().print(-1); // -1 리턴
 		}else {// 만약해당글번호의 역사가 기록되어있다면
