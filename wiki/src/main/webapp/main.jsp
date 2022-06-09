@@ -36,12 +36,6 @@
   		
   		
   	</div>
-
-  
-
- 
-	
-
 <script src="/wiki/js/main.js" type="text/javascript"></script>			
 <%@include file="footer.jsp" %>
 </body>
