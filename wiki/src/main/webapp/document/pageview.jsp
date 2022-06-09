@@ -8,14 +8,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문서 보기 페이지</title>
 	<link rel="stylesheet" type="text/css" href="../css/page.css">
 </head>
 <body>
 	<%@include file="../header.jsp"%>
 	<%if(request.getParameter("dno")!=null){
-		   int dno=Integer.parseInt(request.getParameter("dno"));
-		   Content c=DocumentDao.getdocumentDao().docuLoad(dno);
+	int dno=Integer.parseInt(request.getParameter("dno"));
+	Content c=DocumentDao.getdocumentDao().docuLoad(dno);
+	String linkTitle="";
+	String pagedocument="";
+	// 
+	if(pagedocument.contains("==")) {
+	pagedocument = c.getDcontent().replaceAll("==", "<p>");
+	}
+	if(pagedocument.contains("++")) {
+	pagedocument = c.getDcontent().replaceAll("++", "</p><br>");
+	}
 
 		   Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(c.getDcontent());
 		   while (m.find()) {
@@ -46,10 +55,11 @@
 			</div>
 		</div>
 		<div class="row"> <!-- 최근 수정 시각 출력 박스 -->
-			<div class="col-sm-3 offset-9">
-				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span>
+			<div class="col-sm-4 offset-8">
+				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span> 
 			</div>
 		</div>
+
 		<div> <!-- 내용 -->
 			<%=pagedocument%>
 
@@ -57,9 +67,9 @@
 		
 		<br><br><br>
 	</div>
-	<%}else{ %>
-	<h1>페이지 오류</h1>
-	<%} %>
+	<%}%>
+	
+	
 	
 	<%@include file="../footer.jsp"%>
 

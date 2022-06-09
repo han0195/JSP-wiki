@@ -301,6 +301,76 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	// 페이징처리를 위한 문서 목록 출력 by json
+		public JSONArray newdoculistbyjson() {
+			try {
+			JSONArray array = new JSONArray(); 
+			String sql = "select * from document order by dno desc limit 10;";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				JSONObject jo = new JSONObject();
+				jo.put("dno", rs.getInt(1));
+				jo.put("dtitle", rs.getString(2));
+				array.put(jo);
+			}		
+				return array;
+			}catch(Exception e) {e.printStackTrace();}
+			return null;
+		}
+		
+	// 문서 내용의 길이가 긴 문서 검색
+	public ArrayList<Content> doclonglist() { // 200자가 넘는 내용이 긴 문서들을 출력
+		ArrayList<Content> list = new ArrayList<Content>();
+		String sql = "select * from content where CHAR_LENGTH(dcontent) > 400";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+			Content content = new Content(rs.getInt(1), rs.getInt(2),
+					rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+			list.add(content);
+			}
+			return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+		
+	// 문서 내용의 길이가 짧은 문서 검색
+	public ArrayList<Content> docshortlist() { // 50자보다 내용이 짧은 문서들을 출력
+		ArrayList<Content> list = new ArrayList<Content>();
+		String sql = "select * from content where CHAR_LENGTH(dcontent) < 50";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Content content = new Content(rs.getInt(1), rs.getInt(2),
+						rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+				list.add(content);
+			}
+			return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}	
+		
+		
+	// 랜덤으로 문서 페이지 추출하는 메소드
+	public ArrayList<Document> docrandomlist() {
+		ArrayList<Document> list = new ArrayList<Document>();
+		String sql = "select dno from document order by rand() limit 10";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Document document = new Document(rs.getInt(1), null);
+				list.add(document);
+			}
+			return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+		
 	//문서 삭제 메소드
 	public boolean docuDelete(int dno) {
 		String sql="delete from link where dno="+dno; // 링크 테이블에서 삭제

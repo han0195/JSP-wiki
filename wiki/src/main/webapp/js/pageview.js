@@ -19,7 +19,7 @@ $(document). ready(function(){
 			data : {"dno" : dno},
 			success(json) {
 				
-				var reg = /[`~!@#$%^&*|+\-=?;:'"<>\{\}\[\]\\\/]/gim; // 특수문자 제거를 위한 정규식
+				var reg = /[`~!@#$%^&*|+\-?;:'"<>\{\}\[\]\\\/]/gim; // 특수문자 제거를 위한 정규식
 				
 				var resultData = json["dimg"].replace(reg, ""); // db에 있는 특수문자들을 제거
 				
@@ -31,11 +31,13 @@ $(document). ready(function(){
 				
 				
 					contexthtml = '<div id="">' + text + '</div>'
+					if(img != "") {
 					for(let i = 0; i < img.length; i++) {
-					imghtml += '<img src="/wiki/document/upload/'+img[i]+'" class="col-sm-3"> </img>'
+					imghtml += '<img src="/wiki/document/upload/'+img[i]+'" class="col-sm-6"> </img>'
 					}
+					$("#imgbox").html(imghtml);
+				}
 				
-				$("#imgbox").html(imghtml);
 			}
 		});
 		
