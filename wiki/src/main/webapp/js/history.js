@@ -49,14 +49,26 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	}
 
 	let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
-	let next = last + 1;
-	let prev = first - 1;
-
+	////////////////////////////////////
+	let next;
+	let prev;
+	if(globalCurrentPage < totalPage){
+		next = globalCurrentPage + 1;
+	}else{
+		next = totalPage;
+	}
+	if(globalCurrentPage > 1){
+		prev = globalCurrentPage - 1;
+	}else{
+		prev = 1;
+	}
+	////////////////////////////////////
+	
 	let pageHtml = "";
 
-	if (prev > 0) {
-		pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
-	}
+
+	pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+	
 
 	//페이징 번호 표시 
 	for (var i = first; i <= last; i++) {
@@ -68,9 +80,9 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 		}
 	}
 
-	if (last < totalPage) {
-		pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
-	}
+
+	pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+	
 
 	$("#pagingul").html(pageHtml);
 	let displayCount = "";
@@ -94,6 +106,8 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 		//글 목록 표시 재호출
 		displayData(selectedPage, dataPerPage);
 	});
+
+	
 }
 
 //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
@@ -113,20 +127,36 @@ function displayData(currentPage, dataPerPage) {
 		if (i > totalData - 1) { // 총 데이터 개수 넘으면 반복문 멈추기
 			break;
 		}
-
 		chartHtml +=
-			'<li>' + documentlist[i]["updatetime"] + ' [ <a href="../document/pageview.jsp?dno=' + documentlist[i]["dno"] + '"> 문서가기</a> | <a href="historcomparison.jsp?dno=' + documentlist[i]["dno"] + '&cid=' + documentlist[i]["cid"] + '">' +
-			'비교</a> | <a href="#" onclick="good(' + documentlist[i]["cid"] + ',' + documentlist[i]["dno"] + ')"> 추천 </a> | <a href="#" onclick="bad(' + documentlist[i]["cid"] + ',' + documentlist[i]["dno"] + ')"> 비추천 </a> | <a href="historyview.jsp?cid=' + documentlist[i]["cid"] + '">되돌리기 </a> ] ';
-		if (documentlist[i]["dgood"] == 0) { // 만약 추천수가 0라면 추천수 검점
-			chartHtml += ' r' + (i - documentlist.length) + ' 추천수(<span>' + documentlist[i]["dgood"] + '</span>) ' + documentlist[i]["mid"] + '()</li>';
-		} else if (documentlist[i]["dgood"] > 0) {// 만약 추천수가 0보다 크다면 추천수 초록
-			chartHtml += ' r' + (i - documentlist.length) + ' 추천수(<span style="color: green;">' + documentlist[i]["dgood"] + '</span>) ' + documentlist[i]["mid"] + '()</li>';
-		} else {// 만약 추천수가 0보다 작다면	 추천수 빨강
-			chartHtml += ' r' + (i - documentlist.length) + ' 추천수(<span style="color: red;">' + documentlist[i]["dgood"] + '</span>) ' + documentlist[i]["mid"] + '()</li>';
-		};
-
+				'<li class="in-view">'+
+					'<div>'+
+						'<time>'+documentlist[i]["updatetime"]+
+						'[<a href="../document/pageview.jsp?dno=' + documentlist[i]["dno"] + '">문서</a>|'+
+						'<a href="historcomparison.jsp?dno=' + documentlist[i]["dno"] + '&cid=' + documentlist[i]["cid"] + '">비교</a>|<a href="historyview.jsp?cid=' + documentlist[i]["cid"] + '">되돌리기</a>]'+
+						
+						'</time>'+
+						'<div class="discovery">'+
+							'<h3>기여자</h3>'+
+							'<p>'+documentlist[i]["mid"]+
+							'(';
+						if(documentlist[i]["dgood"] == 0){
+							chartHtml +='<span >' + documentlist[i]["dgood"] + '<span>';
+						}else if(documentlist[i]["dgood"] > 0){
+							chartHtml +='<span style="color: green;">' + documentlist[i]["dgood"] + '<span>';
+						}else{
+							chartHtml +='<span style="color: red;">' + documentlist[i]["dgood"] + '<span>';
+						}
+		chartHtml +=')'+
+						'</div>'+
+						'<div class="scientist">'+
+							'<button onclick="good(' + documentlist[i]["cid"] + ',' + documentlist[i]["dno"] + ')" style="width: 100px" class="btn btn-primary">추천</button>'+
+							'<button onclick="bad(' + documentlist[i]["cid"] + ',' + documentlist[i]["dno"] + ')" style="width: 100px" class="btn btn-danger">비추천</button>'+
+						'</div>'+
+					'</div>'+
+				'</li>';
+	
 	}
-	$("#history_list_ul").html(chartHtml);
+	$("#slom").html(chartHtml);
 
 }
 
@@ -179,7 +209,50 @@ function bad(cid, dno) {
 	}
 }
 
+// 코드펜 역사 js
+var items = document.querySelectorAll(".timeline li");
+
+function isElementInViewport(el) {
+  var rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+function callbackFunc() {
+  for (var i = 0; i < items.length; i++) {
+    if (isElementInViewport(items[i])) {
+      if(!items[i].classList.contains("in-view")){
+        items[i].classList.add("in-view");
+      }
+    } else if(items[i].classList.contains("in-view")) {
+        items[i].classList.remove("in-view");
+    }
+  }
+}
+ 
+window.addEventListener("load", callbackFunc);
+window.addEventListener("scroll", callbackFunc);
+///////////////////////////////////////////////////////////////////////////
+
 /*html =
+'<li>'+
+					'<div>'+
+						'<time>1687</time>'+
+						'<div class="discovery">'+
+							'<h1>Discovery</h1>'+
+							'<p>Laws of motion</p>'+
+						'</div>'+
+						'<div class="scientist">'+
+							'<h1>Scientist</h1>'+
+							'<span>Newton</span>'+
+						'</div>'+
+					'</div>'+
+				'</li>';
+				
 						'<li>' + re[i]["updatetime"] + ' [ <a href="#"> 소스보기</a> | <a href="#">' +
 						'비교</a> | <a href="#" onclick="good('+re[i]["cid"]+','+re[i][dno]+')"> 추천 </a> | <a href="#" onclick="bad('+re[i]["cid"]+','+re[i][dno]+')"> 비추천 </a> | <a href="historyview.jsp?cid='+re[i]["cid"]+'">되돌리기 </a> ] ';
 					if (re[i]["dgood"] == 0) { // 만약 추천수가 0라면 추천수 검점
@@ -189,6 +262,7 @@ function bad(cid, dno) {
 					} else {// 만약 추천수가 0보다 작다면	 추천수 빨강
 						html += ' r' + (i - re.length) + ' 추천수(<span style="color: red;">' + re[i]["dgood"] + '</span>) ' + re[i]["mid"] + '()</li>';
 					};*/
+
 
 
 
