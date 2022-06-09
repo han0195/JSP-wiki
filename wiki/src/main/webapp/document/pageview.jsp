@@ -29,12 +29,13 @@
 	     }
 	   }
 	   pagedocument = c.getDcontent();
-	   if(pagedocument.contains("==")) {
-			pagedocument = c.getDcontent().replaceAll("==", "<p>");
-			}
-	if(pagedocument.contains("++")) {
-	pagedocument = c.getDcontent().replaceAll("++", "</p><br>");
-	}
+	   String temp = "";
+	   if(pagedocument.contains("==") && pagedocument.contains("++")) {
+		   
+	         	pagedocument = c.getDcontent().replaceAll("==", "<p>");
+	        	temp = pagedocument;
+	        	pagedocument = temp.replaceAll("\\+\\+", "</p><br>");
+	    }
 	%>
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
