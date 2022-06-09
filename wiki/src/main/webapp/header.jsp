@@ -70,10 +70,10 @@
 					<div class="col-md-12 row">
 						
 						<div class="offset-4 col-md-4 py-2">
-							<input type="text" class="form-control">				
+							<input type="text" class="form-control" id="searchinput"> <!-- 검색 -->			
 						</div>
 						<div class="col-md-1 py-2">
-							<a href="#"><img alt="Search" src="/wiki/img/search.png" class="headerImg"></a>
+							<a onclick="sach()"><img alt="Search" src="/wiki/img/search.png" class="headerImg"></a> <!-- 서치버튼 -->
 						</div>
 						<div class="col-md-2">
 						

@@ -1,9 +1,9 @@
-let totalData; //총 데이터 수
+let totalData = 0; //총 데이터 수
 let dataPerPage; //한 페이지에 나타낼 글 수
 let pageCount = 20; //페이징에 나타낼 페이지 수
 let globalCurrentPage = 1; //현재 페이지
 let documentlist = [];
-
+let search = $("#sachinput").val(); // 검색어
 
 $(document).ready(function() {
 	//dataPerPage 선택값 가져오기
@@ -12,10 +12,21 @@ $(document).ready(function() {
 	$.ajax({ // ajax로 데이터 가져오기
 		url: "/wiki/document/documentlist",
 		success: function(d) {
-			console.log(d);
-			//totalData 구하기
-			totalData = d.length;
-			documentlist = d;
+			// 검색 나누기
+			if(search == ""){ // 검색어가 없으면
+				//totalData 구하기
+				totalData = d.length;
+				documentlist = d;
+			}else { // 검색어가 있으면
+				let j = 0;
+				for(let i = 0; i < d.length; i++){
+					let temp = d[i]["dtitle"];				
+					if(temp.includes(search)){
+						totalData++;
+						documentlist[j] = d[i]; j++;
+					}
+				}
+			}
 			//글 목록 표시 호출 (테이블 생성)
 			displayData(1, dataPerPage);
 			//페이징 표시 호출
