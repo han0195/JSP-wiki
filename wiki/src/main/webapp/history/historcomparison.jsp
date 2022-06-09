@@ -99,7 +99,7 @@
 					<span><%=i%></span> | <%=strarr[i]%></div>
 				<!-- 최신문서 바탕색 초록 -->
 				<div
-					style="padding:5px; background-color: #FFEBE9; color: #999999; border-bottom: 1px solid #999999"">
+					style="padding:5px; background-color: #FFEBE9; color: #999999; border-bottom: 1px solid #999999">
 					<span><%=i%></span> | <%=strarr2[i]%></div>
 				<!-- 선택문서 바탕색 빨강 -->
 				<%
