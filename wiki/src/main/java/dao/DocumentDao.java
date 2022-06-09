@@ -142,6 +142,8 @@ public class DocumentDao extends Dao{
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				return rs.getInt(1);
+			}else {
+				return -1;
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return -1;

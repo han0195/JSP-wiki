@@ -45,12 +45,12 @@ public class SpecialDao extends Dao{
 		String linkTitle="";
 		//정규표현식으로 링크거는게 있는지 판별
 		try {	
-		if(dcontent.matches("(\\[\\[)(.*?)(\\]\\])")) {
+		if(dcontent.matches("(.*?)(\\[\\[)(.*?)(\\]\\])(.*?)")) {
 			//있을경우 [[ ]] 내부의 단어 추출
 			Pattern pattern=Pattern.compile("(\\[\\[)(.*?)(\\]\\])");
 			Matcher matcher=pattern.matcher(dcontent);
 			while(matcher.find()) {
-				linkTitle=matcher.group(2).trim();
+				linkTitle=matcher.group(3).trim();
 				// 추출한 단어를 넣어서 해당하는 링크할 제목의 문서 번호 호출
 				int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
 				if(tno==-1) { // 해당하는 제목의 문서가 없다면

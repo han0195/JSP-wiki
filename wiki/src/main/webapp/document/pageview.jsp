@@ -14,31 +14,19 @@
 <body>
 	<%@include file="../header.jsp"%>
 	<%if(request.getParameter("dno")!=null){
-	int dno=Integer.parseInt(request.getParameter("dno"));
-	Content c=DocumentDao.getdocumentDao().docuLoad(dno);
-	String linkTitle="";
-	String pagedocument="";
-	System.out.println("정규식 일치여부 확인 : "+c.getDcontent().matches("(.*)(\\[\\[)(.*?)(\\]\\])(.*)"));
-	if(c.getDcontent().matches("(.*)(\\[\\[)(.*?)(\\]\\])(.*)")) {
-		//있을경우 [[ ]] 내부의 단어 추출
-		Pattern pattern=Pattern.compile("(.*)(\\[\\[)(.*?)(\\]\\])(.*)");
-		Matcher matcher=pattern.matcher(c.getDcontent());
-		while(matcher.find()) {
-			linkTitle=matcher.group(3).trim();
-			// 추출한 단어를 넣어서 해당하는 링크할 제목의 문서 번호 호출
-			int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
-			if(tno==-1) { // 해당하는 제목의 문서가 없다면
-			String temp=c.getDcontent().replaceAll("\\[\\[", "<a href=\"pageview.jsp?dno=#\">");
-			pagedocument=temp.replaceAll("\\]\\]", "</a>");
-			}else { // 해당하는 제목의 문서가 있다면
-			String temp=c.getDcontent().replaceAll("\\[\\[", "<a href=\"pageview.jsp?dno="+tno+"\">");
-			pagedocument=temp.replaceAll("\\]\\]", "</a>");
-			}
-			if(matcher.group(3)==null) { // 정규표현식에 해당하는 문자열이 더이상 없다면
-				break;
-			}
-		} // while e
-	} //if e
+		   int dno=Integer.parseInt(request.getParameter("dno"));
+		   Content c=DocumentDao.getdocumentDao().docuLoad(dno);
+
+		   Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(c.getDcontent());
+		   while (m.find()) {
+			   int tno=DocumentDao.getdocumentDao().getdno(m.group());
+		     if(tno==-1){
+		         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"#\">"+m.group()+"</a>") );
+		     }else{
+		         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"pageview.jsp?dno="+tno+"\">"+m.group()+"</a>") );
+		     }
+		   }
+		   String pagedocument = c.getDcontent();
 	%>
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
 		<div class="row"> <!-- 상단 제목, 버튼들 박스 -->
@@ -61,11 +49,7 @@
 			</div>
 		</div>
 		<div> <!-- 내용 -->
-			<%if(!pagedocument.equals("")){ %>
 			<%=pagedocument%>
-			<%}else{ %>
-			<%=c.getDcontent()%>
-			<%} %>
 		</div>
 	</div>
 	<%}else{ %>
