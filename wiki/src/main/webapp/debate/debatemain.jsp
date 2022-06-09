@@ -12,8 +12,8 @@
 <body>
 
 <%
+
 	ArrayList<Debate> debateList=DebateDao.getDebateDao().getDebateList();
-	
 	
 %>
 <%@include file="../header.jsp" %>
@@ -55,7 +55,7 @@
 					<%
 						for(Debate debate : debateList){
 							int deno=debate.getDeno();
-							 DebateDao.getDebateDao().timeUpdate(deno);
+							DebateDao.getDebateDao().timeUpdate(deno);
 							if(debate.getDestate().equals("1")){
 					%>
 							<tr>

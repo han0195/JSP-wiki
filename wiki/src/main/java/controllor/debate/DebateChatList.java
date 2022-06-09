@@ -57,10 +57,9 @@ public class DebateChatList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		int Deno= Integer.parseInt(request.getParameter("Deno"));
-		String id=null;
 		
 		String ip=getClientIP(request);
-		System.out.println(ip);
+		
 		ArrayList<DebateChat> list =DebateDao.getDebateDao().getDebateChatList(Deno);	
 		
 		

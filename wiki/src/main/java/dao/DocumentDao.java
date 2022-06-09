@@ -311,4 +311,52 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	//문서 삭제 (관리자 권한)
+	public boolean docuDelete(int num) {
+		String sql="Delete from treewiki.document where dno=?";
+	
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, num);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("docu Delete err!! "+e);
+		}
+		return false;
+	}
+	//문서 최근 개수 보여주기
+	public String docuFindCount(String today) {
+		
+		String sql="SELECT count(dno) FROM treewiki.content where date_format(updatetime,'%Y-%m-%d')=? group by date_format(updatetime,'%Y-%m-%d')";
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, today);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println("docu find count err!! "+e);
+		}
+		return null;
+	}
+	//차트 데이터 구하기
+	public ArrayList<Content> docuChart(){
+		ArrayList<Content> list = new ArrayList<Content>();
+		String sql= "SELECT count(dno),date_format(updatetime,'%Y-%m-%d') FROM treewiki.content where date_format(updatetime,'%Y-%m-%d') group by date_format(updatetime,'%Y-%m-%d')";
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Content content = new Content(0, rs.getInt(1), sql, rs.getString(2), sql, 0, sql);
+				list.add(content);
+			}
+			return list;
+		} catch (Exception e) {
+			System.out.println("docu chart err!!" +e);
+		}
+		return null;
+	}
 }

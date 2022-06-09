@@ -34,9 +34,8 @@ $(function(){
 					
 					let date=data[i]["date"];
 					let content=data[i]["content"];
+					let id=data[i]["name"];
 					
-					//*아이디 값 필요
-					let id=data[i]["id"];
 					//만약 아이디 값이 없다면 ip 주소
 					if(id == undefined){
 						 id = ip;
@@ -68,16 +67,16 @@ $(function(){
 });//문서 대기 끝
 
 
-	//토론 등록버튼 이벤트
-function sendbtn(Deno){
-	
+//토론 등록버튼 이벤트
+function sendbtn(Deno,login){
+	console.log(login);
 	let dtcontent=$("#dtcontent").val();
 	$.ajax({
 		url:"../debate/DebateChatting",
-		data:{"Deno":Deno ,"dtcontent":dtcontent},
+		data:{"Deno":Deno ,"dtcontent":dtcontent,"id":login},
 		type:"get",
 		success:function(data){
-				console.log(data);
+				
 			if(data==1){
 				alert("토론이 등록되었습니다.");
 				$("#dtcontent").val("");
@@ -90,6 +89,23 @@ function sendbtn(Deno){
 	
 }
 
+function closeDebate(Deno){
+	
+	$.ajax({
+		
+		url:"../debate/CloseDebate",
+		data:{"Deno":Deno},
+		success:function(data){
+			if(data==1){
+				alert("해당 토론이 닫아졌습니다.");
+			}else{
+				alert("오류! 서비스관리자에게 문의해 주십시오.");
+			}
+		}
+		
+	});
+	location.reload();
+}
 
 
 

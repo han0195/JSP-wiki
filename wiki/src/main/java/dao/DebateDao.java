@@ -18,14 +18,16 @@ public class DebateDao extends Dao{
 	//1.토론 생성 메소드
 	public boolean createDebate(Debate debate) {
 		
-		String sql = "INSERT INTO debate(dno,mno,detitle,decontent) values (?,?,?,?)";
+		String sql = "INSERT INTO debate(dno,mno,deid,detitle,decontent,destate) values (?,?,?,?,?,?)";
 		try {
 			ps=con.prepareStatement(sql);
 			
 			ps.setInt(1,debate.getDno());
 			ps.setInt(2,debate.getMno());
-			ps.setString(3,debate.getDetitle());
-			ps.setString(4,debate.getDecontent());
+			ps.setString(3, debate.getDeid());
+			ps.setString(4,debate.getDetitle());
+			ps.setString(5,debate.getDecontent());
+			ps.setString(6,debate.getDestate());
 			ps.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -148,12 +150,13 @@ public class DebateDao extends Dao{
 	//8.토론 최근 수정시간 변경
 	public void timeUpdate(int Deno) {
 		String date=getTime(Deno);
+		
 		String sql="UPDATE treewiki.debate SET dedate='"+date+"' WHERE deno="+Deno;
 		try {
 			ps=con.prepareStatement(sql);
 			ps.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("토론 최근 수정 시간 변경하기 에러 경로:dao.debateDao@@  "+e);
+			
 		}
 	}
 
@@ -169,6 +172,75 @@ public class DebateDao extends Dao{
 			}
 		} catch (Exception e) {
 			System.out.println("토론 상태값 출력 에러 경로:dao.debateDao@@  "+e);
+		}
+		return null;
+	}
+	
+	//10.토론 상태 변경 메소드
+	public boolean changeState(int Deno) {
+		String sql="Update treewiki.debate set destate='0' where deno=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, Deno);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("토론 상태 변경 에러 경로:dao.debateDao@@  "+e);
+		}
+		return false;
+	}
+	
+	//11.토론 삭제
+	public boolean debateDelete(int num) {
+		
+		String sql="Delete from treewiki.debate where deno=?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, num);
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("토론 제거 에러 경로:dao.debateDaao@@  "+e);
+		}
+		
+		return false;
+	}
+	
+	//12.당일 추가된 토론 개수 구하기
+	
+	public String findDayCount(String today) {
+		
+		String sql="SELECT count(deno) FROM treewiki.debate where date_format(dedate,'%Y-%m-%d')=? group by date_format(dedate,'%Y-%m-%d')";
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, today);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
+	//13.차트 구하기
+	
+	public ArrayList<Debate> debeChart(){
+			ArrayList<Debate> list = new ArrayList<Debate>();
+		String sql="SELECT count(deno),date_format(dedate,'%Y-%m-%d') FROM treewiki.debate where date_format(dedate,'%Y-%m-%d') group by date_format(dedate,'%Y-%m-%d')";
+		
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Debate debate = new Debate(rs.getInt(1), 0, 0, sql, sql, sql,rs.getString(2), sql);
+				list.add(debate);
+			}
+			return list;
+		} catch (Exception e) {
+			System.out.println("debate chart err!!  "+e);
 		}
 		return null;
 	}

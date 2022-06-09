@@ -29,7 +29,8 @@ public class DebateChattting extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int deno= Integer.parseInt(request.getParameter("Deno"));
 		String content=request.getParameter("dtcontent");
-		DebateChat debateChat = new DebateChat(deno, null, content, null);
+		String id = request.getParameter("id");
+		DebateChat debateChat = new DebateChat(deno, id, content, null);
 		boolean result=DebateDao.getDebateDao().setChat(debateChat);
 		if(result) {
 			response.getWriter().print(1);

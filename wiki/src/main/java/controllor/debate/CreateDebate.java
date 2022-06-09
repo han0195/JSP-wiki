@@ -29,14 +29,16 @@ public class CreateDebate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String title=request.getParameter("debatetitle");
 		String content=request.getParameter("debatecontent");
+		String id=request.getParameter("id");
 		
 		//세션값
 //		int dno=Integer.parseInt(request.getParameter("dno"));
 //		int mno=Integer.parseInt(request.getParameter("mno"));
 		
-		Debate debate = new Debate(0, 0, 0,null,title, content, null ,"1");
+		Debate debate = new Debate(0, 0, 0, id, title, content, null ,"1");
 	    boolean result=DebateDao.getDebateDao().createDebate(debate);
 	    if(result) {
 	    	response.sendRedirect("/wiki/debate/debatemain.jsp");
