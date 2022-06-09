@@ -57,7 +57,11 @@ public class SpecialDao extends Dao {
 				String linkTitle=m.group().replace("[[", "").replace("]]", ""); // 대괄호 제거
 				int tno=DocumentDao.getdocumentDao().getdno(linkTitle); // 해당하는 제목의 번호 받아오기
 				if(tno==-1){ // 해당 제목이 없으면
-					 continue;
+					if(needWrite(linkTitle)) { // 작성필요 테이블에 추가
+						 continue;
+					}else { // 오류있으면 false 리턴
+						return false;
+					}
 				}else { // 해당 제목이 있으면
 					if(addLink(dno,tno)) { // 역링크 테이블에 목록 추가해주기
 						return true;
@@ -107,8 +111,6 @@ public class SpecialDao extends Dao {
 		}
 		return null;
 	}
-	// 작성이 필요한 문서 불러오기 메소드
-
 	////// 해당하는 문서 내용 전부 list 가져오기/////
 	public JSONArray getcontentlist(int dno) {
 		String sql = "select * from content where dno = ? order by updatetime desc";
@@ -156,7 +158,6 @@ public class SpecialDao extends Dao {
 		}
 		return null;
 	}
-
 	///// 해당 문서 제목 가져오기 ///
 	public Document getDocument(int dno) {
 		String sql = "select * from document where dno = ?";
@@ -212,5 +213,57 @@ public class SpecialDao extends Dao {
 		}
 		return false;
 	}
-
+	// 작성이 필요한 문서 추가
+	public boolean needWrite(String title) {
+		String sql="insert into misspage(misspagetitle) values(?)";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, title);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	// 작성이 필요한 문서인지 확인하고 있으면 삭제
+	public boolean isNeedWrite(String title) {
+		String sql="select misspagetitle from misspage where misspagetitle='"+title+"'";
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			System.out.println(title+"문서의 작성 필요 여부를 확인합니다.");
+			if(rs.next()) {
+				System.out.println(title+"이/가 작성되었습니다. 삭제를 시작합니다.");
+				if(delNeedWrite(title)) {
+					return true;
+				}else {
+					return false;
+				}
+			}return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	// 작성이 필요한 문서 삭제
+	public boolean delNeedWrite(String title) {
+		String sql="delete from misspage where misspagetitle='"+title+"'";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			System.out.println("작성이 필요한 문서 필드가 삭제되었습니다.");
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	//작성이 필요한 문서 전부 불러오기
+	public ArrayList<String> listNeedWrite(){
+		String sql="select misspagetitle from misspage";
+		ArrayList<String> list=new ArrayList<String>();
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString(1));
+			}return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
 }
