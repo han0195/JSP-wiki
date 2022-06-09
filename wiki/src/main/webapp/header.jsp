@@ -50,14 +50,14 @@
 								<!-- 특수기능 리스트 -->
 								<ul class="dropdown-menu" aria-labelledby="specialFunction">
 								    <li><a class="dropdown-item" href="#">게시판</a></li>
-								    <li><a class="dropdown-item" href="#">작성이 필요한 문서</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/misspage.jsp">작성이 필요한 문서</a></li>
 								    <li><a class="dropdown-item" href="#">고립된 문서</a></li>
 								    <li><a class="dropdown-item" href="#">분류가 되지 않은 문서</a></li>
-								    <li><a class="dropdown-item" href="#">편된 지 오래된 문서</a></li>
+								    <li><a class="dropdown-item" href="#">편집된 지 오래된 문서</a></li>
 								    <li><a class="dropdown-item" href="#">내용이 짧은 문서</a></li>
 								    <li><a class="dropdown-item" href="#">내용이 긴 문서</a></li>
 								    <li><a class="dropdown-item" href="#">차단 내역</a></li>
-								    <li><a class="dropdown-item" href="#">RandomPage</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/randompage.jsp">RandomPage</a></li>
 								    <li><a class="dropdown-item" href="#">파일 올리기</a></li>
 								    <li><a class="dropdown-item" href="#">라이선스</a></li>
 							  </ul>
