@@ -9,9 +9,10 @@
 <body>
 <%@include file="../header.jsp" %>
 	
-	
 	<div class="container">
-		관리자 메인
+		<div class="text-center">
+		여기는 관리자 페이지 입니다.
+		</div>
 	</div>
 	
 	

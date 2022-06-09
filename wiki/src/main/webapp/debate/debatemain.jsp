@@ -21,10 +21,13 @@
 	
 	<div class="container">
 		<div class="col-md-12 row">
-			<!-- 토론 페이지 안내  -->	
-			<div class="col-md-2 py-3">
-				<h1>최근토론</h1>
-			</div>
+			<!-- 토론 페이지 안내  -->
+			<div class="col-md-8" id="back">
+				<div class="col-md-4 py-3">
+					<h1>최근토론</h1>
+				</div>
+			</div>	
+			
 			<div class="col-md-12 py-5 my-5">
 				<ul class="nav nav-tabs">
 					
@@ -32,24 +35,11 @@
 						<a class="nav-link activce" aria-current="page" href="/wiki/debate/debatemain.jsp">열린 토론</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="/wiki/debate/closedebate.jsp">닫힌 토론</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link activce" aria-current="page" href="/wiki/debate/olddebate.jsp">오래된 토론</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">열린 편집요청</a>
+						<a class="nav-link activce" aria-current="page" href="/wiki/debate/closedebate.jsp">닫힌 토론</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">승인된 편집 요청</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">닫힌 편집 요청</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="#">오래된 편집요청</a>
-					</li>
-					
 				</ul>
 			</div>
 			<!-- 토론 리스트 -->

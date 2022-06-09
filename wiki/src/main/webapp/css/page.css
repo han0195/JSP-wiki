@@ -1,1 +1,9 @@
 @charset "UTF-8";
+
+table #good {
+	color: black;
+}
+#good.active_good{
+	
+	color: red;
+}

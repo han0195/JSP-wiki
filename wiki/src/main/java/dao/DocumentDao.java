@@ -6,6 +6,8 @@ import java.sql.Blob;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+
 import dto.Content;
 import dto.Document;
 
@@ -59,6 +61,30 @@ public class DocumentDao extends Dao{
 					}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
+	// 문서 수정 메소드
+	public boolean docuUpdate(Content c, int dno, String title) {
+		
+		String sql= "UPDATE document set dtitle = ? WHERE dno = ?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, title);
+			ps.setInt(2, dno);
+			ps.executeUpdate();
+			rs = ps.getResultSet();
+			if(rs.next()) {
+				if(updateContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
+						System.out.println("내용 : "+c.getDcontent());
+							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) {
+								return true;
+							}else {
+							System.out.println("역링크 생성 오류"); return false;	
+							}
+						}
+					}
+					}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	
 	//문서 내용 넣기 메소드
 	public boolean setContent(Content c, int dno) {
 		//content 테이블에 해당 번호를 포함한 필드 생성
@@ -73,6 +99,21 @@ public class DocumentDao extends Dao{
 		ps.executeUpdate();
 		return true;
 		}catch(Exception e) {System.out.println("sef");}
+		return false;
+	}
+	
+	// 문서 내용 수정 메소드
+	public boolean updateContent(Content c, int dno) {
+		String sql = "update content set mid = ?, dcontent = ?, dimg = ? where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, c.getMid());
+			ps.setString(2, c.getDcontent());
+			ps.setString(3, c.getDimg());
+			ps.setInt(4, dno);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
 	//문서 권한 필드 생성 메소드
@@ -235,5 +276,39 @@ public class DocumentDao extends Dao{
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return -1;
+	}
+	//문서 번호를 통한 문서의 제목 추출 메소드
+	public String getTitle(int dno) {
+		String sql = "select dtitle from document where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+	// 문서 번호를 통한 문서의 작성자 추출 메소드
+	public String getMid(int dno) {
+		String sql = "select mid from content where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+	// 페이징처리를 위한 문서 목록 출력 by json
+	public JSONArray doculistbyjson() {
+		String sql = "select * from document";
+		try {
+			
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
 	}
 }
