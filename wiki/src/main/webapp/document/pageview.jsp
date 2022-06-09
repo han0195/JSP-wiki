@@ -18,17 +18,9 @@
 	Content c=DocumentDao.getdocumentDao().docuLoad(dno);
 	String linkTitle="";
 	String pagedocument="";
-	// 
-	if(pagedocument.contains("==")) {
-	pagedocument = c.getDcontent().replaceAll("==", "<p>");
-	}
-	if(pagedocument.contains("++")) {
-	pagedocument = c.getDcontent().replaceAll("++", "</p><br>");
-	}
-
 		   Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(c.getDcontent());
 		   while (m.find()) {
-			 String linkTitle=m.group().replace("[[", "").replace("]]", "");
+			 linkTitle=m.group().replace("[[", "").replace("]]", "");
 			 int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
 		     if(tno==-1){
 		         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"#\">"+m.group()+"</a>") );
@@ -36,7 +28,13 @@
 		         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"pageview.jsp?dno="+tno+"\">"+m.group()+"</a>") );
 		     }
 		   }
-		   String pagedocument = c.getDcontent();
+		   pagedocument = c.getDcontent();
+		   if(pagedocument.contains("==")) {
+				pagedocument = c.getDcontent().replaceAll("==", "<p>");
+				}
+				if(pagedocument.contains("++")) {
+				pagedocument = c.getDcontent().replaceAll("++", "</p><br>");
+				}
 	%>
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
