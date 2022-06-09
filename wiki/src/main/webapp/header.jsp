@@ -52,12 +52,12 @@
 								<!-- 특수기능 리스트 -->
 								<ul class="dropdown-menu" aria-labelledby="specialFunction">
 								    <li><a class="dropdown-item" href="/wiki/document/documentview.jsp">문서게시판</a></li>
-								    <li><a class="dropdown-item" href="#">작성이 필요한 문서</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/misspage.jsp">작성이 필요한 문서</a></li>
 								    <li><a class="dropdown-item" href="#">고립된 문서</a></li>   
 								    <li><a class="dropdown-item" href="/wiki/document/docupdate.jsp">편집된 지 오래된 문서</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/docshort.jsp">내용이 짧은 문서</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/doclong.jsp">내용이 긴 문서</a></li>
-								    <li><a class="dropdown-item" href="/wiki/document/docrandom.jsp">RandomPage</a></li>
+                    <li><a class="dropdown-item" href="/wiki/document/randompage.jsp">RandomPage</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/uploadfile.jsp">파일 올리기</a></li>					    
 							  </ul>
 							</div>　
@@ -69,10 +69,10 @@
 					<div class="col-md-12 row">
 						
 						<div class="offset-4 col-md-4 py-2">
-							<input type="text" class="form-control">				
+							<input type="text" class="form-control" id="searchinput"> <!-- 검색 -->			
 						</div>
 						<div class="col-md-1 py-2">
-							<a href="#"><img alt="Search" src="/wiki/img/search.png" class="headerImg"></a>
+							<a onclick="sach()"><img alt="Search" src="/wiki/img/search.png" class="headerImg"></a> <!-- 서치버튼 -->
 						</div>
 						<div class="col-md-2">
 						

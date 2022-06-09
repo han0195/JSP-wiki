@@ -49,39 +49,30 @@ public class SpecialDao extends Dao {
 		return false;
 	}
 
-	// 링크 검증 메소드
-	public boolean reverseLink(int dno, String dcontent) {
-		String linkTitle = "";
-		// 정규표현식으로 링크거는게 있는지 판별
+	// 역링크 번호 테이블에 추가하기 메소드
+	public boolean reverseLink(int dno, String content) {
 		try {
-			if (dcontent.matches("(\\[\\[)(.*?)(\\]\\])")) {
-				// 있을경우 [[ ]] 내부의 단어 추출
-				Pattern pattern = Pattern.compile("(\\[\\[)(.*?)(\\]\\])");
-				Matcher matcher = pattern.matcher(dcontent);
-				while (matcher.find()) {
-					linkTitle = matcher.group(2).trim();
-					// 추출한 단어를 넣어서 해당하는 링크할 제목의 문서 번호 호출
-					int tno = DocumentDao.getdocumentDao().getdno(linkTitle);
-					if (tno == -1) { // 해당하는 제목의 문서가 없다면
-						continue;
-					} else { // 해당하는 제목의 문서가 있다면
-						// 역링크 목록에 추가해주기
-						SpecialDao.getSpecialDao().addLink(dno, tno);
+			Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(content);
+			while (m.find()) {
+				String linkTitle=m.group().replace("[[", "").replace("]]", ""); // 대괄호 제거
+				int tno=DocumentDao.getdocumentDao().getdno(linkTitle); // 해당하는 제목의 번호 받아오기
+				if(tno==-1){ // 해당 제목이 없으면
+					if(needWrite(linkTitle)) { // 작성필요 테이블에 추가
+						 continue;
+					}else { // 오류있으면 false 리턴
+						return false;
 					}
-					if (matcher.group(2) == null) { // 정규표현식에 해당하는 문자열이 더이상 없다면
-						break;
+				}else { // 해당 제목이 있으면
+					if(addLink(dno,tno)) { // 역링크 테이블에 목록 추가해주기
+						return true;
+					}else { // 오류있으면 false리턴
+						return false;
 					}
-				} // while e
-			} // if e
-			else {
-			}
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+				}
+			} return true;
+		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
-
 	// 역링크된 목록 불러오는 메소드
 	public String getLink(int dno) {
 		String sql = "select frompageno from link where dno=" + dno;
@@ -120,8 +111,6 @@ public class SpecialDao extends Dao {
 		}
 		return null;
 	}
-	// 작성이 필요한 문서 불러오기 메소드
-
 	////// 해당하는 문서 내용 전부 list 가져오기/////
 	public JSONArray getcontentlist(int dno) {
 		String sql = "select * from content where dno = ? order by updatetime desc";
@@ -169,7 +158,6 @@ public class SpecialDao extends Dao {
 		}
 		return null;
 	}
-
 	///// 해당 문서 제목 가져오기 ///
 	public Document getDocument(int dno) {
 		String sql = "select * from document where dno = ?";
@@ -225,5 +213,57 @@ public class SpecialDao extends Dao {
 		}
 		return false;
 	}
-
+	// 작성이 필요한 문서 추가
+	public boolean needWrite(String title) {
+		String sql="insert into misspage(misspagetitle) values(?)";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, title);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	// 작성이 필요한 문서인지 확인하고 있으면 삭제
+	public boolean isNeedWrite(String title) {
+		String sql="select misspagetitle from misspage where misspagetitle='"+title+"'";
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			System.out.println(title+"문서의 작성 필요 여부를 확인합니다.");
+			if(rs.next()) {
+				System.out.println(title+"이/가 작성되었습니다. 삭제를 시작합니다.");
+				if(delNeedWrite(title)) {
+					return true;
+				}else {
+					return false;
+				}
+			}return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	// 작성이 필요한 문서 삭제
+	public boolean delNeedWrite(String title) {
+		String sql="delete from misspage where misspagetitle='"+title+"'";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			System.out.println("작성이 필요한 문서 필드가 삭제되었습니다.");
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	//작성이 필요한 문서 전부 불러오기
+	public ArrayList<String> listNeedWrite(){
+		String sql="select misspagetitle from misspage";
+		ArrayList<String> list=new ArrayList<String>();
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString(1));
+			}return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
 }

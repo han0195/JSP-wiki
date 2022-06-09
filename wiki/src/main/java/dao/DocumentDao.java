@@ -42,10 +42,11 @@ public class DocumentDao extends Dao{
 				int dno=rs.getInt(1); // 받아온 번호 dno에 넣기
 				if(setContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
 					if(insertLocks(dno)) { // 권한테이블에 문서번호 필드 생성하고 결과값 받기(성공시)
-						if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시 true 리턴
-							System.out.println("내용 : "+c.getDcontent());
-							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) {
-								return true;
+						if(insertLink(dno)) { // 링크테이블에 문서번호 필드 생성하고 성공시
+							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) { // 역링크테이블에 역링크 거는부분 판단해서 필드 생성 후 성공시
+								if(SpecialDao.getSpecialDao().isNeedWrite(title)) { // 작성해야 하는 문서 목록에 있는지 물어보고 자동 처리 후
+									return true;
+								}
 							}else {
 							System.out.println("역링크 생성 오류"); return false;	
 							}
@@ -59,7 +60,7 @@ public class DocumentDao extends Dao{
 					System.out.println("문서내용 필드 생성 오류"); return false;
 				}
 			}
-					}catch(Exception e) {e.printStackTrace();}
+		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
 	
@@ -161,6 +162,8 @@ public class DocumentDao extends Dao{
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				return rs.getInt(1);
+			}else {
+				return -1;
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return -1;
@@ -368,4 +371,23 @@ public class DocumentDao extends Dao{
 		return null;
 	}
 		
+	//문서 삭제 메소드
+	public boolean docuDelete(int dno) {
+		String sql="delete from link where dno="+dno; // 링크 테이블에서 삭제
+		try {
+			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			sql="delete from locks where dno="+dno; // 권한 테이블에서 삭제
+				ps=con.prepareStatement(sql);
+				ps.executeUpdate();
+				sql="delete from content where dno="+dno; // 내용 테이블에서 삭제
+					ps=con.prepareStatement(sql);
+					ps.executeUpdate();
+						sql="delete from document where dno="+dno; // 제목 테이블에서 삭제
+							ps=con.prepareStatement(sql);
+							ps.executeUpdate();
+					return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
 }
