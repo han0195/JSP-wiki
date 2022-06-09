@@ -21,10 +21,10 @@
 
 	String mids = (String) session.getAttribute("login");
 	%>
-	<div class="container history_wr">
+	<div class="history_wr">
 		<!-- 본문 -->
 		<input type="hidden" id="mid" value="<%=mids%>">
-		<div>
+		<div style="margin: 0 auto; text-align: center;">
 			<!-- 리스트 헤더 -->
 			<input id="dnohid" type="hidden" value="<%=dno%>">
 			<h2 class="history_title">
@@ -32,32 +32,44 @@
 				<%=document.getDtitle()%>
 				<span class="history_sub_title">(문서역사)</span>
 			</h2>
-
-			<a><button class="btn btn-outline-dark">편집</button></a> <a><button
-					class="btn btn-outline-dark">역링크</button></a>
-
 		</div>
 		<!-- 리스트 헤더 end -->
 
-		<div style="background-color: #eeeeee; padding: 20px 10px;" class="historylistdiv">
-			<!-- 역사 리스트-->
-			<ul id="history_list_ul">
-		
+
+		<!-- 역사 리스트-->
+		<section class="timeline">
+			<ul id="slom">
+				<li>
+					<div>
+						<time>1687</time>
+						<div class="discovery">
+							<h3>기여자</h3>
+							<p>sd</p>
+						</div>
+						<div class="scientist">
+							<button style="width: 100px" class="btn btn-primary">추천</button>
+							<button style="width: 100px" class="btn btn-danger">비추천</button>
+						</div>
+					</div>
+				</li>
+
 			</ul>
-		</div>
+		</section>
+
 		<!-- 역사리스트 end -->
-		<select id="dataPerPage">
-			<option value="10">10개씩보기</option>
-			<option value="15">15개씩보기</option>
-			<option value="20">20개씩보기</option>
-		</select>
-		<div>
-			<!-- 페이징 -->
-			<button id="pagingul prev" type="button" class="btn btn-success hisbtn">이전</button>
-			<ul id="pagingul">
-			</ul>
-			<button id="pagingul next" type="button" class="btn btn-success hisbtn">다음</button>
+		<div class="pagediv">
+			<select id="dataPerPage">
+				<option value="10">10개씩보기</option>
+				<option value="15">15개씩보기</option>
+				<option value="20">20개씩보기</option>
+			</select>
+			<div>
+				<!-- 페이징 -->
+				<ul id="pagingul">
+				</ul>
+			</div>
 		</div>
+
 		<!-- 페이징 end -->
 
 	</div>

@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 
-
 .history_title{/* 제목 */
 	font-weight: bold;
 	display: inline-block;
@@ -10,15 +9,7 @@
 .history_sub_title{/* (문서역사) */
 	font-weight: normal;
 }
-.historylistdiv li {/* 역사list */
-	margin-top: 5px;
-	margin-bottom: 5px;
-	font-size: 15px;
-}
-.historylistdiv{ /* 역사list div */
-	margin-top: 100px;
-	margin-bottom: 100px;
-}
+
 
 
 .hisbtn{/* 이전 다음 버튼 */
@@ -54,4 +45,143 @@
 
 #pagingul li.on a {
     color: #fff;
+}
+
+.pagediv{
+	text-align: center;
+	margin: 0 auto;
+}
+/*코드펜 역사페이지 css*/
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.history_wr {
+  width: 100%;
+  font: normal 16px/1.5 "Titillium Web", sans-serif;
+  
+  color: #3c3f64;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+.timeline ul li {
+  list-style-type: none;
+  position: relative;
+  width: 6px;
+  margin: 0 auto;
+  padding-top: 50px;
+  background: black;
+}
+.timeline ul li::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  background: #eee;
+}
+.timeline ul li div {
+  position: relative;
+  bottom: 0;
+  width: 500px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 4px 13px 30px 1px rgba(252, 56, 56, 0.2);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+
+}
+a{
+	color: white;
+}
+.timeline ul li div time {
+  position: absolute;
+  background: #00a000;
+  color: white;
+  width: 450px;
+  height: 30px;
+  top: -15px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 2px;
+}
+.timeline ul li div div {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.timeline ul li div div p {
+  text-align: center;
+}
+.timeline ul li div .discovery {
+  margin-right: 10px;
+  overflow: hidden;
+}
+.timeline ul li:nth-of-type(odd) > div {
+  left: 45px;
+}
+.timeline ul li:nth-of-type(even) > div {
+  left: -540px;
+}
+
+.timeline ul li div {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+.timeline ul li:nth-of-type(odd) div {
+  transform: translate3d(100px, -10px, 0) rotate(10deg);
+}
+.timeline ul li:nth-of-type(even) div {
+  transform: translate3d(-100px, -10px, 0) rotate(10deg);
+}
+.timeline ul li.in-view div {
+  transform: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+@media screen and (max-width: 900px) {
+  .timeline ul li div {
+    width: 250px;
+    flex-direction: column;
+  }
+  .timeline ul li div div {
+    width: 80%;
+    margin: 10px;
+  }
+  .timeline ul li:nth-of-type(even) > div {
+    left: -289px;
+  }
+}
+@media screen and (max-width: 600px) {
+  body {
+    background: #8bfff4;
+  }
+
+  .timeline ul li {
+    margin-left: 20px;
+  }
+  .timeline ul li div {
+    width: calc(100vw - 91px);
+  }
+  .timeline ul li:nth-of-type(even) > div {
+    left: 45px;
+  }
 }
