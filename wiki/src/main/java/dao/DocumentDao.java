@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import dto.Content;
 import dto.Document;
@@ -61,29 +62,6 @@ public class DocumentDao extends Dao{
 					}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
-	// 문서 수정 메소드
-	public boolean docuUpdate(Content c, int dno, String title) {
-		
-		String sql= "UPDATE document set dtitle = ? WHERE dno = ?";
-		try {
-			ps=con.prepareStatement(sql);
-			ps.setString(1, title);
-			ps.setInt(2, dno);
-			ps.executeUpdate();
-			rs = ps.getResultSet();
-			if(rs.next()) {
-				if(updateContent(c, dno)) { // 문서 내용 생성하고 결과값 받기(성공시)
-						System.out.println("내용 : "+c.getDcontent());
-							if(SpecialDao.getSpecialDao().reverseLink(dno, c.getDcontent())) {
-								return true;
-							}else {
-							System.out.println("역링크 생성 오류"); return false;	
-							}
-						}
-					}
-					}catch(Exception e) {e.printStackTrace();}
-		return false;
-	}
 	
 	//문서 내용 넣기 메소드
 	public boolean setContent(Content c, int dno) {
@@ -102,20 +80,7 @@ public class DocumentDao extends Dao{
 		return false;
 	}
 	
-	// 문서 내용 수정 메소드
-	public boolean updateContent(Content c, int dno) {
-		String sql = "update content set mid = ?, dcontent = ?, dimg = ? where dno = ?";
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, c.getMid());
-			ps.setString(2, c.getDcontent());
-			ps.setString(3, c.getDimg());
-			ps.setInt(4, dno);
-			ps.executeUpdate();
-			return true;
-		}catch(Exception e) {e.printStackTrace();}
-		return false;
-	}
+	
 	//문서 권한 필드 생성 메소드
 	public boolean insertLocks(int dno) {
 		//처음 생성은 전부 기본값으로, 문서번호만 연결시켜 생성
@@ -133,6 +98,19 @@ public class DocumentDao extends Dao{
 		String sql="insert into link (dno) values ("+dno+")";
 		try {
 			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	
+	// 문서 링크 필드 업데이트 메소드 완전 구현 아님
+	public boolean updateLink(int dno) {
+		String sql = "update link set dno = ? where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			ps.setInt(2, dno);
 			ps.executeUpdate();
 			return true;
 		}catch(Exception e) {e.printStackTrace();}
@@ -305,9 +283,18 @@ public class DocumentDao extends Dao{
 	}
 	// 페이징처리를 위한 문서 목록 출력 by json
 	public JSONArray doculistbyjson() {
-		String sql = "select * from document";
 		try {
-			
+		JSONArray array = new JSONArray(); 
+		String sql = "select * from document";
+		ps = con.prepareStatement(sql);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			JSONObject jo = new JSONObject();
+			jo.put("dno", rs.getInt(1));
+			jo.put("dtitle", rs.getString(2));
+			array.put(jo);
+		}		
+			return array;
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}

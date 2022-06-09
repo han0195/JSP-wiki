@@ -49,7 +49,7 @@ public class documentupdate extends HttpServlet {
 	
 		try {
 			JSONObject jo = new JSONObject(json); // json 객체형 변환
-			String dtitle= jo.getString("dtitle");
+			
 			
 			String dcontent = jo.getString("dcontent");
 			int dno = jo.getInt("dno");
@@ -85,7 +85,7 @@ public class documentupdate extends HttpServlet {
 			}
 			
 			Content c = new Content(0, dno, mid, null, dcontent, 0, dimg);
-			boolean result = DocumentDao.getdocumentDao().docuUpdate(c, dno, dtitle);
+			boolean result = DocumentDao.getdocumentDao().setContent(c, dno);
 			
 			if(result) {
 				response.getWriter().print(1);
