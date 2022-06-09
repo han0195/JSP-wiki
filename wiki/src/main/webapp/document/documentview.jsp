@@ -16,10 +16,10 @@
 <body>
 	<%@include file="../header.jsp"%>
 
-	
-	<table class="table" id="pageview">	</table>
+	<h2 style="margin-left: 200px;">문서 리스트</h2>
+	<table class="table" id="pageview" style="margin-top: 20px;">	</table>
 	<div id="page">
-	<select id="dataPerPage">
+	<select id="dataPerPage" style="margin-left: 600px;">
 			<option value="10">10개씩보기</option>
 			<option value="15">15개씩보기</option>
 			<option value="20">20개씩보기</option>

@@ -19,7 +19,7 @@ $(document). ready(function(){
 			data : {"dno" : dno},
 			success(json) {
 				
-				var reg = /[`~!@#$%^&*|+\-=?;:'"<>\{\}\[\]\\\/]/gim; // 특수문자 제거를 위한 정규식
+				var reg = /[`~!@#$%^&*|+\-?;:'"<>\{\}\[\]\\\/]/gim; // 특수문자 제거를 위한 정규식
 				
 				var resultData = json["dimg"].replace(reg, ""); // db에 있는 특수문자들을 제거
 				

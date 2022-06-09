@@ -39,7 +39,13 @@
 			}
 		} // while e
 	} //if e
-	
+	// 
+	if(pagedocument.contains("==")) {
+	pagedocument = c.getDcontent().replaceAll("==", "<p>");
+	}
+	if(pagedocument.contains("++")) {
+	pagedocument = c.getDcontent().replaceAll("++", "</p><br>");
+	}
 	%> 
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
@@ -65,51 +71,19 @@
 		
 		<div class="row my-2"> <!-- 내용 -->
 		<div id="imgbox" class="row"></div><br>
-		
-		<%
-			// String str = newcontent.getDcontent();
-			/* int count = 0;
-			for (int i = 0; i < str.length(); i++) {
-				if (str.charAt(i) == '+') {
-					count++;
-				}
-			}
-			count = count / 2;
-			String[] strarr = new String[count];
-			for (int i = 0; i < strarr.length; i++) {
-				strarr[i] = "";
-			}
-			int arrcount = 0;
-			for (int i = 0; i < str.length(); i++) {
-				if (str.charAt(i) == '+' && str.charAt(i - 1) == '+') {
-					arrcount++;
-				} else if (str.charAt(i) != '+' && str.charAt(i) != '=') {
-					strarr[arrcount] += str.charAt(i);
-				}
-			} */ 
-			// 적용 필요
-			
-			%> 
-		
-		
-		
-		
-		
 			<%if(!pagedocument.equals("")){ %>
 			<%=pagedocument%>
 			<%}else{ %>
-			<%=c.getDcontent()%>
-			
-			<%} %>
+			<%}%>
 		</div>
 		
 		<br><br><br>
 		
 		
 	</div>
-	<%}else{ %>
-	<h1>페이지 오류</h1>
-	<%} %>
+	<%}%>
+	
+	
 	
 	<%@include file="../footer.jsp"%>
 

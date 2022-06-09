@@ -9,15 +9,19 @@
 <body>
 <%@include file="header.jsp" %>
 
-	
  <div class="svg-container">
+ <div class="row">
    		
     <svg viewbox="0 0 800 400" class="svg col-md-10">
       <path id="curve" fill="#434234" d="M 800 300 Q 400 350 0 300 L 0 0 L 800 0 L 800 300 Z">
       </path>
     </svg>
-    <div id="newdocu" class=""></div>
+    
+   
+   <table id="newdocu" class="col-md-2"></table>
+  
   </div>
+ </div>
 
   	<div class="container">
   		<div class="col-md-12 text-center py-5">

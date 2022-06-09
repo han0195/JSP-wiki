@@ -9,8 +9,10 @@
 
 	<!-- 부트스트랩 css cdn -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	<!-- 사용자정의 css -->
 	<link href="/wiki/css/main.css" rel="stylesheet">
+
 	<%
 	InetAddress ip = InetAddress.getLocalHost();  
 	String ipAddress=ip.getHostAddress();
@@ -25,18 +27,18 @@
 				<div class="col-md-6">
 					<div class="col-md-12 row">
 						<!-- 로고/문서/토론 링크 -->
-						<div class="col-md-7 py-1 row">
+						<div class="col-md-9 py-1 row">
 							<!-- 로고 링크 -->
-							<div class="col-md-6">
-								<a href="/wiki/main.jsp"><img alt="Logo" src="/wiki/img/mainlogo.png" id="mainlogo"></a>　　
+							<div class="col-md-4">
+								<a href="/wiki/main.jsp"><img alt="Logo" src="/wiki/img/mainlogo.png" id="mainlogo" style="height: 100%"></a>　　
 							</div>
 							<!-- 문서 링크 -->
 							<div class="col-md-3 py-2">
-								<a href="/wiki/document/documentview.jsp">문서</a>
+								<a href="/wiki/document/documentview.jsp" style="font-size: 20px;">문서</a>
 							</div>
 							<!-- 토론 링크 -->
 							<div class="col-md-3 py-2">
-								<a href="/wiki/debate/debatemain.jsp">토론하기 </a>
+								<a href="/wiki/debate/debatemain.jsp" style="font-size: 20px;">토론하기 </a>
 							</div>
 						</div>
 						
@@ -44,22 +46,19 @@
 						<div class="col-md-3 py-1">
 							<div class="dropdown">
 								<!-- 특수기능 드랍다운 버튼 -->
-								<button class="btn dropdown-toggle" type="button"id="specialFunction" data-bs-toggle="dropdown" aria-expanded="false">
+								<button class="btn dropdown-toggle" type="button"id="specialFunction" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 20px;">
 									특수기능
 								</button>
 								<!-- 특수기능 리스트 -->
 								<ul class="dropdown-menu" aria-labelledby="specialFunction">
-								    <li><a class="dropdown-item" href="#">게시판</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/documentview.jsp">문서게시판</a></li>
 								    <li><a class="dropdown-item" href="#">작성이 필요한 문서</a></li>
-								    <li><a class="dropdown-item" href="#">고립된 문서</a></li>
-								    <li><a class="dropdown-item" href="#">분류가 되지 않은 문서</a></li>
-								    <li><a class="dropdown-item" href="#">편된 지 오래된 문서</a></li>
-								    <li><a class="dropdown-item" href="#">내용이 짧은 문서</a></li>
-								    <li><a class="dropdown-item" href="#">내용이 긴 문서</a></li>
-								    <li><a class="dropdown-item" href="#">차단 내역</a></li>
-								    <li><a class="dropdown-item" href="#">RandomPage</a></li>
-								    <li><a class="dropdown-item" href="#">파일 올리기</a></li>
-								    <li><a class="dropdown-item" href="#">라이선스</a></li>
+								    <li><a class="dropdown-item" href="#">고립된 문서</a></li>   
+								    <li><a class="dropdown-item" href="/wiki/document/docupdate.jsp">편집된 지 오래된 문서</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/docshort.jsp">내용이 짧은 문서</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/doclong.jsp">내용이 긴 문서</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/docrandom.jsp">RandomPage</a></li>
+								    <li><a class="dropdown-item" href="/wiki/document/uploadfile.jsp">파일 올리기</a></li>					    
 							  </ul>
 							</div>　
 						</div>

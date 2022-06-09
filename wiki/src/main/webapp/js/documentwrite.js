@@ -153,7 +153,7 @@ function readURL(input) {
 function dwrite() {
 	let dtitle = $("#dtitle").val();
 	let dcontent = $("#summernote").val();
-	let newText = dcontent.replace(/(<([^>]+)>)/ig, "");
+	let newText = dcontent.replace(/(<([^>]+)>)/ig, ""); // <> 태그 제거
 	
 	if (pass == false) {
 			alert("문서 제목 중복 체크를 먼저 해주세요");
