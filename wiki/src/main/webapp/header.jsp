@@ -32,7 +32,7 @@
 							</div>
 							<!-- 문서 링크 -->
 							<div class="col-md-2 py-2">
-								<a href="/wiki/document/documentmain.jsp">문서</a>
+								<a href="/wiki/document/documentview.jsp">문서</a>
 							</div>
 							<!-- 토론 링크 -->
 							<div class="col-md-3 py-2">
