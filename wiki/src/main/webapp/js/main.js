@@ -34,3 +34,9 @@
   });
   
 })();
+
+function sach() {
+	let sach = $("#searchinput").val();
+	alert(sach);
+	location.href = "/wiki/document/documentview.jsp?sach="+sach;
+}

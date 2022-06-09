@@ -14,12 +14,18 @@
 <body>
 <%@include file="../header.jsp" %>
 <%
+	//Deno값 받아오기
 	int Deno=Integer.parseInt(request.getParameter("Deno"));	
 	String content = DebateDao.getDebateDao().debateIn(Deno);
+	
+	//날짜 객체 생성
 	Date date =new Date();
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	String today=sdf.format(date);
-	String ip = request.getRemoteAddr();
+	
+	//Deno값으로 denostate 값 가져오기
+	String state=DebateDao.getDebateDao().getDebateState(Deno);
+	System.out.print(state);
 %>
 <input type="hidden" value="<%=today%>" id="today">
 <input type="hidden" value="<%=Deno%>" id="Deno">
@@ -59,6 +65,9 @@
 	<!-- 경계선 -->
 	<hr>	
 	
+	<%
+		if(state.equals("1")){
+	%>
 	
 	<!-- 토론 전송 -->
 	<div class="col-md-12" id="chatform">
@@ -76,7 +85,30 @@
 				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>')">전송</button>
 			</div>
 	</div>
-
+	<% 		
+		}else{
+	%>
+	<!-- 토론 전송 -->
+	<div class="col-md-12" id="chatform">
+		<!-- 토론 참여 간판 -->
+		<div class="col-md-4">
+			<h1>토론에 참여할래요!</h1>
+		</div>
+		
+		<!--토론작성 란 -->
+			<div class="col-md-12">
+				<textarea rows="5" cols="" class="form-control" id="dtcontent" name="dtcontent" disabled="disabled"></textarea>
+			</div>
+			<!-- 토론 전송 버튼 -->
+			<div class="offset-10 col-md-2 py-2">
+				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>')" disabled="disabled">전송</button>
+			</div>
+	</div>
+	
+	
+	<%
+		}	
+	%>
 
 </div>
 

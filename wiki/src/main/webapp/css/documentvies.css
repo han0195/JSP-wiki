@@ -1,0 +1,47 @@
+@charset "UTF-8";
+/* 페이징 css */
+
+#pageview {
+	text-align: center;
+	margin-left: 20px;
+}
+#page {
+	text-align: center;
+}
+#pageview #titles{
+	width: 200px;
+	text-align: center;
+}
+#pageview #dlists {
+	width: 400px;
+	text-align: center;
+}
+#pagingul {
+	padding-left: 0px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-right: 0;
+}
+
+#pagingul li {
+    text-align: center;
+    float: left;
+    list-style: none;
+}
+
+#pagingul li a {
+    display: block;
+    font-size: 14px;
+    padding: 9px 12px;
+    border-right: solid 1px #ccc;
+    box-sizing: border-box;
+}
+
+#pagingul li.on {
+    background: green;
+}
+
+#pagingul li.on a {
+    color: #fff;
+}

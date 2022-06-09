@@ -36,7 +36,7 @@ public class CreateDebate extends HttpServlet {
 //		int dno=Integer.parseInt(request.getParameter("dno"));
 //		int mno=Integer.parseInt(request.getParameter("mno"));
 		
-		Debate debate = new Debate(0, 0, 0,null,title, content, null);
+		Debate debate = new Debate(0, 0, 0,null,title, content, null ,"1");
 	    boolean result=DebateDao.getDebateDao().createDebate(debate);
 	    if(result) {
 	    	response.sendRedirect("/wiki/debate/debatemain.jsp");

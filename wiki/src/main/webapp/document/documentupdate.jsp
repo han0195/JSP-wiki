@@ -1,3 +1,6 @@
+<%@page import="dao.SpecialDao"%>
+<%@page import="dao.DocumentDao"%>
+<%@page import="dto.Document"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,9 +26,12 @@
 </head>
 <body>
 	<%@include file="../header.jsp"%>
-
+	<%int dno = Integer.parseInt(request.getParameter("dno")) ; 
+		Document document = SpecialDao.getSpecialDao().getDocument(dno);
+	%>	
 	<br>
 	<br>
+	
 	<div class="container" style="height: ">
 		<a href="/wiki/document/documentview.jsp"><button>글목록</button></a>
 		<h3>문서</h3>
@@ -34,9 +40,10 @@
 			<!-- form 전송 인코딩 타입 : 기본타입은 첨부파일 불가능  -->
 			<!-- form 첨부파일 전송 인코딩 타입 : enctype="multipart/form-data" -->
 
-			제목 : <input type="text" name="dtitle" id="dtitle"> <br>
-			<input class="btn_primary" type="button" onclick="titlecheck()"
-				value="제목 중복 체크">
+			<h3><%=document.getDtitle()%></h3>
+			
+			<br>
+			
 			<textarea name="dcontent" id="summernote"></textarea>
 			
 
@@ -49,7 +56,7 @@
 			<div>
 			<img id="preview" />
 			</div>	
-		<input type="button" class="btn bg_01 btn-success" value="문서 업로드" onclick="dwrite()"> <input
+		<input type="button" class="btn bg_01 btn-success" value="문서 수정" onclick="update('<%=dno%>')"> <input
 				type="reset" value="취소">
 	</div>
 			<br><br><br><br><br><br><br>
@@ -67,5 +74,5 @@
 		src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<!-- ip 가져오기  -->
-	<script src="/wiki/js/documentwrite.js" type="text/javascript"></script>
+	<script src="/wiki/js/documentupdate.js" type="text/javascript"></script>
 </html>

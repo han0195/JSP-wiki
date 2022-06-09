@@ -1,18 +1,17 @@
-<%@page import="dao.DebateDao"%>
-<%@page import="dto.Debate"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="dto.Debate"%>
+<%@page import="dao.DebateDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
+<title>Insert title here</title>
 </head>
 <body>
-
 <%
-	ArrayList<Debate> debateList=DebateDao.getDebateDao().getDebateList();
+	ArrayList<Debate> debateList=DebateDao.getDebateDao().getOldDebateList();
 	
 	
 %>
@@ -21,13 +20,10 @@
 	
 	<div class="container">
 		<div class="col-md-12 row">
-			<!-- 토론 페이지 안내  -->
-			<div class="col-md-8" id="back">
-				<div class="col-md-4 py-3">
-					<h1>최근토론</h1>
-				</div>
-			</div>	
-			
+			<!-- 토론 페이지 안내  -->	
+			<div class="col-md-2 py-3">
+				<h1>최근토론</h1>
+			</div>
 			<div class="col-md-12 py-5 my-5">
 				<ul class="nav nav-tabs">
 					
@@ -35,10 +31,10 @@
 						<a class="nav-link activce" aria-current="page" href="/wiki/debate/debatemain.jsp">열린 토론</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="/wiki/debate/olddebate.jsp">오래된 토론</a>
+						<a class="nav-link activce" aria-current="page" href="/wiki/debate/closedebate.jsp">닫힌 토론</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link activce" aria-current="page" href="/wiki/debate/closedebate.jsp">닫힌 토론</a>
+						<a class="nav-link activce" aria-current="page" href="/wiki/debate/olddebate.jsp">오래된 토론</a>
 					</li>
 				</ul>
 			</div>
@@ -56,7 +52,7 @@
 						for(Debate debate : debateList){
 							int deno=debate.getDeno();
 							 DebateDao.getDebateDao().timeUpdate(deno);
-							if(debate.getDestate().equals("1")){
+							if(debate.getDestate().equals("0")){
 					%>
 							<tr>
 								<td><a href="../debate/debateview.jsp?Deno=<%=debate.getDeno()%>"><%=debate.getDetitle()%></a></td>
@@ -69,15 +65,7 @@
 				</table>
 			</div>
 		</div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-			
+	</div>	
 <%@include file="../footer.jsp" %>
 </body>
 </html>

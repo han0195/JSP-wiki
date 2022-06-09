@@ -1,3 +1,6 @@
+<%@page import="com.mysql.cj.x.protobuf.MysqlxResultset.ContentType_DATETIME"%>
+<%@page import="dao.SpecialDao"%>
+<%@page import="dto.Content"%>
 <%@page import="dto.Document"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.DocumentDao"%>
@@ -8,30 +11,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/wiki/css/documentvies.css">
 </head>
 <body>
 	<%@include file="../header.jsp"%>
+	<% String sach = request.getParameter("sach"); %>
+	<input type="hidden" id = "sachinput" value="<%= sach %>">
+	<table class="table" id="pageview">	</table>
+	<div id="page">
+	<select id="dataPerPage">
+			<option value="10">10개씩보기</option>
+			<option value="15">15개씩보기</option>
+			<option value="20">20개씩보기</option>
+		</select>
+		<div>
+			<!-- 페이징 -->
+			<button type="button" class="btn btn-success hisbtn">이전</button>
+			<ul id="pagingul">
+			</ul>
+			<button type="button" class="btn btn-success hisbtn">다음</button>
+		</div>
+		<a href="/wiki/document/documentwrite.jsp" style="margin-left: 800px;"><button class="btn btn-success hisbtn"> 글 쓰기 </button></a>		
+	</div>	
 
-	<%
-	ArrayList<Document> dlist = DocumentDao.getdocumentDao().doculist();
-	%>
-	<table class="table">
-		<tr>
-			<th>문서 번호</th>
-			<th>문서 제목</th>
-		</tr>
-		<%
-		for (Document temp : dlist) {
-		%>
-		<tr>
-			<td><%=temp.getDno()%></td>
-			<td><a href="/wiki/document/pageview.jsp?dno=<%=temp.getDno()%>"><%=temp.getDtitle()%></a></td>
-		</tr>
-		<%
-		}
-		%>
-	</table>
-
+	<script src="/wiki/js/documentview.js" type="text/javascript"></script>
 	<%@include file="../footer.jsp"%>
 </body>
 </html>

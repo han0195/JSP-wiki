@@ -6,6 +6,9 @@ import java.sql.Blob;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import dto.Content;
 import dto.Document;
 
@@ -59,6 +62,7 @@ public class DocumentDao extends Dao{
 					}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
+	
 	//문서 내용 넣기 메소드
 	public boolean setContent(Content c, int dno) {
 		//content 테이블에 해당 번호를 포함한 필드 생성
@@ -75,6 +79,8 @@ public class DocumentDao extends Dao{
 		}catch(Exception e) {System.out.println("sef");}
 		return false;
 	}
+	
+	
 	//문서 권한 필드 생성 메소드
 	public boolean insertLocks(int dno) {
 		//처음 생성은 전부 기본값으로, 문서번호만 연결시켜 생성
@@ -92,6 +98,19 @@ public class DocumentDao extends Dao{
 		String sql="insert into link (dno) values ("+dno+")";
 		try {
 			ps=con.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	
+	// 문서 링크 필드 업데이트 메소드 완전 구현 아님
+	public boolean updateLink(int dno) {
+		String sql = "update link set dno = ? where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			ps.setInt(2, dno);
 			ps.executeUpdate();
 			return true;
 		}catch(Exception e) {e.printStackTrace();}
@@ -237,5 +256,48 @@ public class DocumentDao extends Dao{
 			}
 		}catch(Exception e) {e.printStackTrace();}
 		return -1;
+	}
+	//문서 번호를 통한 문서의 제목 추출 메소드
+	public String getTitle(int dno) {
+		String sql = "select dtitle from document where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+	// 문서 번호를 통한 문서의 작성자 추출 메소드
+	public String getMid(int dno) {
+		String sql = "select mid from content where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
+	// 페이징처리를 위한 문서 목록 출력 by json
+	public JSONArray doculistbyjson() {
+		try {
+		JSONArray array = new JSONArray(); 
+		String sql = "select * from document";
+		ps = con.prepareStatement(sql);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			JSONObject jo = new JSONObject();
+			jo.put("dno", rs.getInt(1));
+			jo.put("dtitle", rs.getString(2));
+			array.put(jo);
+		}		
+			return array;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
 	}
 }
