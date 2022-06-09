@@ -14,8 +14,9 @@
 	<link href="/wiki/css/main.css" rel="stylesheet">
 
 	<%
-	InetAddress ip = InetAddress.getLocalHost();  
-	String ipAddress=ip.getHostAddress();
+		String login=(String)session.getAttribute("login");
+		InetAddress ip = InetAddress.getLocalHost();  
+		String ipAddress=ip.getHostAddress();
 	%>
 	
 </head>
@@ -77,28 +78,39 @@
 						<div class="col-md-2">
 						
 							<div class="dropdown">
-								<!-- 특수기능 드랍다운 버튼 -->
+								<!-- 로그인 드랍다운 버튼 -->
 								<button class="btn dropdown-toggle" type="button"id="specialFunction" data-bs-toggle="dropdown" aria-expanded="false">
 									<img src="/wiki/img/signup.png" class="headerImg">
 								</button>
-								<!-- 특수기능 리스트 -->
+								<!-- 로그인 리스트 -->
 								<ul class="dropdown-menu" aria-labelledby="specialFunction">
-								    <li class="mx-auto">please login!</li>
-								    <!-- IF 로그인 시 아이디 출력 -->
-								    <li class="mx-auto"><%=ipAddress%></li>
-								    <li><hr></li>
-								    <li><a class="dropdown-item" href="#">설정</a></li>
-								    <li><hr></li>
-								     <!-- IF 회원이 로그인 했을  시  -->
-								    <%
-								    String mid = (String) session.getAttribute("login");
-								    if(mid == null) {%>
-								    	<li><a class="dropdown-item" href="/wiki/member/login.jsp">로그인</a></li>
-								    <%}else{%>
-								    	<li><a class="dropdown-item" href="/wiki/member/loginout">로그아웃</a></li>
-								    <%}%>
-								    <!-- IF 관리자 로그인 했을  시  -->
-								    <li><a class="dropdown-item" href="/wiki/admin/adminmain.jsp">adminpage</a></li>
+								     <%
+								     	if(login != null){
+								     		if(login.equals("admin")){
+								     %>
+								    	 <!-- IF 관리자 로그인 했을  시  -->
+								  		  <li><a class="dropdown-item" href="/wiki/admin/adminmain.jsp">관리자 페이지</a></li>
+								     <% 			
+								     		}
+								    		 
+								     %>
+									      <li class="mx-auto">환영합니다!!<br>〈<%=login%>〉님!!</li>
+									      <li><hr></li>
+									      <li><a class="dropdown-item" href="#">설정</a></li>
+								    	  <li><hr></li>
+								    	  
+								     <%
+								     	}else{
+								     %>
+								   		 <li class="mx-auto">please login!</li>
+								   		 <li class="mx-auto"><%=ipAddress%></li>
+								   		 <li><hr></li>
+								   		 <li><a class="dropdown-item" href="#">설정</a></li>
+								   		 <li><hr></li>
+								   		 <li><a class="dropdown-item" href="/wiki/member/login.jsp">로그인</a></li>
+								     <%
+								     	}
+								     %>
 							  </ul>
 							</div>
 							　

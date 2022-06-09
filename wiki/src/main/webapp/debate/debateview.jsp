@@ -25,10 +25,14 @@
 	
 	//Deno값으로 denostate 값 가져오기
 	String state=DebateDao.getDebateDao().getDebateState(Deno);
-	System.out.print(state);
+	
+	//세션값
+	session.getAttribute("login");
+	
 %>
 <input type="hidden" value="<%=today%>" id="today">
 <input type="hidden" value="<%=Deno%>" id="Deno">
+
 <div class="container">
 	
 	<!-- 토론주제 보여주기 -->
@@ -38,7 +42,7 @@
 			<h4><%=content %></h4>
 			</div>
 		<div class="offset-2 col-md-5">
-			<H3>광고위치</H3>
+			<H3><img alt="광고이미지" src="/wiki/img/광고.gif" style="width: 100%; height: 100%;"> </H3>
 		</div>
 	</div>
 	
@@ -80,10 +84,38 @@
 			<div class="col-md-12">
 				<textarea rows="5" cols="" class="form-control" id="dtcontent" name="dtcontent"></textarea>
 			</div>
+			
+	<%
+			if(login!=null){
+				if(login.equals("admin")){
+	%>
+			<!-- 토론 전송 버튼 -->
+			<div class="row">
+				<div class="offset-8 col-md-2 py-2">
+					<button class="form-control py-2" onclick="sendbtn('<%=Deno%>','<%=login%>')">전송</button>
+				</div>
+				<div class="col-md-2 py-2">
+					<button class="form-control" onclick="closeDebate('<%=Deno%>')">토론 닫기</button>
+				</div>
+			</div>
+	<%
+				}else{
+	%>
 			<!-- 토론 전송 버튼 -->
 			<div class="offset-10 col-md-2 py-2">
-				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>')">전송</button>
+				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>','<%=login%>')">전송</button>
 			</div>
+	<% 				
+				}
+			}else{
+	%>
+			<!-- 토론 전송 버튼 -->
+			<div class="offset-10 col-md-2 py-2">
+				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>','<%=login%>')">전송</button>
+			</div>
+	<%
+			}
+	%>
 	</div>
 	<% 		
 		}else{
@@ -101,7 +133,7 @@
 			</div>
 			<!-- 토론 전송 버튼 -->
 			<div class="offset-10 col-md-2 py-2">
-				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>')" disabled="disabled">전송</button>
+				<button class="form-control py-2" onclick="sendbtn('<%=Deno%>')" disabled="disabled">토론 종료</button>
 			</div>
 	</div>
 	

@@ -9,7 +9,10 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
+<%
+	session.getAttribute("login");
 	
+%>
 	<div class="container">
 		<div class="col-md-12 row">
 		
@@ -45,7 +48,7 @@
 		</div>
 		<!-- 토론 작성 폼 -->
 		<form action="../debate/CreateDebate" method="get">
-			
+			<input type="hidden" value="<%=login%>" name="id">
 			<!-- 토론 제목 -->
 			<span>토론 신청 제목</span>
 			<textarea class="form-control" name="debatetitle"></textarea>
@@ -57,7 +60,7 @@
 					<button class="form-control" type="submit">토론 신청 하기 </button>
 				</div>
 				<div class="col-md-3 py-3">
-					<button class="form-control" type="reset">  취소 </button>
+					<button class="form-control" type="reset"> 취소 </button>
 				</div>
 			</div>
 		</form>
