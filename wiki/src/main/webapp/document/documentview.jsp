@@ -15,8 +15,8 @@
 </head>
 <body>
 	<%@include file="../header.jsp"%>
-
-	
+	<% String sach = request.getParameter("sach"); %>
+	<input type="hidden" id = "sachinput" value="<%= sach %>">
 	<table class="table" id="pageview">	</table>
 	<div id="page">
 	<select id="dataPerPage">
