@@ -50,37 +50,6 @@ public class SpecialDao extends Dao {
 	}
 
 	// 링크 검증 메소드
-	public boolean reverseLink(int dno, String dcontent) {
-		String linkTitle = "";
-		// 정규표현식으로 링크거는게 있는지 판별
-		try {
-			if (dcontent.matches("(\\[\\[)(.*?)(\\]\\])")) {
-				// 있을경우 [[ ]] 내부의 단어 추출
-				Pattern pattern = Pattern.compile("(\\[\\[)(.*?)(\\]\\])");
-				Matcher matcher = pattern.matcher(dcontent);
-				while (matcher.find()) {
-					linkTitle = matcher.group(2).trim();
-					// 추출한 단어를 넣어서 해당하는 링크할 제목의 문서 번호 호출
-					int tno = DocumentDao.getdocumentDao().getdno(linkTitle);
-					if (tno == -1) { // 해당하는 제목의 문서가 없다면
-						continue;
-					} else { // 해당하는 제목의 문서가 있다면
-						// 역링크 목록에 추가해주기
-						SpecialDao.getSpecialDao().addLink(dno, tno);
-					}
-					if (matcher.group(2) == null) { // 정규표현식에 해당하는 문자열이 더이상 없다면
-						break;
-					}
-				} // while e
-			} // if e
-			else {
-			}
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 
 	// 역링크된 목록 불러오는 메소드
 	public String getLink(int dno) {
