@@ -266,4 +266,18 @@ public class SpecialDao extends Dao {
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	//작성이 필요한 문서 페이지로 불러오기
+	public ArrayList<String> listNeedWrite(int startrow, int listsize){
+		String sql="select misspagetitle from misspage order by dno desc limit "+startrow+","+listsize;
+		ArrayList<String> list=new ArrayList<String>();
+		System.out.println(startrow+"부터 "+listsize+"개 불러옵니다");
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString(1));
+			}return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	}
 }
