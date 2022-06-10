@@ -13,6 +13,8 @@ $(document).ready(function() {
 		url: "/wiki/document/documentlist",
 		success: function(d) {
 			// 검색 나누기
+			totalData = d.length;
+			documentlist = d;
 			if(search == ""){ // 검색어가 없으면
 				//totalData 구하기
 				totalData = d.length;
