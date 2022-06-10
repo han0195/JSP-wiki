@@ -23,6 +23,7 @@
 			<!-- 토론 페이지 안내  -->	
 			<div class="col-md-2 py-3">
 				<h1>최근토론</h1>
+				<hr>
 			</div>
 			<div class="col-md-12 py-5 my-5">
 				<ul class="nav nav-tabs">
