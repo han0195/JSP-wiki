@@ -23,9 +23,11 @@
 		<div class="col-md-12 row">
 			<!-- 토론 페이지 안내  -->
 			<div class="col-md-8" id="back">
-				<div class="col-md-4 py-3">
+				<div class="col-md-3 py-3">
 					<h1>최근토론</h1>
+					<hr>
 				</div>
+				
 			</div>	
 			
 			<div class="col-md-12 py-5 my-5">

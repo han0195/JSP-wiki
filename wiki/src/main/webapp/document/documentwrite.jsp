@@ -37,6 +37,7 @@
 			제목 : <input type="text" name="dtitle" id="dtitle"> <br>
 			<input class="btn_primary" type="button" onclick="titlecheck()"
 				value="제목 중복 체크">
+				<h5>', ==, ++, [[]], {{}} 는 함부로 사용하지 말아주세요.</h5> <a href="http://localhost:8080/wiki/document/pageview.jsp?dno=138">이유 알아보기(문법 안내)</a>
 			<textarea name="dcontent" id="summernote"></textarea>
 			
 

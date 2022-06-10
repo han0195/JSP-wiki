@@ -38,6 +38,9 @@
 	}
 	// 현재 문서 수정권한
 	int ednum = SpecialDao.getSpecialDao().geteditnum(dno);
+	if(pagedocument.contains("{{")){
+		pagedocument=pagedocument.replaceAll("\\{\\{", "<h3>").replaceAll("\\}\\}", "</h3>");
+	}
 	%>
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->

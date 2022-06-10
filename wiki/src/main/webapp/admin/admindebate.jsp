@@ -18,11 +18,17 @@
 			<div class="container">
 				<div class="text-center">
 					<ul class="nav nav-tabs">
+					   <li class="nav-item position-relative">
+				  		<a class="nav-link active" aria-current="page" href="/wiki/admin/adminmain.jsp">HOME</a>
+					  </li>
 					  <li class="nav-item">
 					    <a class="nav-link active" aria-current="page" href="admindocument.jsp">최근 문서</a>
 					  </li>
 					  <li class="nav-item">
 					    <a class="nav-link active" aria-current="page" href="admindebate.jsp">최근 토론</a>
+					  </li>
+					   <li class="nav-item">
+					    <a class="nav-link active" aria-current="page" href="sameword.jsp">동의어 등록</a>
 					  </li>
 					</ul>
 				</div>

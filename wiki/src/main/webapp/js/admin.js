@@ -140,3 +140,26 @@ function eda(dno){
 }
 
 
+//회원 탈퇴
+function memberDelete(mno){
+	if(confirm("정말 탈퇴를 진행하시겠습니까?")){
+		$.ajax({
+			
+			url:"../admin/MemberDelete",
+			data:{"mno":mno},
+			success:function(data){
+				if(data==1){
+					alert("삭제진행이 완료 되었습니다.");
+					location.href="/wiki/admin/membermanagement.jsp";
+				}else{
+					alert("삭제진행이 실패되었습니다. 서비스 관리자에게 문의해 주십시오.");	
+				}
+			}
+			
+		});
+	}else{
+		location.reload();
+	}
+	
+}
+
