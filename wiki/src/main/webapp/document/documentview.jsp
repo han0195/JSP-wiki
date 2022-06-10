@@ -15,6 +15,10 @@
 </head>
 <body>
 	<%@include file="../header.jsp"%>
+	<% 
+		String sach = request.getParameter("sach");
+	%>
+	<input type="hidden" id="sachinput" value="<%=sach%>">
 	<h2 style="margin-left: 200px;">문서 리스트</h2>
 	<table class="table" id="pageview" style="margin-top: 20px;">	</table>
 	<div id="page">
