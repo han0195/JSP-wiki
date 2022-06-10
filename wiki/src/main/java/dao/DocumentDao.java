@@ -171,7 +171,7 @@ public class DocumentDao extends Dao{
 	//작성된 문서들의 리스트 출력
 	public ArrayList<Document> doculist() {
 		ArrayList<Document> dlist = new ArrayList<>();
-		String sql = "select * from document";
+		String sql = "select * from document order by dno desc";
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();

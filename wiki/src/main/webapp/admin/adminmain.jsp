@@ -47,7 +47,7 @@
 					%>			     
 					  
 				  </li>
-				  <li class="nav-item  position-relative px-4">
+				  <li class="nav-item  position-relative">
 				    <a class="nav-link active" aria-current="page" href="/wiki/admin/admindebate.jsp">최근 토론</a>
 				 	<%
 				 		if(decount==null){
@@ -64,14 +64,16 @@
 				 	<%		
 				 		}
 				 	%>   
-				    
+				  </li>
+				   <li class="nav-item  position-relative">
+				 	 <a class="nav-link active" aria-current="page" href="/wiki/admin/membermanagement.jsp">회원관리</a>
 				  </li>
 			</ul>
 		</div>
 		<div class="text-center py-5 my-5">
 			<img alt="" src="/wiki/img/mainlogo.png">
 			<br>
-			<h2>Hello . Admin!!</h2>
+			<h2>Hello. Admin!!</h2>
 			<br>
 			
 		</div>

@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import dto.Member;
 
 public class MemberDao extends Dao{
@@ -140,6 +142,40 @@ public class MemberDao extends Dao{
 			}
 		} catch (Exception e) {
 			System.out.println("SQL 오류"+ e);
+		}
+		return null;
+	}
+	//멤버 리스트 가져오기 
+	public ArrayList<Member> getMemberList(){
+		ArrayList<Member> list = new ArrayList<Member>();
+		String sql="SELECT * FROM treewiki.member;";
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Member member =new  Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+				list.add(member);
+			}
+			return list;
+		} catch (Exception e) {
+			System.out.println(" memberlist err !"+e);
+		}
+		return null;
+	}
+	//멤버 아이디 검색
+	public ArrayList<Member> getMemberSearch(String searchId){
+		ArrayList<Member> list = new ArrayList<Member>();
+		String sql="select * from treewiki.member where mid like '%"+searchId+"%'";
+		try {
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Member member = new Member(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4), rs.getString(5));
+				list.add(member);
+			}
+			return list;
+		} catch (Exception e) {
+			System.out.println("find id search err!!  " +e);
 		}
 		return null;
 	}
