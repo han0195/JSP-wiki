@@ -58,7 +58,7 @@
 								    <li><a class="dropdown-item" href="/wiki/document/docupdate.jsp">편집된 지 오래된 문서</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/docshort.jsp">내용이 짧은 문서</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/doclong.jsp">내용이 긴 문서</a></li>
-                    				<li><a class="dropdown-item" href="/wiki/document/randompage.jsp">RandomPage</a></li>
+                    				<li><a class="dropdown-item" href="/wiki/document/docrandom.jsp">RandomPage</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/uploadfile.jsp">파일 올리기</a></li>					    
 							  </ul>
 							</div>　
@@ -123,9 +123,10 @@
 	
 	<!-- 부트스트랩 js cdn -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- 사용자정의 js -->
-	<script src="/wiki/js/main.js" type="text/javascript"></script>
 	<!-- jquery 최신 cdn -->
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<!-- 사용자정의 js -->
+	<script src="/wiki/js/main.js" type="text/javascript"></script>
+	
 </body>
 </html>

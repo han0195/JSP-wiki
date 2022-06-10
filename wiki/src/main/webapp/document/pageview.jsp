@@ -18,23 +18,23 @@
 	Content c=DocumentDao.getdocumentDao().docuLoad(dno);
 	String linkTitle="";
 	String pagedocument="";
-		   Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(c.getDcontent());
-		   while (m.find()) {
-			 linkTitle=m.group().replace("[[", "").replace("]]", "");
-			 int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
-		     if(tno==-1){
-		         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"#\">"+m.group()+"</a>") );
-		     }else{
-		         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"pageview.jsp?dno="+tno+"\">"+m.group()+"</a>") );
-		     }
-		   }
-		   pagedocument = c.getDcontent();
-		   if(pagedocument.contains("==")) {
-				pagedocument = c.getDcontent().replaceAll("==", "<p>");
-				}
-				if(pagedocument.contains("++")) {
-				pagedocument = c.getDcontent().replaceAll("++", "</p><br>");
-				}
+	   Matcher m = Pattern.compile("(?<=\\[\\[)[^]]+(?=\\]\\])").matcher(c.getDcontent());
+	   while (m.find()) {
+		 linkTitle=m.group().replace("[[", "").replace("]]", "");
+		 int tno=DocumentDao.getdocumentDao().getdno(linkTitle);
+	     if(tno==-1){
+	         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"#\">"+m.group()+"</a>") );
+	     }else{
+	         c.setDcontent( c.getDcontent().replace( "[["+m.group()+"]]", "<a href=\"pageview.jsp?dno="+tno+"\">"+m.group()+"</a>") );
+	     }
+	   }
+	   pagedocument = c.getDcontent();
+	   if(pagedocument.contains("==")) {
+			pagedocument = pagedocument.replaceAll("==", "<p>");
+			}
+	if(pagedocument.contains("++")) {
+	pagedocument = pagedocument.replaceAll("\\+\\+", "</p><br>");
+	}
 	%>
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
@@ -66,9 +66,6 @@
 		<br><br><br>
 	</div>
 	<%}%>
-	
-	
-	
 	<%@include file="../footer.jsp"%>
 
 <script src="/wiki/js/pageview.js" type="text/javascript"></script>	

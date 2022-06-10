@@ -10,9 +10,12 @@ $(document).ready(function() {
 	dataPerPage = $("#dataPerPage").val();
 	
 	$.ajax({ // ajax로 데이터 가져오기
-		url: "/wiki/document/documentlist",
+		url: "../newdocumentlist",
+		async: false,
 		success: function(d) {
 			// 검색 나누기
+			totalData = d.length;
+			documentlist = d;
 			if(search == ""){ // 검색어가 없으면
 				//totalData 구하기
 				totalData = d.length;

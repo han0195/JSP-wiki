@@ -39,7 +39,6 @@
 				<br>
 				<hr>
   		</div>
-  		
   		<div class="offset-9 col-md-3 py-3">
   			<h6>이 저작물은 CC BY-NC-SA 2.0 KR에 따라 이용할 수 있습니다. 
   			<br>
@@ -63,10 +62,6 @@
   		</div>
 			
   		</div>	
-  
-	
-	
-	
 <script src="/wiki/js/main.js" type="text/javascript"></script>			
 <%@include file="footer.jsp" %>
 </body>
