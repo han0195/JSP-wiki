@@ -37,6 +37,7 @@
 			제목 : <input type="text" name="dtitle" id="dtitle"> <br>
 			<input class="btn_primary" type="button" onclick="titlecheck()"
 				value="제목 중복 체크">
+				<h5>', ==, ++, [[]] 는 문법이 적용되므로 함부로 사용하지 말아주세요.</h5>
 			<textarea name="dcontent" id="summernote"></textarea>
 			
 
