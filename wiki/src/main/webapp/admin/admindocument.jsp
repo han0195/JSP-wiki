@@ -23,6 +23,9 @@
 					  <li class="nav-item">
 					    <a class="nav-link active" aria-current="page" href="admindebate.jsp">최근 토론</a>
 					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link active" aria-current="page" href="sameword.jsp">동의어 등록</a>
+					  </li>
 					</ul>
 				</div>
 				<!-- 최근 문서 출력 -->

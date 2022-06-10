@@ -66,6 +66,9 @@
 				 	%>   
 				    
 				  </li>
+				   <li class="nav-item  position-relative px-1">
+				    <a class="nav-link active" aria-current="page" href="/wiki/admin/sameword.jsp">동의어 등록</a>
+				    </li>
 			</ul>
 		</div>
 		<div class="text-center py-5 my-5">

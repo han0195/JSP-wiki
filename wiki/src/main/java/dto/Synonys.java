@@ -2,9 +2,9 @@ package dto;
 
 public class Synonys {
 	int sno;
-	int dno;
+	String dno;
 	String synpage;
-	public Synonys(int sno, int dno, String synpage) {
+	public Synonys(int sno, String dno, String synpage) {
 		super();
 		this.sno = sno;
 		this.dno = dno;
@@ -17,10 +17,10 @@ public class Synonys {
 	public void setSno(int sno) {
 		this.sno = sno;
 	}
-	public int getDno() {
+	public String getDno() {
 		return dno;
 	}
-	public void setDno(int dno) {
+	public void setDno(String dno) {
 		this.dno = dno;
 	}
 	public String getSynpage() {
