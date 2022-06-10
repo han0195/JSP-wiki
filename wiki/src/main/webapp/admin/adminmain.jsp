@@ -27,8 +27,11 @@
 	<div class="container">
 		<div class="text-center">
 			<ul class="nav nav-tabs">
+			 	  <li class="nav-item position-relative">
+				  		<a class="nav-link active" aria-current="page" href="/wiki/admin/adminmain.jsp">HOME</a>
+				  </li>
 				  <li class="nav-item position-relative">
-				  
+
 				    <a class="nav-link active" aria-current="page" href="/wiki/admin/admindocument.jsp">최근 문서</a>
 					<%
 						if(docount==null){
@@ -47,7 +50,7 @@
 					%>			     
 					  
 				  </li>
-				  <li class="nav-item  position-relative px-4">
+				  <li class="nav-item  position-relative">
 				    <a class="nav-link active" aria-current="page" href="/wiki/admin/admindebate.jsp">최근 토론</a>
 				 	<%
 				 		if(decount==null){
@@ -64,7 +67,9 @@
 				 	<%		
 				 		}
 				 	%>   
-				    
+				  </li>
+				   <li class="nav-item  position-relative">
+				 	 <a class="nav-link active" aria-current="page" href="/wiki/admin/membermanagement.jsp">회원관리</a>
 				  </li>
 				   <li class="nav-item  position-relative px-1">
 				    <a class="nav-link active" aria-current="page" href="/wiki/admin/sameword.jsp">동의어 등록</a>
@@ -74,7 +79,7 @@
 		<div class="text-center py-5 my-5">
 			<img alt="" src="/wiki/img/mainlogo.png">
 			<br>
-			<h2>Hello . Admin!!</h2>
+			<h2>Hello. Admin!!</h2>
 			<br>
 			
 		</div>

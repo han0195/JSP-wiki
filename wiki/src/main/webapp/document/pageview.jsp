@@ -35,6 +35,9 @@
 	if(pagedocument.contains("++")) {
 	pagedocument = pagedocument.replaceAll("\\+\\+", "</p><br>");
 	}
+	if(pagedocument.contains("{{")){
+		pagedocument=pagedocument.replaceAll("\\{\\{", "<h3>").replaceAll("\\}\\}", "</h3>");
+	}
 	%>
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->

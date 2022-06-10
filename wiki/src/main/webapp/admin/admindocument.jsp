@@ -17,6 +17,9 @@
 			<div class="container">
 				<div class="text-center">
 					<ul class="nav nav-tabs">
+					   <li class="nav-item position-relative">
+				  		<a class="nav-link active" aria-current="page" href="/wiki/admin/adminmain.jsp">HOME</a>
+					  </li>
 					  <li class="nav-item">
 					    <a class="nav-link active" aria-current="page" href="admindocument.jsp">최근 문서</a>
 					  </li>
@@ -27,6 +30,7 @@
 					    <a class="nav-link active" aria-current="page" href="sameword.jsp">동의어 등록</a>
 					  </li>
 					</ul>
+					
 				</div>
 				<!-- 최근 문서 출력 -->
 				<div class="col-md-12 py-3">
@@ -39,7 +43,7 @@
 					%>
 							<tr>
 								<td><%=document.getDno()%></td>
-								<td><a href="../debate/debateview.jsp?Deno=<%=document.getDno()%>"><%=document.getDtitle()%></a></td>
+								<td><a href="../document/pageview.jsp?dno=<%=document.getDno()%>"><%=document.getDtitle()%></a></td>
 								<td><%=DocumentDao.getdocumentDao().getMid(document.getDno()) %></td>
 								<td><input class="form-check-input" onclick="check(<%=document.getDno()%>)" type="checkbox" name="debatecheck<%=document.getDno()%>"></td>
 							</tr>
