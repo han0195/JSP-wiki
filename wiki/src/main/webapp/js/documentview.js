@@ -10,7 +10,7 @@ $(document).ready(function() {
 	dataPerPage = $("#dataPerPage").val();
 	
 	$.ajax({ // ajax로 데이터 가져오기
-		url: "../newdocumentlist",
+		url: "/wiki/document/newdocumentlist", 
 		async: false,
 		success: function(d) {
 			// 검색 나누기
