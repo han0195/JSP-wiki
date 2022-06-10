@@ -123,4 +123,20 @@ google.charts.setOnLoadCallback(drawChart);
 	
 });
 
+function eda(dno){
+	let ch = true;
+	$.ajax({
+		url: "/wiki/admin/editben",
+		data: {"dno" : dno, "ch": ch},
+		success : function(re){
+			if(re == 1){
+				alert("수정권한이 허용되었습니다.");
+			}else{
+				alert("DB 오류 확인");
+			}
+		}
+	});
+	
+}
+
 

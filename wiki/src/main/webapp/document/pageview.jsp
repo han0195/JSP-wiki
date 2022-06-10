@@ -1,3 +1,4 @@
+<%@page import="dao.SpecialDao"%>
 <%@page import="java.util.regex.Matcher"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="dto.Content"%>
@@ -35,6 +36,8 @@
 	if(pagedocument.contains("++")) {
 	pagedocument = pagedocument.replaceAll("\\+\\+", "</p><br>");
 	}
+	// 현재 문서 수정권한
+	int ednum = SpecialDao.getSpecialDao().geteditnum(dno);
 	%>
 	<input type="hidden" value="<%=dno%>" id="dno">
 	<div class="container"> <!-- 페이지 전체 컨테이너 -->
@@ -46,8 +49,16 @@
 						<td onclick="good('<%=dno%>')">☆<%=DocumentDao.getdocumentDao().getGood(dno)%></td> <!-- 문서 좋아요 -->
 						<td onclick="window.open('link.jsp?dno=<%=dno%>')">역링크</td>
 						<td onclick="window.open('../debate/debatemain.jsp?dno=<%=dno%>')">토론</td>
+						<% if(ednum != 1){%>
 						<td onclick="window.open('documentupdate.jsp?dno=<%=dno%>')">편집</td>
+						<%} %>			
 						<td onclick="window.open('../history/history.jsp?dno=<%=dno%>')">역사</td>
+						<% 
+						String mid = (String) session.getAttribute("login"); // 세션 저장 아이디
+						if(mid != null && mid.equals("admin")){// 만약 로그인한 아이디가 어드민이라면%>
+						<td style="color: red;" data-bs-toggle="modal" data-bs-target="#exampleModal">수정금지</td>
+						
+						<%}%>
 					</tr>
 				</table>
 			</div>
@@ -57,15 +68,34 @@
 				<span>최근 수정 시각 : <%=c.getUpdatetime()%></span> 
 			</div>
 		</div>
-
+		
 		<div> <!-- 내용 -->
 			<%=pagedocument%>
 
 		</div>
 		
 		<br><br><br>
+			<!-- Modal -->
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">문서 수정 권한</h5>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <div class="modal-body">
+						        정말 <span style="font-family: inherit;"> <%=DocumentDao.getdocumentDao().getTitle(dno) %></span> 문서의 수정을 금지하시겠습니까?
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+						        <button onclick="editben(<%=dno%>)" type="button" class="btn btn-primary">확인</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 	</div>
 	<%}%>
+						
 	<%@include file="../footer.jsp"%>
 
 <script src="/wiki/js/pageview.js" type="text/javascript"></script>	

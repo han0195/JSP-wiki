@@ -1,3 +1,4 @@
+<%@page import="dto.Content"%>
 <%@page import="dao.SpecialDao"%>
 <%@page import="dao.DocumentDao"%>
 <%@page import="dto.Document"%>
@@ -28,6 +29,7 @@
 	<%@include file="../header.jsp"%>
 	<%int dno = Integer.parseInt(request.getParameter("dno")) ; 
 		Document document = SpecialDao.getSpecialDao().getDocument(dno);
+		Content content = DocumentDao.getdocumentDao().docuLoad(dno);
 	%>	
 	<br>
 	<br>
@@ -44,7 +46,7 @@
 			
 			<br>
 			
-			<textarea name="dcontent" id="summernote"></textarea>
+			<textarea name="dcontent" id="summernote"><%=content.getDcontent() %></textarea>
 			
 
 			<div class="insert">

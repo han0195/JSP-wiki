@@ -1,3 +1,4 @@
+<%@page import="dao.SpecialDao"%>
 <%@page import="dto.Document"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.DocumentDao"%>
@@ -29,7 +30,7 @@
 				<div class="col-md-12 py-3">
 					
 					<table class="table">
-						<tr class="table-info table-success"><th>문서 번호</th><th>문서 제목</th><th>작성자</th><th></th></tr>
+						<tr class="table-info table-success"><th>문서 번호</th><th>문서 제목</th><th>수정권한</th><th>작성자</th><th></th></tr>
 					<%
 						for(Document document : list){
 							int dno=document.getDno();
@@ -37,6 +38,7 @@
 							<tr>
 								<td><%=document.getDno()%></td>
 								<td><a href="../debate/debateview.jsp?Deno=<%=document.getDno()%>"><%=document.getDtitle()%></a></td>
+								<td><a href="#" onclick="eda(<%=dno%>)"><%= SpecialDao.getSpecialDao().geteditnum(dno)%></a></td>
 								<td><%=DocumentDao.getdocumentDao().getMid(document.getDno()) %></td>
 								<td><input class="form-check-input" onclick="check(<%=document.getDno()%>)" type="checkbox" name="debatecheck<%=document.getDno()%>"></td>
 							</tr>
