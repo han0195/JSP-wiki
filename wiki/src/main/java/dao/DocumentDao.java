@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import dto.Content;
 import dto.Document;
+import dto.Synonys;
 
 public class DocumentDao extends Dao{
 
@@ -212,13 +213,26 @@ public class DocumentDao extends Dao{
 	    return false;
 	}
 	//동의어 등록 메소드
-	public boolean setSyn(int dno, String syn) {
-		//문서번호와 동의어(텍스트)를 받아서 등록
-		String sql="insert into synonys(dno, synpage) values ("+dno+","+syn+")";
+	public boolean setSyn(String dno, String syn) {
+		//문서번호(텍스트로 이루어져있음)와 동의어(텍스트)를 받아서 등록
+		String sql="insert into synonys(dno, synpage) values (?,?)";
 		try {
 			ps=con.prepareStatement(sql);
+			ps.setString(1, dno);
+			ps.setString(2, syn);
 			ps.executeUpdate();
 			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	public boolean checkSyn(String syn) {
+		// 동의어(텍스트)를 받아서 등록 여부를 체크
+		String sql="select * from synonys where synpage = ?";
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, syn);
+			rs = ps.executeQuery();
+			if(rs.next()) {return true;}
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
 	}
@@ -425,5 +439,57 @@ public class DocumentDao extends Dao{
 					return true;
 		}catch(Exception e) {e.printStackTrace();}
 		return false;
+	}
+	// 동의어 리스트
+	public ArrayList<Synonys> synlist() {
+		ArrayList<Synonys> list = new ArrayList<Synonys>();
+		String sql = "select * from synonys";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Synonys s = new Synonys(rs.getInt(1), rs.getString(2), rs.getString(3));
+				list.add(s);
+			}
+			return list;
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
+	} 
+	// 동의어 수정
+	public boolean synupdate(String dno, String syn, int sno) {
+		String sql = "update synonys set dno = ? synpage = ? where sno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dno);
+			ps.setString(2, syn);
+			ps.setInt(3, sno);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	// 동의어 삭제
+	public boolean syndelete(int sno) {
+		String sql = "delete * from synonys where sno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, sno);
+			ps.executeUpdate();
+			return true;
+		}catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+	// 문서번호를 토대로 동의어 출력
+	public String synprint(String dno) {
+		String sql = "select synpage from synonys where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		}catch(Exception e) {e.printStackTrace();}
+		return null;
 	}
 }

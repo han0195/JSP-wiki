@@ -54,12 +54,15 @@
 								<ul class="dropdown-menu" aria-labelledby="specialFunction">
 								    <li><a class="dropdown-item" href="/wiki/document/documentview.jsp">문서게시판</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/misspage.jsp">작성이 필요한 문서</a></li>
-								    <li><a class="dropdown-item" href="#">고립된 문서</a></li>   
+								    <li><a class="dropdown-item" href="#">고립된 문서</a></li>
+								     <!-- 아직 구현 안되어 있음.. -->   
 								    <li><a class="dropdown-item" href="/wiki/document/docupdate.jsp">편집된 지 오래된 문서</a></li>
+								    <!-- 아직 구현 안되어 있음.. -->
 								    <li><a class="dropdown-item" href="/wiki/document/docshort.jsp">내용이 짧은 문서</a></li>
 								    <li><a class="dropdown-item" href="/wiki/document/doclong.jsp">내용이 긴 문서</a></li>
                     				<li><a class="dropdown-item" href="/wiki/document/docrandom.jsp">RandomPage</a></li>
-								    <li><a class="dropdown-item" href="/wiki/document/uploadfile.jsp">파일 올리기</a></li>					    
+								    <li><a class="dropdown-item" href="/wiki/document/uploadimg.jsp">파일 올리기</a></li>	
+								     <!-- 아직 구현 안되어 있음.. -->				    
 							  </ul>
 							</div>　
 						</div>
@@ -125,8 +128,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- jquery 최신 cdn -->
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 사용자정의 js -->
-	<script src="/wiki/js/main.js" type="text/javascript"></script>
+	
 	
 </body>
 </html>

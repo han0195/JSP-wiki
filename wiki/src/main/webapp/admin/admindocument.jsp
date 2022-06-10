@@ -26,9 +26,9 @@
 					  <li class="nav-item">
 					    <a class="nav-link active" aria-current="page" href="admindebate.jsp">최근 토론</a>
 					  </li>
-					   <li class="nav-item  position-relative">
-				 	 <a class="nav-link active" aria-current="page" href="/wiki/admin/membermanagement.jsp">회원관리</a>
-				 	 </li>
+					  <li class="nav-item">
+					    <a class="nav-link active" aria-current="page" href="sameword.jsp">동의어 등록</a>
+					  </li>
 					</ul>
 					
 				</div>
