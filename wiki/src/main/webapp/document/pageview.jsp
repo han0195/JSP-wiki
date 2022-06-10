@@ -30,10 +30,10 @@
 	   }
 	   pagedocument = c.getDcontent();
 	   if(pagedocument.contains("==")) {
-			pagedocument = c.getDcontent().replaceAll("==", "<p>");
+			pagedocument = pagedocument.replaceAll("==", "<p>");
 			}
 	if(pagedocument.contains("++")) {
-	pagedocument = c.getDcontent().replaceAll("++", "</p><br>");
+	pagedocument = pagedocument.replaceAll("\\+\\+", "</p><br>");
 	}
 	%>
 	<input type="hidden" value="<%=dno%>" id="dno">
