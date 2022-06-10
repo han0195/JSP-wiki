@@ -84,31 +84,58 @@
 			%>
 			<div>
 				개행 | 내용
+
 				<%
-				for (int i = 0; i < strarr.length; i++) {
-					if (strarr[i].equals(strarr2[i])) {// 비교 true이면 최신문서 출력
-				%>
-				<div style="padding:5px; background-color:#eeeeee;"><%=i%>
-					|
-					<%=strarr[i]%></div>
-				<%
-				} else { // 비교가 false이면
-				%>
+				if(strarr.length > strarr2.length){ // 만약 최신글이 예전글보다 많다면
+					int j = 0;	
+					for (int i = 0; i < strarr.length; i++) {
+					System.out.print(i);	
+						if(i > strarr2.length - 1){ // 만약 i 예전글 인덱스보다 많아진다면
+						%>
+				<div style="padding: 5px; background-color: #E6FFEC;"><%=i%>|<%=strarr[i]%></div>
+				<% }else if(strarr[i].equals(strarr2[j])){j++;  // 같다면 %>
+				<div style="padding: 5px; background-color: #eeeeee;"><%=i%>|<%=strarr[i]%></div>
+				<% }else{j++;// 같지않다면%>
 				<div
-					style="padding:5px; background-color: #E6FFEC; border-bottom: 1px solid #999999">
-					<span><%=i%></span> | <%=strarr[i]%></div>
+					style="padding: 5px; background-color: #E6FFEC; border-bottom: 1px solid #999999">
+					<span><%=i%></span> |
+					<%=strarr[i]%></div>
 				<!-- 최신문서 바탕색 초록 -->
 				<div
-					style="padding:5px; background-color: #FFEBE9; color: #999999; border-bottom: 1px solid #999999">
-					<span><%=i%></span> | <%=strarr2[i]%></div>
+					style="padding: 5px; background-color: #FFEBE9; color: #999999; border-bottom: 1px solid #999999">
+					<span><%=i%></span> |
+					<%=strarr2[j]%></div>
 				<!-- 선택문서 바탕색 빨강 -->
-				<%
-				}
-				}
-				%>
+
+				<%}}}else{
+				int j = 0;	
+					for (int i = 0; i < strarr2.length; i++) {
+					System.out.print(i);	
+						if(i > strarr.length - 1){ // 만약 i 예전글 인덱스보다 많아진다면
+						%>
+				<div style="padding: 5px; background-color: #FFEBE9;"><%=i%>|<%=strarr2[i]%></div>
+				<% }else if(strarr[j].equals(strarr2[i])){j++;  // 같다면 %>
+				<div style="padding: 5px; background-color: #eeeeee;"><%=i%>|<%=strarr[i]%></div>
+				<% }else{j++;// 같지않다면%>
+				<div
+					style="padding: 5px; background-color: #E6FFEC; border-bottom: 1px solid #999999">
+					<span><%=i%></span> |
+					<%=strarr[j]%></div>
+				<!-- 최신문서 바탕색 초록 -->
+				<div
+					style="padding: 5px; background-color: #FFEBE9; color: #999999; border-bottom: 1px solid #999999">
+					<span><%=i%></span> |
+					<%=strarr2[i]%></div>
+				<!-- 선택문서 바탕색 빨강 -->
+				
+				<%}}}%>
+
+
+
 			</div>
 		</div>
-		<a href="history.jsp?dno=<%=dno%>"><button class="btn btn-success" style="margin-top: 15px;">뒤로가기</button></a> 
+		<a href="history.jsp?dno=<%=dno%>"><button class="btn btn-success"
+				style="margin-top: 15px;">뒤로가기</button></a>
 	</div>
 
 	<%@ include file="../footer.jsp"%>

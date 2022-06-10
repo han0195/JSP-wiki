@@ -44,6 +44,21 @@ $(document). ready(function(){
 		
 		
 });	
-	
+
+function editben(dno){
+	let ch = false;
+	$.ajax({
+		url:"/wiki/admin/editben",
+		data:{"dno" : dno, "ch" : ch},
+		success : function(re){
+			if(re == 1){ // 수정권한 수정 성공
+				alert("수정이 금지되었습니다.");
+				location.href = "pageview.jsp?dno="+dno;
+			}else{
+				alert("오류 수정권한 sql 확인요망");
+			}
+		}
+	});
+}
 	
 	

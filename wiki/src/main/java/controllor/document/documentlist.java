@@ -32,7 +32,7 @@ public class documentlist extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		JSONArray array = DocumentDao.getdocumentDao().doculistbyjson();
-		
+		System.out.println(array.toString());
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		response.getWriter().print(array);

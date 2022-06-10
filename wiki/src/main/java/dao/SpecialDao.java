@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import dto.Content;
 import dto.Document;
+import dto.Locks;
 
 public class SpecialDao extends Dao {
 	public SpecialDao() {
@@ -280,4 +281,42 @@ public class SpecialDao extends Dao {
 		}catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	
+	//수정권한 금지
+	public boolean editben(Locks locks, boolean ch) {
+		String sql = "update locks set lockat=?,expiresat=?,seenat=? where dno=?";
+		try {
+			ps = con.prepareStatement(sql);
+			if(ch) {
+				ps.setInt(1, 0);
+
+			}else {
+				ps.setInt(1, 1);
+			}
+			ps.setInt(2, locks.getExpiresat());
+			ps.setInt(3, locks.getSeenat());
+			ps.setInt(4, locks.getDno());
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("수정권한sql오류" + e);
+		}
+		return false;
+	};
+	// 수정여부 가져오기
+	public int geteditnum(int dno) {
+		String sql = "select lockat from locks where dno = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1,dno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("수정권한sql오류" + e);
+		}
+		return -1;
+	}
+	
 }
